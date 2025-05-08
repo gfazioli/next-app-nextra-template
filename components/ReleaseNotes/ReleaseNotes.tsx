@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { compileMdx } from 'nextra/compile';
 import { MDXRemote } from 'nextra/mdx-remote';
 import useSWR from 'swr';
-import { Alert, Badge, Group, Loader, Paper, Stack, Text } from '@mantine/core';
+import { Alert, Badge, Group, Loader, Paper, Skeleton, Stack, Text } from '@mantine/core';
 import { useMDXComponents } from '@/mdx-components';
 
 interface Author {
@@ -80,8 +80,18 @@ export function ReleaseNotes() {
     }
   }, [data, isLoading, error]); // Add isLoading and error to the dependency array
 
-  if (isLoading) {
-    return <Loader />;
+  if (isLoading || compiledReleases.length === 0) {
+    return (
+      <Stack mt={24} w="100%" align="center">
+        <Group>
+          <Text>Loading releases...</Text>
+          <Loader type="dots" />
+        </Group>
+        <Skeleton height={200} width="100%" radius={12} />
+        <Skeleton height={50} width="100%" radius={12} />
+        <Skeleton height={20} width="100%" radius={12} />
+      </Stack>
+    );
   }
 
   if (error) {
@@ -116,8 +126,4 @@ export function ReleaseNotes() {
       ))}
     </Stack>
   );
-
-  //   return (
-
-  //   );
 }
