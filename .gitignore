@@ -86,7 +86,10 @@ web_modules/
 # Next.js build output
 .next
 out
-_pagefind/
+
+public/_pagefind/**
+!public/_pagefind/
+!public/_pagefind/pagefind.js
 
 # Nuxt.js build / generate output
 .nuxt

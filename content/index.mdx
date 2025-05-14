@@ -1,35 +1,72 @@
 import { Button } from '@mantine/core';
+import { Callout, FileTree, Steps } from 'nextra/components'
+import { FileTreeLabel } from '@/components/FileTreeLabel'
 
-# Hello
+# Introduction
 
 Hello, world!
+Welcome to the Nextra + Mantine template.
+
+This is a starter template for [Next.js](https://nextjs.org/) app router + [Mantine](https://mantine.dev/) + [Nextra](https://nextra.site/) documentation site.
+
+## Features
+
+This template comes with the following features:
+
+- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Storybook](https://storybook.js.org/)
+- [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+- Provides API example in `/api/version`
+
+## Nextra Features
+
+- [Nextra](https://nextra.site/) documentation site with Mantine theme
+- Sync Dark mode between documentation and application (Mantine/Nextra)
+- Customizable components in `components` folder
+- Provides new Navigation and Footer components for Nextra documentation site
+
+## Folder structure
+
+You will find a lot of predefined folders and files in the project. Here is a short description of the most important ones:
+
+<FileTree>
+  <FileTree.Folder name="app" defaultOpen>
+      <FileTree.Folder name={<FileTreeLabel type="folder" name="api">Useful API</FileTreeLabel>} defaultOpen />
+          <FileTree.File name={<FileTreeLabel type="file" name="layout.tsx">Main layout</FileTreeLabel>} />
+      <FileTree.File name={<FileTreeLabel type="file" name="page.tsx">Homepage</FileTreeLabel>} />
+  </FileTree.Folder>
+  <FileTree.Folder name={<FileTreeLabel type="folder" name="components">Useful components</FileTreeLabel>} defaultOpen />
+  <FileTree.Folder name="config" defaultOpen>
+    <FileTree.File name={<FileTreeLabel type="file" name="index.ts">Most of the config are here!</FileTreeLabel>} />
+  </FileTree.Folder>
+  <FileTree.Folder name={<FileTreeLabel type="folder" name="content">MDX docs</FileTreeLabel>} defaultOpen />
+</FileTree>
+
+You can start by changing the main configuration in `config/index.ts` file. This file contains the most important configuration for the project.
 
 
-```tsx filename="content/index.tsx" copy
 
-export const meta = {
-  title: 'Hello',
-};
+## npm scripts
 
-export default function Index() {
-  return (
-    <>
-      <h1>Hello</h1>
-      <p>Hello, world!</p>
-    </>
-  );
-}
-```
+### Build and dev scripts
 
-## Mantine Components
+- `dev` – start dev server
+- `build` – bundle application for production
+- `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
 
-Here you may use the Mantine components:
+### Testing scripts
 
-<Button>Hello, world!</Button>
+- `typecheck` – checks TypeScript types
+- `lint` – runs ESLint
+- `prettier:check` – checks files with Prettier
+- `jest` – runs jest tests
+- `jest:watch` – starts jest watch
+- `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
 
+### Other scripts
 
-```jsx
-<Button>Hello, world!</Button>
-```
-
-
+- `storybook` – starts storybook dev server
+- `storybook:build` – build production storybook bundle to `storybook-static`
+- `prettier:write` – formats all files with Prettier

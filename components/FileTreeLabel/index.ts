@@ -1,0 +1,1 @@
+export { FileTreeLabel } from './FileTreeLabel';

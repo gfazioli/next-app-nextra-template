@@ -3,5 +3,10 @@
 Below an overview of the latest changes and improvements made to the application. The Release Notes is getting from GitHub and is updated automatically. 
 
 import { ReleaseNotes } from "@/components/ReleaseNotes/ReleaseNotes";
+import { releaseNotesToc } from "@/components/ReleaseNotes/release-notes-toc";
 
 <ReleaseNotes />
+
+export const metadata = {
+    toc: await releaseNotesToc()
+}

@@ -10,58 +10,24 @@ import '@mantine/core/styles.layer.css';
 import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
+import config from '@/config';
 import { theme } from '../theme';
 
 import './global.css';
 
-export const metadata = {
-  title: {
-    default: 'Mantine Next.js and Nextra template',
-    template: '%s | Mantine Next.js and Nextra template',
-  },
-  description: 'I am using Mantine with Next.js and Nextra!',
-  metadataBase: new URL('https://next-app-nextra-template.vercel.app/'),
-  keywords: [
-    'Mantine',
-    'Nextra',
-    'Next.js',
-    'React',
-    'JavaScript',
-    'MDX',
-    'Markdown',
-    'Static Site Generator',
-  ],
-  generator: 'Next.js',
-  applicationName: 'Mantine',
-  appleWebApp: {
-    title: 'Mantine',
-  },
-  openGraph: {
-    // https://github.com/vercel/next.js/discussions/50189#discussioncomment-10826632
-    url: './',
-    siteName: 'Mantine',
-    locale: 'en_US',
-    type: 'website',
-  },
-  other: {
-    'msapplication-TileColor': '#fff',
-  },
-  twitter: {
-    site: 'https://next-app-nextra-template.vercel.app/',
-  },
-  alternates: {
-    // https://github.com/vercel/next.js/discussions/50189#discussioncomment-10826632
-    canonical: './',
-  },
-};
+export const metadata = config.metadata;
 
 export default async function RootLayout({ children }: { children: any }) {
   const pageMap = await getPageMap();
+  const { nextraLayout, head } = config;
 
   return (
     <html lang="en" dir="ltr" {...mantineHtmlProps}>
       <Head>
-        <ColorSchemeScript nonce="8IBTHwOdqNKAWeKl7plt8g==" defaultColorScheme="dark" />
+        <ColorSchemeScript
+          nonce={head.mantine.nonce}
+          defaultColorScheme={head.mantine.defaultColorScheme}
+        />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -69,16 +35,16 @@ export default async function RootLayout({ children }: { children: any }) {
         />
       </Head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="auto">
+        <MantineProvider theme={theme} defaultColorScheme={head.mantine.defaultColorScheme}>
           <Layout
             banner={
               <Banner storageKey="mantine-nextjs-nextra">✨ Mantine + NextJS + Nextra</Banner>
             }
             navbar={<MantineNavBar />}
             pageMap={pageMap}
-            docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
+            docsRepositoryBase={nextraLayout.docsRepositoryBase}
             footer={<MantineFooter />}
-            sidebar={{ defaultMenuCollapseLevel: 1 }}
+            sidebar={nextraLayout.sidebar}
           >
             {children}
           </Layout>

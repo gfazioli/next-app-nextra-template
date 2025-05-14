@@ -1,0 +1,73 @@
+import { Button, Center, Paper } from '@mantine/core';
+import { Marquee } from '@gfazioli/mantine-marquee';
+
+# Mantine
+
+Of course, you can use the [Mantine](https://mantine.dev/) components in your Nextra documentation site. Here is an example of how to use the [Button](https://mantine.dev/core/button/) component:
+
+<Center my={32}>
+    <Button>Hello Mantine</Button>
+</Center>
+
+```jsx
+import { Button, Center } from '@mantine/core';
+
+# Mantine
+
+Your markdown content here
+
+<Center my={32}>
+    <Button>Hello Mantine</Button>
+</Center>
+```
+
+## Third-party components
+
+You can use any third-party components in your Nextra documentation site. 
+
+Here is an example of how to use the [Mantine Marquee](https://gfazioli.github.io/mantine-marquee/) components in your Nextra documentation site:
+
+
+<Marquee my={32} fadeEdges pauseOnHover>
+  <Button
+    size="xl"
+    component="a"
+    href="https://gfazioli.github.io/mantine-marquee/"
+    target="_blank"
+  >
+    Mantine Marquee
+  </Button>
+  <Button
+    size="xl"
+    component="a"
+    href="https://gfazioli.github.io/mantine-reflection/"
+    target="_blank"
+  >
+    Mantine Reflection
+  </Button>
+  <Button
+    size="xl"
+    component="a"
+    href="https://gfazioli.github.io/mantine-split-pane/"
+    target="_blank"
+  >
+    Mantine Split Pane
+  </Button>
+  <Button
+    size="xl"
+    component="a"
+    href="https://gfazioli.github.io/mantine-spinner/"
+    target="_blank"
+  >
+    Mantine Spinner
+  </Button>
+  <Button
+    size="xl"
+    component="a"
+    href="https://gfazioli.github.io/mantine-parallax/"
+    target="_blank"
+  >
+    Mantine Parallax
+  </Button>
+</Marquee>
+

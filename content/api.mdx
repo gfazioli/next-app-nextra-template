@@ -1,0 +1,168 @@
+# API
+
+This starter kit provides a simple API for managing the state of the application. The API is designed to be easy to use and understand, while also being powerful enough to handle complex use cases.
+
+> [!TIP]
+>
+> You can find all the API routes in the `app/api` folder. The API is built using [Next.js](https://nextjs.org/) and is designed to be easy to use and understand.
+
+## Pagefind API
+
+Starting with Nextra v4, the search engine is built-in and uses [Pagefind](https://pagefind.app/). Unfortunately, the Pagefind API is only available on the client side, from the browser.
+
+> In this starter kit, we use a simple trick to make it work on the server side 👏 
+
+You can try the API url [here](/api/search?q=mantine)
+
+### Default route
+
+The default URL is exposed at `https://your-site.com/api/search`.
+
+### Config
+
+The API accepts the following query parameters:
+
+- `q`: The search query.
+- `limit`: The number of results to return per page (default: 5).
+- `excerptLength`: The length of the excerpt to return (default: 30).
+
+Anyway, you can change the default values in the `config/index.ts` file:
+
+```ts
+...
+  /**
+   * Search configuration (for pagefind)
+   * This is used to configure the search engine API.
+   * @see /app/api/search/route.ts
+   */
+  search: {
+    queryKeyword: 'q',
+    minQueryLength: 3,
+    limitKeyword: 'limit',
+    defaultMaxResults: 5,
+    excerptLengthKeyword: 'excerptLength',
+    defaultExcerptLength: 30,
+    defaultLanguage: 'en',
+  },
+...
+```
+
+### JSON response
+
+Currently, the API returns a JSON response with the following structure:
+
+```json
+[
+  {
+    "title": "Main Page title",
+    "content": "Some content",
+    "items": [
+      {
+        "title": "Sub Paragraph title",
+        "url": "http://yoursite.com/docs/your-docs",
+        "excerpt": "<mark>Mantine</mark> Components. Here you may use the <mark>Mantine</mark> components: Hello, world!"
+      }
+    ]
+  },
+  ...
+]
+```
+
+In TypeScript, the response is typed as follows:
+
+```ts
+interface Item {
+  title: string;
+  url: string;
+  excerpt: string;
+}
+
+interface Content {
+  title: string;
+  content: string;
+  items: Item[];
+}
+
+type Contents = Content[];
+```
+
+## GitHub Release API
+
+The GitHub Release API is a simple API that allows you to get the latest release of a GitHub repository. It is designed to be easy to use and understand, while also being powerful enough to handle complex use cases.
+
+Have a look at the [Release Notes](/docs/release-notes) page to see how to use it.
+
+### Default route
+
+The default URL is exposed at `https://your-site.com/api/github-releases`.
+
+### Config
+
+You may configure the API in the `config/index.ts` file:
+
+```ts 
+  /**
+   * GitHub API configuration
+   * @see https://docs.github.com/en/rest/reference/repos#releases
+   *
+   * The GitHub API token is optional for rate limiting.
+   * If you want to use it, create a personal access token with the `repo` scope.
+   *
+   * This information is used to fetch the releases from the GitHub API.
+   */
+  gitHub: {
+    repo: 'gfazioli/next-app-nextra-template',
+    apiUrl: 'https://api.github.com',
+    releasesUrl: 'https://api.github.com/repos/gfazioli/next-app-nextra-template/releases',
+  },
+
+...
+  /**
+   * Release notes configuration
+   * This is used to link the release notes in the app.
+   */
+  releaseNotes: {
+    url: 'https://github.com/gfazioli/next-app-nextra-template/releases',
+    maxReleases: 10,
+  },
+  ...
+```
+
+### Rate limiting
+
+The GitHub API has a rate limit of 60 requests per hour for unauthenticated requests. If you want to increase the rate limit, you can create a personal access token with the `repo` scope and add it to the `GITHUB_TOKEN` environment variable.
+
+You have to update `components/ReleaseNotes/release-notes-toc.ts`
+
+```ts {6}
+...
+    const releases = await fetcher(
+      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      //   },
+      // }
+    ).catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('Error fetching releases:', error);
+      throw error;
+    });
+...
+```
+
+and `app/api/github-releases/route.ts`
+
+```ts {7}
+...
+    const response = await fetch(
+      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`,
+      {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          // Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, // Optional for rate limit
+        },
+      }
+    );
+...
+```    
