@@ -1,33 +1,41 @@
 import '@mantine/core/styles.css';
 
-import React, { useEffect } from 'react';
-import { addons } from '@storybook/preview-api';
-import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
-import { MantineProvider, useMantineColorScheme } from '@mantine/core';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '../theme';
 
 export const parameters = {
   layout: 'fullscreen',
   options: {
     showPanel: false,
+    // @ts-expect-error – storybook throws build error for (a: any, b: any)
+    storySort: (a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }),
+  },
+  backgrounds: { disable: true },
+};
+
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    description: 'Mantine color scheme',
+    defaultValue: 'light',
+    toolbar: {
+      icon: 'mirror',
+      items: [
+        { value: 'light', title: 'Light' },
+        { value: 'dark', title: 'Dark' },
+      ],
+    },
   },
 };
 
-const channel = addons.getChannel();
-
-function ColorSchemeWrapper({ children }: { children: React.ReactNode }) {
-  const { setColorScheme } = useMantineColorScheme();
-  const handleColorScheme = (value: boolean) => setColorScheme(value ? 'dark' : 'light');
-
-  useEffect(() => {
-    channel.on(DARK_MODE_EVENT_NAME, handleColorScheme);
-    return () => channel.off(DARK_MODE_EVENT_NAME, handleColorScheme);
-  }, [channel]);
-
-  return <>{children}</>;
-}
-
 export const decorators = [
-  (renderStory: any) => <ColorSchemeWrapper>{renderStory()}</ColorSchemeWrapper>,
-  (renderStory: any) => <MantineProvider theme={theme}>{renderStory()}</MantineProvider>,
+  (renderStory: any, context: any) => {
+    const scheme = (context.globals.theme || 'light') as 'light' | 'dark';
+    return (
+      <MantineProvider theme={theme} forceColorScheme={scheme}>
+        <ColorSchemeScript />
+        {renderStory()}
+      </MantineProvider>
+    );
+  },
 ];
