@@ -73,7 +73,7 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "stylelint": "stylelint '**/*.css' --cache",
-    "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
+    "test": "npx next typegen && npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "typecheck": "tsc --noEmit"
   },
   "version": "3.0.0"
