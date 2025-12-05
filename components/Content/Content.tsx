@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import { Marquee } from '@gfazioli/mantine-marquee';
-import { Anchor } from 'nextra/components';
+import { Anchor, Image } from 'nextra/components';
 import { Box, Button, Stack, Text } from '@mantine/core';
 
 export const Content = () => {
@@ -38,13 +37,9 @@ export const Content = () => {
 
         <Anchor href="https://mantine-extensions.vercel.app/">
           <Image
-            style={{
-              borderRadius: '8px',
-              boxShadow: '0 2px 64px 4px rgba(80, 0, 100, 0.5)',
-            }}
             width={640}
             height={500}
-            src="/meh.png"
+            src="https://raw.githubusercontent.com/gfazioli/mantine-extensions-assets/main/meh/meh.png"
             alt="Mantine Extensions Hub"
           />
         </Anchor>
