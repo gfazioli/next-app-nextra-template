@@ -28,7 +28,7 @@ The API accepts the following query parameters:
 
 Anyway, you can change the default values in the `config/index.ts` file:
 
-```ts
+```ts filename="config/index.ts"
 ...
   /**
    * Search configuration (for pagefind)
@@ -100,7 +100,7 @@ The default URL is exposed at `https://your-site.com/api/github-releases`.
 
 You may configure the API in the `config/index.ts` file:
 
-```ts 
+```ts filename="config/index.ts"
   /**
    * GitHub API configuration
    * @see https://docs.github.com/en/rest/reference/repos#releases
@@ -134,7 +134,7 @@ The GitHub API has a rate limit of 60 requests per hour for unauthenticated requ
 
 You have to update `components/ReleaseNotes/release-notes-toc.ts`
 
-```ts {6}
+```ts {6} filename="components/ReleaseNotes/release-notes-toc.ts" copy
 ...
     const releases = await fetcher(
       `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`
