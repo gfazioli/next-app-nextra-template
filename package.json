@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "@gfazioli/mantine-marquee": "^2.6.9",
-    "@gfazioli/mantine-text-animate": "^2.3.9",
-    "@mantine/core": "8.3.10",
-    "@mantine/hooks": "8.3.10",
+    "@gfazioli/mantine-marquee": "^2.6.10",
+    "@gfazioli/mantine-text-animate": "^2.3.10",
+    "@mantine/core": "8.3.11",
+    "@mantine/hooks": "8.3.11",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/bundle-analyzer": "^16.1.1",

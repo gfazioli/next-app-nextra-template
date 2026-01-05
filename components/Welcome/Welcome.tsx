@@ -82,7 +82,7 @@ export function Welcome() {
         height="225"
         width="100%"
         style={{ border: 'none', borderRadius: 8 }}
-      ></iframe>
+      />
     </>
   );
 }
