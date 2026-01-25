@@ -1,5 +1,3 @@
-import '@gfazioli/mantine-marquee/styles.layer.css';
-
 import { Content } from './Content';
 
 export default {

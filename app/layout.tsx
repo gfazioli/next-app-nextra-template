@@ -1,11 +1,14 @@
-import '@gfazioli/mantine-marquee/styles.layer.css';
-import '@gfazioli/mantine-text-animate/styles.layer.css';
-import '@mantine/core/styles.layer.css';
+import '@mantine/core/styles.css';
+// !! The order of these imports is important !!
+import '@gfazioli/mantine-marquee/styles.css';
+import '@gfazioli/mantine-text-animate/styles.css';
 
 import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+// !! End of important imports !!
+
 import { MantineFooter, MantineNavBar } from '@/components';
 import config from '@/config';
 import pack from '../package.json';

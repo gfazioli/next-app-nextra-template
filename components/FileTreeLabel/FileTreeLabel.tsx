@@ -4,8 +4,6 @@ import React from 'react';
 import { IconCornerRightDown } from '@tabler/icons-react';
 import { Anchor, Code, Group } from '@mantine/core';
 
-import '@mantine/core/styles.css';
-
 type FileTreeLabelProps = {
   name: string;
   type: 'folder' | 'file';
