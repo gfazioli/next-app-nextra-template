@@ -76,5 +76,5 @@
     "test": "npx next typegen && npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "typecheck": "tsc --noEmit"
   },
-  "version": "3.0.13"
+  "version": "3.0.14"
 }
