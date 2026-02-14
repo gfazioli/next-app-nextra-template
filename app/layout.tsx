@@ -2,6 +2,8 @@ import '@mantine/core/styles.css';
 // !! The order of these imports is important !!
 import '@gfazioli/mantine-marquee/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
+// Global styles
+import '@/theme/global.css';
 
 import { Layout } from 'nextra-theme-docs';
 import { Banner, Head } from 'nextra/components';

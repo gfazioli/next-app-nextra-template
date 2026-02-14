@@ -21,8 +21,8 @@ export const MantineNavBar = () => {
         logo={
           <Group align="center" gap={4}>
             <Logo />
-            <Text size="lg" fw={800} c="blue" visibleFrom="xl">
-              The Next Mantine Docs Builder
+            <Text size="lg" fw={300} c="blue" visibleFrom="xl">
+              Mantine NextJS + Nextra
             </Text>
           </Group>
         }
