@@ -57,7 +57,7 @@ export function Welcome() {
         </Button>
       </Center>
 
-      <Paper shadow="xl" p={8} mih={300} my={32} bg="dark.9" mx="auto" radius={8}>
+      <Paper shadow="xl" p={8} mih={300} my={32} bg="black" mx="auto" radius={8}>
         <TextAnimate.Typewriter
           inherit
           fz={11}
@@ -81,7 +81,11 @@ export function Welcome() {
         title="Sponsor gfazioli"
         height="225"
         width="100%"
-        style={{ border: 'none', borderRadius: 8 }}
+        style={{
+          border: '1px solid rgb(255,0,0,0.2',
+          borderRadius: 8,
+          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+        }}
       />
     </>
   );

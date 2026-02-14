@@ -10,7 +10,11 @@
  */
 @layer overwrite {
   :root {
-    --x-color-nextra-bg: var(--mantine-color-body);
+    --x-color-nextra-bg: var(--mantine-color-white);
+
+    &:where(.dark) {
+      --x-color-nextra-bg: var(--mantine-color-dark-10);
+    }
   }
 
   :where(.dark) {
@@ -20,6 +24,35 @@
   .x\:text-sm {
     font-size: var(--x-text-sm) !important;
     line-height: var(--tw-leading, var(--x-text-sm--line-height)) !important;
+  }
+
+  .x\:bg-primary-100 {
+    background-color: var(--mantine-color-blue-6) !important;
+  }
+
+  .x\:text-primary-800 {
+    color: var(--mantine-color-white) !important;
+  }
+
+  nav.nextra-toc {
+    li {
+      a.x\:text-primary-600 {
+        position: relative;
+        color: var(--mantine-color-blue-6) !important;
+      }
+
+      a.x\:text-primary-600::before {
+        content: '';
+        display: block;
+        width: 2px;
+        height: 100%;
+        background: var(--mantine-color-blue-6);
+        position: absolute;
+        left: -8px;
+        top: 0;
+        z-index: 10;
+      }
+    }
   }
 }
 

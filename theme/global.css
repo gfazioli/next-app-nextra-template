@@ -1,0 +1,31 @@
+* {
+  --marquee-fade-edge-color: var(--mantine-color-gray-1);
+
+  @mixin dark {
+    --marquee-fade-edge-color: var(--mantine-color-dark-9);
+    --mantine-color-body: var(--mantine-color-dark-9);
+  }
+}
+
+body {
+  background-color: var(--mantine-color-gray-1);
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-9);
+  }
+}
+
+.mantine-Button-root {
+  transition: all 0.2s ease;
+
+  @mixin dark {
+    background-color: var(--mantine-color-black);
+    color: var(--mantine-color-dark-0);
+  }
+
+  &:hover {
+    background-color: var(--mantine-color-gray-9);
+    transform: scale(1.02);
+  }
+  border-radius: 256px;
+}
