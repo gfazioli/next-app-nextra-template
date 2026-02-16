@@ -1,6 +1,7 @@
 # Mantine Next.js + Nextra template
 
-<img width="1536" height="1786" alt="SCR-20251103-jmsr" src="https://github.com/user-attachments/assets/11dd92b6-66d2-4ced-af19-62b5a30a9099" />
+<img width="1536" height="2626" alt="image" src="https://github.com/user-attachments/assets/35ec064c-5f3f-495a-b2a3-5de82f19bdab" />
+
 
 <div align="center">
 
