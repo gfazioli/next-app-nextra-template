@@ -1,47 +1,48 @@
 {
-  "compilerOptions" : {
-    "allowJs" : true,
-    "esModuleInterop" : true,
-    "forceConsistentCasingInFileNames" : true,
-    "incremental" : true,
-    "isolatedModules" : true,
-    "jsx" : "react-jsx",
-    "lib" : [
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "module" : "esnext",
-    "moduleResolution" : "bundler",
-    "noEmit" : true,
-    "paths" : {
-      "@/*" : [
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@/*": [
         "./*"
       ]
     },
-    "plugins" : [
+    "plugins": [
       {
-        "name" : "next"
+        "name": "next"
       }
     ],
-    "resolveJsonModule" : true,
-    "skipLibCheck" : true,
-    "strict" : true,
-    "target" : "es5",
-    "types" : [
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5",
+    "types": [
       "node",
       "jest",
       "@testing-library/jest-dom"
     ]
   },
-  "exclude" : [
+  "exclude": [
     "node_modules"
   ],
-  "include" : [
+  "include": [
     "**/*.ts",
     "**/*.tsx",
     ".storybook/main.ts",
     ".storybook/preview.tsx",
+    "svg.d.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
