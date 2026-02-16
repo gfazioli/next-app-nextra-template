@@ -1,0 +1,156 @@
+import { Icon, IconLogo } from "@/components/Icons";
+import { Flex } from "@mantine/core";
+import Image from 'next/image';
+
+# Inline SVG
+
+This page demonstrates how to use the turbopack-inline-svg-loader to import SVG files as React components in a Next.js application.
+
+## With Next.js Image component
+
+To use this feature, you can import an SVG file directly into your React component like this:
+
+```tsx
+import { Icon, IconLogo } from "@/components/Icons";
+import Image from 'next/image';
+
+function MyComponent() {
+  return (
+    <Image src={IconLogo} width={64} height={64} alt="my icon" />
+  );
+}
+```
+
+<Flex mt={32} align="center" justify="center">
+    <Image src={IconLogo} width={128} height={128} alt="my icon" />
+</Flex>
+
+
+
+## With custom Icon component
+
+
+```tsx
+import { Icon, IconLogo } from "@/components/Icons";
+
+function MyComponent() {
+  return (
+    <div>
+      <Icon src={IconLogo} width={128} height={128} />
+      <p>This is my icon</p>
+    </div>
+  );
+}
+```
+
+<Flex mt={32} align="center" justify="center">
+  <Icon src={IconLogo} width={128} height={128} />
+</Flex>
+
+
+## With original icon colors
+
+```tsx
+import { Icon, IconLogo } from "@/components/Icons";
+
+function MyComponent() {
+  return (
+    <div>
+      <Icon src={IconLogo} width={128} height={128} noFill />
+      <p>This is my icon with original colors</p>
+    </div>
+  );
+}
+```
+
+<Flex mt={32} align="center" justify="center">
+  <Icon src={IconLogo} width={128} height={128} noFill />
+</Flex>
+
+
+## With custom styles
+
+```tsx
+import { Icon, IconLogo } from "@/components/Icons";
+
+function MyComponent() {
+  return (
+    <div>
+      <Icon
+        src={IconLogo}
+        width={128}
+        height={128}
+        style={{ color: 'red' }}
+      />
+      <p>This is my icon with custom styles</p>
+    </div>
+  );
+}
+```
+
+<Flex mt={32} align="center" justify="center">
+  <Icon
+    src={IconLogo}
+    width={128}
+    height={128}
+    style={{ color: 'red' }}
+  />
+</Flex>
+
+
+## Icon helper component
+
+In the example above, we are using a custom `Icon` component to render the SVG. This component is a simple wrapper around the SVG element that allows us to set the width and height of the icon easily. Here is the implementation of the `Icon` component:
+
+```tsx
+/**
+ * A component for rendering static icons in Next.js apps.
+ *
+ * Usage:
+ * ```tsx
+ * import myIcon from './myIcon.svg';
+ *
+ * // Render with current text color
+ * <Icon src={myIcon} width={32} height={32} />
+ *
+ * // Render with original icon colors
+ * <Icon src={myIcon} noFill width={32} height={32} />
+ * ```
+ */
+import { type ComponentProps } from 'react';
+import { type StaticImageData } from 'next/image';
+
+type IconProps = Omit<ComponentProps<'img'>, 'src'> & {
+  /* Icon path and dimensions */
+  src: StaticImageData;
+  /* Disables filling with the current color and renders the original icon colors */
+  noFill?: boolean;
+};
+
+const EMPTY_SVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E`;
+
+export function Icon({ src, noFill, width, height, alt, style, ...props }: IconProps) {
+  const mainSrc = noFill ? src.src : EMPTY_SVG;
+  const finalWidth = width ?? src.width;
+  const finalHeight = height ?? src.height;
+  const finalAlt = alt ?? 'icon';
+  const finalStyle = noFill
+    ? style
+    : {
+        ...style,
+        backgroundColor: `currentcolor`,
+        mask: `url("${src.src}") no-repeat center / contain`,
+      };
+
+  return (
+    <img
+      src={mainSrc}
+      width={finalWidth}
+      height={finalHeight}
+      alt={finalAlt}
+      style={finalStyle}
+      {...props}
+    />
+  );
+}
+```

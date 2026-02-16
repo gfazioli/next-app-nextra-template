@@ -20,6 +20,7 @@ This template comes with the following features:
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
 - Provides API example in `/api/version`
+- Turbopack inline SVG loader [turbopack-inline-svg-loader](https://github.com/vitalets/turbopack-inline-svg-loader)
 
 ## Nextra Features
 
@@ -68,10 +69,10 @@ This template comes with the following features:
 
 Your support helps me:
 
-- Keep the project actively maintained with timely bug fixes and security updates 	
-- Add new features, improve performance, and refine the developer experience 	
-- Expand test coverage and documentation for smoother adoption 	
-- Ensure long‑term sustainability without relying on ad hoc free time 	
+- Keep the project actively maintained with timely bug fixes and security updates	
+- Add new features, improve performance, and refine the developer experience	
+- Expand test coverage and documentation for smoother adoption	
+- Ensure long‑term sustainability without relying on ad hoc free time	
 - Prioritize community requests and roadmap items that matter most
 
 Open source thrives when those who benefit can give back—even a small monthly contribution makes a real difference. Sponsorships help cover maintenance time, infrastructure, and the countless invisible tasks that keep a project healthy.

@@ -4,6 +4,7 @@ export default {
     type: 'separator',
   },
   markdown: '',
+  'inline-svg': 'Inline SVG',
   mantine: '',
   api: '',
 

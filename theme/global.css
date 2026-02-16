@@ -23,6 +23,17 @@ body {
     color: var(--mantine-color-dark-0);
   }
 
+  /**
+  * =JON= Remember that this is just an example!
+  *
+  * The hover styles apply a dark background color (var(--mantine-color-gray-9)) to all 
+  * buttons regardless of their variant or current theme. 
+  * This will override button variants like 'gradient', 'outline', and 'subtle', potentially 
+  * breaking their visual design. 
+  * Consider using a more specific selector or scoping these styles to a particular button
+  * variant/class to avoid unintended side effects.
+  */
+
   &:hover {
     background-color: var(--mantine-color-gray-9);
     transform: scale(1.02);

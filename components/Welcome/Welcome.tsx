@@ -75,18 +75,6 @@ export function Welcome() {
           ]}
         />
       </Paper>
-
-      <iframe
-        src="https://github.com/sponsors/gfazioli/card"
-        title="Sponsor gfazioli"
-        height="225"
-        width="100%"
-        style={{
-          border: '1px solid rgb(255,0,0,0.2',
-          borderRadius: 8,
-          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-        }}
-      />
     </>
   );
 }

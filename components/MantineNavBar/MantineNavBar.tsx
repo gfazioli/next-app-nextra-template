@@ -37,7 +37,7 @@ export const MantineNavBar = () => {
             title="Sponsor gfazioli"
             height="32"
             width="114"
-            style={{ border: 0, borderRadius: '6px' }}
+            style={{ border: 0 }}
           />
         </>
       </Navbar>
