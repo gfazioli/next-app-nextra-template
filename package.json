@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@gfazioli/mantine-marquee": "^2.6.13",
-    "@gfazioli/mantine-text-animate": "^2.4.1",
+    "@gfazioli/mantine-marquee": "^2.6.14",
+    "@gfazioli/mantine-text-animate": "^2.4.2",
     "@mantine/core": "8.3.15",
     "@mantine/hooks": "8.3.15",
     "@mdx-js/loader": "^3.1.1",

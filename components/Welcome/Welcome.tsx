@@ -59,7 +59,6 @@ export function Welcome() {
 
       <Paper shadow="xl" p={8} mih={300} my={32} bg="black" mx="auto" radius={8}>
         <TextAnimate.Typewriter
-          inherit
           fz={11}
           c="green.5"
           ff="monospace"
