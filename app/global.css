@@ -10,7 +10,7 @@
  */
 @layer overwrite {
   :root {
-    --x-color-nextra-bg: var(--mantine-color-white);
+    --x-color-nextra-bg: var(--mantine-color-gray-1);
 
     &:where(.dark) {
       --x-color-nextra-bg: var(--mantine-color-dark-9);
