@@ -8,9 +8,9 @@ type FileTreeLabelProps = {
   name: string;
   type: 'folder' | 'file';
   children: React.ReactNode;
-  color: string;
-  href: string;
-  target: string;
+  color?: string;
+  href?: string;
+  target?: string;
 };
 
 export function FileTreeLabel({

@@ -132,26 +132,7 @@ You may configure the API in the `config/index.ts` file:
 
 The GitHub API has a rate limit of 60 requests per hour for unauthenticated requests. If you want to increase the rate limit, you can create a personal access token with the `repo` scope and add it to the `GITHUB_TOKEN` environment variable.
 
-You have to update `components/ReleaseNotes/release-notes-toc.ts`
-
-```ts {6} filename="components/ReleaseNotes/release-notes-toc.ts" copy
-...
-    const releases = await fetcher(
-      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      //   },
-      // }
-    ).catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error('Error fetching releases:', error);
-      throw error;
-    });
-...
-```
-
-and `app/api/github-releases/route.ts`
+You have to update `app/api/github-releases/route.ts`
 
 ```ts {7}
 ...

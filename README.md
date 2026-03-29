@@ -5,7 +5,7 @@
 
 <div align="center">
 
-[<kbd> <br/> ❤️ If this component has been useful to you or your team, please consider becoming a sponsor <br/> </kbd>](https://github.com/sponsors/gfazioli?o=esc)
+[<kbd> <br/> ❤️ If this component has been useful to you or your team, please consider becoming a sponsor <br/> </kbd>](https://github.com/sponsors/gfazioli?o=esc)
 
 </div>
 
@@ -15,12 +15,15 @@ This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](htt
 
 This template comes with the following features:
 
+- [Next.js 16](https://nextjs.org/) with App Router and Turbopack
+- [Mantine 8](https://mantine.dev/) UI component library
+- [Nextra 4](https://nextra.site/) documentation framework with Mantine theme sync
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Storybook](https://storybook.js.org/)
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
-- Provides API example in `/api/version`
+- [Pagefind](https://pagefind.app/) server-side search API
 - Turbopack inline SVG loader [turbopack-inline-svg-loader](https://github.com/vitalets/turbopack-inline-svg-loader)
 
 ## Nextra Features
@@ -28,31 +31,32 @@ This template comes with the following features:
 - [Nextra](https://nextra.site/) documentation site with Mantine theme
 - Sync Dark mode between documentation and application (Mantine/Nextra)
 - Customizable components in `components` folder
-- Provides new Navigation and Footer components for Nextra documentation site
+- Custom Navigation and Footer components for Nextra documentation site
+- GitHub Release Notes integration via API
 
 ## Folder structure
 
-- `components` – shared components 
-    - you can use them in both documentation and application
-    - you may customize them to fit your needs
-- `content` – Nextra documentation site (.mdx and _meta.json files)
+- `app` – Next.js App Router pages, layouts, and API routes
+- `components` – shared components (usable in both documentation and application)
+- `content` – Nextra documentation site (`.mdx` and `_meta.ts` files)
+- `config` – centralized site configuration (metadata, GitHub API, search)
 
 ## npm scripts
 
 ### Build and dev scripts
 
 - `dev` – start dev server
-- `build` – bundle application for production
+- `build` – bundle application for production (includes pagefind search index)
 - `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
 
 ### Testing scripts
 
 - `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
+- `lint` – runs ESLint and Stylelint
 - `prettier:check` – checks files with Prettier
 - `jest` – runs jest tests
 - `jest:watch` – starts jest watch
-- `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
+- `test` – runs `prettier:check`, `lint`, `typecheck` and `jest` scripts
 
 ### Other scripts
 
@@ -64,16 +68,16 @@ This template comes with the following features:
 
 <div align="center">
 
-[<kbd> <br/> ❤️ If this component has been useful to you or your team, please consider becoming a sponsor <br/> </kbd>](https://github.com/sponsors/gfazioli?o=esc)
+[<kbd> <br/> ❤️ If this component has been useful to you or your team, please consider becoming a sponsor <br/> </kbd>](https://github.com/sponsors/gfazioli?o=esc)
 
 </div>
 
 Your support helps me:
 
-- Keep the project actively maintained with timely bug fixes and security updates	
-- Add new features, improve performance, and refine the developer experience	
-- Expand test coverage and documentation for smoother adoption	
-- Ensure long‑term sustainability without relying on ad hoc free time	
+- Keep the project actively maintained with timely bug fixes and security updates
+- Add new features, improve performance, and refine the developer experience
+- Expand test coverage and documentation for smoother adoption
+- Ensure long‑term sustainability without relying on ad hoc free time
 - Prioritize community requests and roadmap items that matter most
 
 Open source thrives when those who benefit can give back—even a small monthly contribution makes a real difference. Sponsorships help cover maintenance time, infrastructure, and the countless invisible tasks that keep a project healthy.
@@ -83,7 +87,7 @@ Your help truly matters.
 💚 [Become a sponsor](https://github.com/sponsors/gfazioli?o=esc) today and help me keep this project reliable, up‑to‑date, and growing for everyone.
 
 <div align="center">
-  
+
 [![Star History Chart](https://api.star-history.com/svg?repos=gfazioli/next-app-nextra-template&type=Timeline)](https://www.star-history.com/#gfazioli/next-app-nextra-template&Timeline)
 
 </div>
