@@ -1,0 +1,29 @@
+.contentFooter {
+  padding-top: 32px;
+  background: var(--mantine-color-body);
+  box-shadow: inset 0px 4px 32px 0px #00000032;
+}
+
+.footer {
+  padding-bottom: 32px;
+}
+
+.title {
+  font-size: 14px !important;
+  font-weight: 300;
+}
+
+.columnAnchor {
+  font-size: 12.8px !important;
+  font-weight: 500 !important;
+}
+
+.lastDivider {
+  @mixin light {
+    box-shadow: 0 0px 20px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  @mixin dark {
+    box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.5);
+  }
+}
