@@ -1,5 +1,5 @@
 import { Marquee } from '@gfazioli/mantine-marquee';
-import { Button, Flex, Stack, Text } from '@mantine/core';
+import { Button, Stack, Text } from '@mantine/core';
 
 export const Content = () => {
   return (
@@ -72,19 +72,6 @@ export const Content = () => {
         </Marquee>
       </Stack>
 
-      <Flex align="center" justify="center" my="2vh">
-        <iframe
-          src="https://github.com/sponsors/gfazioli/card"
-          title="Sponsor gfazioli"
-          height="225"
-          width="100%"
-          style={{
-            border: '1px solid rgb(255,0,0,0.2)',
-            borderRadius: 8,
-            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-          }}
-        />
-      </Flex>
     </>
   );
 };
