@@ -2,7 +2,7 @@ import '@mantine/core/styles.css';
 // !! The order of these imports is important !!
 import '@gfazioli/mantine-marquee/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
-// Global styles
+// Mantine theme overrides (body background, marquee fade edges, etc.)
 import '@/theme/global.css';
 
 import { Layout } from 'nextra-theme-docs';

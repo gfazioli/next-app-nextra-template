@@ -44,14 +44,6 @@ export function ReleaseNotes() {
     );
   }
 
-  if (!data) {
-    return null;
-  }
-
-  if (data.length === 0) {
-    return null;
-  }
-
   return (
     <Stack mt={24}>
       <Timeline active={1} bulletSize={32} lineWidth={4}>
