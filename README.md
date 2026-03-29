@@ -1,6 +1,6 @@
 # Mantine Next.js + Nextra template
 
-<img width="1536" height="2626" alt="image" src="https://github.com/user-attachments/assets/35ec064c-5f3f-495a-b2a3-5de82f19bdab" />
+<img width="1536" height="2044" alt="image" src="https://github.com/user-attachments/assets/008eb9b9-ba86-42b6-a5c6-72db3c21bc61" />
 
 
 <div align="center">
