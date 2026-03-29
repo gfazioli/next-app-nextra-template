@@ -17,6 +17,7 @@ body {
 
 .mantine-Button-root {
   transition: all 0.2s ease;
+  border-radius: 256px;
 
   &:hover {
     transform: scale(1.02);
