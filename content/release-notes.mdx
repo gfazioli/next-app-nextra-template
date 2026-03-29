@@ -3,10 +3,24 @@
 Below an overview of the latest changes and improvements made to the application. The Release Notes is getting from GitHub and is updated automatically. 
 
 import { ReleaseNotes } from "@/components/ReleaseNotes/ReleaseNotes";
-import { releaseNotesToc } from "@/components/ReleaseNotes/release-notes-toc";
 
 <ReleaseNotes />
 
 export const metadata = {
-    toc: await releaseNotesToc()
+    toc: await (async () => {
+        try {
+            const res = await fetch(
+                "https://api.github.com/repos/gfazioli/next-app-nextra-template/releases?per_page=10"
+            );
+            const releases = await res.json();
+            if (!Array.isArray(releases)) return [];
+            return releases.map((release) => ({
+                value: `${release.tag_name} - ${new Date(release.created_at).toLocaleDateString("en-US", { month: "short", year: "numeric" }).replace(" ", ", ")}`,
+                depth: "3",
+                id: release.tag_name,
+            }));
+        } catch {
+            return [];
+        }
+    })()
 }
