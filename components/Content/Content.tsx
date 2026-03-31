@@ -71,7 +71,6 @@ export const Content = () => {
           </Button>
         </Marquee>
       </Stack>
-
     </>
   );
 };

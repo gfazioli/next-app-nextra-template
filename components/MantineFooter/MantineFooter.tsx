@@ -65,11 +65,11 @@ export const MantineFooter = () => {
               <Text fz={13} mr={64}>
                 This is a template for Next.js + Mantine + Nextra documentation sites. Feel free to
                 use it and{' '}
-                <Anchor fz={13} href={`https://github.com/gfazioli/next-app-nextra-template`}>
+                <Anchor fz={13} href="https://github.com/gfazioli/next-app-nextra-template">
                   contribute to it
                 </Anchor>
                 . Don't forget to star it on{' '}
-                <Anchor fz={13} href={`https://github.com/gfazioli/next-app-nextra-template`}>
+                <Anchor fz={13} href="https://github.com/gfazioli/next-app-nextra-template">
                   GitHub
                 </Anchor>
                 . And if you wish, you can also follow me on{' '}
@@ -157,7 +157,8 @@ export const MantineFooter = () => {
                 Built with{' '}
                 <Anchor fz={13} href="https://mantine.dev/">
                   <Group gap={4} component="span">
-                    <IconBrandMantine size={16} /> Mantine v{packageJson.dependencies['@mantine/core']}
+                    <IconBrandMantine size={16} /> Mantine v
+                    {packageJson.dependencies['@mantine/core']}
                   </Group>
                 </Anchor>
               </Group>
