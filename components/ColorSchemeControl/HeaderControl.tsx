@@ -1,7 +1,7 @@
 'use client';
 
 import cx from 'clsx';
-import { BoxProps, createPolymorphicComponent, Tooltip, UnstyledButton } from '@mantine/core';
+import { BoxProps, polymorphic, Tooltip, UnstyledButton } from '@mantine/core';
 import classes from './HeaderControl.module.css';
 
 export interface HeaderControlProps extends BoxProps {
@@ -27,6 +27,4 @@ function _HeaderControl({
   );
 }
 
-export const HeaderControl = createPolymorphicComponent<'button', HeaderControlProps>(
-  _HeaderControl
-);
+export const HeaderControl = polymorphic<'button', HeaderControlProps>(_HeaderControl);

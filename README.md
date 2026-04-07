@@ -16,13 +16,14 @@ This is a template for [Next.js](https://nextjs.org/) app router + [Mantine](htt
 This template comes with the following features:
 
 - [Next.js 16](https://nextjs.org/) with App Router and Turbopack
-- [Mantine 8](https://mantine.dev/) UI component library
+- [Mantine 9](https://mantine.dev/) UI component library
 - [Nextra 4](https://nextra.site/) documentation framework with Mantine theme sync
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
+- [TypeScript 6](https://www.typescriptlang.org/)
 - [Storybook](https://storybook.js.org/)
 - [Jest](https://jestjs.io/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+- [oxlint](https://oxc.rs/docs/guide/usage/linter) for linting
+- [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting
 - [Pagefind](https://pagefind.app/) server-side search API
 - Turbopack inline SVG loader [turbopack-inline-svg-loader](https://github.com/vitalets/turbopack-inline-svg-loader)
 
@@ -52,17 +53,17 @@ This template comes with the following features:
 ### Testing scripts
 
 - `typecheck` – checks TypeScript types
-- `lint` – runs ESLint and Stylelint
-- `prettier:check` – checks files with Prettier
+- `lint` – runs oxlint and Stylelint
+- `format:test` – checks files with oxfmt
 - `jest` – runs jest tests
 - `jest:watch` – starts jest watch
-- `test` – runs `prettier:check`, `lint`, `typecheck` and `jest` scripts
+- `test` – runs `format:test`, `lint`, `typecheck` and `jest` scripts
 
 ### Other scripts
 
 - `storybook` – starts storybook dev server
 - `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+- `format:write` – formats all files with oxfmt
 
 ## Sponsor
 
