@@ -2,14 +2,14 @@
   "dependencies": {
     "@gfazioli/mantine-marquee": "^4.0.1",
     "@gfazioli/mantine-text-animate": "^4.0.0",
-    "@mantine/core": "9.0.1",
-    "@mantine/hooks": "9.0.1",
+    "@mantine/core": "9.0.2",
+    "@mantine/hooks": "9.0.2",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@next/bundle-analyzer": "^16.2.3",
+    "@next/bundle-analyzer": "^16.2.4",
     "@tabler/icons-react": "^3.41.1",
     "@vercel/analytics": "^1.6.1",
-    "next": "16.2.3",
+    "next": "16.2.4",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",
     "react": "19.2.5",
@@ -32,9 +32,9 @@
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "oxfmt": "^0.43.0",
-    "oxlint": "^1.59.0",
-    "pagefind": "^1.5.0",
-    "postcss": "^8.5.9",
+    "oxlint": "^1.60.0",
+    "pagefind": "^1.5.2",
+    "postcss": "^8.5.10",
     "postcss-import": "^16.1.1",
     "postcss-preset-mantine": "1.18.0",
     "postcss-simple-vars": "^7.0.1",
@@ -43,10 +43,10 @@
     "stylelint-config-standard-scss": "^16.0.0",
     "ts-jest": "^29.4.9",
     "turbopack-inline-svg-loader": "^1.0.3",
-    "typescript": "6.0.2"
+    "typescript": "6.0.3"
   },
   "name": "mantine-next-nextra-template",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.14.1",
   "private": true,
   "scripts": {
     "analyze": "ANALYZE=true next build",
@@ -69,5 +69,5 @@
     "test": "npx next typegen && npm run format:test && npm run lint && npm run typecheck && npm run jest",
     "typecheck": "tsc --noEmit"
   },
-  "version": "6.0.0"
+  "version": "6.0.1"
 }
