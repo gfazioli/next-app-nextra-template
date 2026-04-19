@@ -72,6 +72,11 @@ export function useReleaseNotes() {
         return;
       }
 
+      if (!data.releases || !Array.isArray(data.releases)) {
+        setError('Unexpected response from /api/github-releases. Check the server logs.');
+        return;
+      }
+
       const fetchReleases = async () => {
         const releases = await Promise.all(
           data.releases.map(async (release) => ({
