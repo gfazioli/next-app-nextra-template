@@ -25,9 +25,11 @@ export async function GET(request: Request) {
     // If the token is rejected (401 invalid/expired, 403 blocked by org policy
     // like fine-grained PATs with lifetime > 366 days), retry unauthenticated —
     // public releases are readable without auth.
+    const fetchOptions = { next: { revalidate: 3600 } };
     let response: Response;
     if (process.env.GITHUB_TOKEN) {
       response = await fetch(url, {
+        ...fetchOptions,
         headers: { ...baseHeaders, Authorization: `Bearer ${process.env.GITHUB_TOKEN}` },
       });
       if (response.status === 401 || response.status === 403) {
@@ -35,10 +37,10 @@ export async function GET(request: Request) {
         console.warn(
           `GITHUB_TOKEN returned ${response.status} — falling back to unauthenticated fetch`
         );
-        response = await fetch(url, { headers: baseHeaders });
+        response = await fetch(url, { ...fetchOptions, headers: baseHeaders });
       }
     } else {
-      response = await fetch(url, { headers: baseHeaders });
+      response = await fetch(url, { ...fetchOptions, headers: baseHeaders });
     }
 
     if (!response.ok) {
@@ -58,7 +60,14 @@ export async function GET(request: Request) {
 
     const releases = await response.json();
 
-    return Response.json({ releases, status: 'ok' });
+    return Response.json(
+      { releases, status: 'ok' },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+        },
+      }
+    );
   } catch (error: any) {
     // eslint-disable-next-line no-console
     console.error('Error checking user agent:', error);
