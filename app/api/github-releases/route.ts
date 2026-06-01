@@ -22,22 +22,36 @@ export async function GET(request: Request) {
     };
 
     // Try authenticated first if a token is configured (5000 req/hour vs 60/hour).
-    // If the token is rejected (401 invalid/expired, 403 blocked by org policy
-    // like fine-grained PATs with lifetime > 366 days), retry unauthenticated —
-    // public releases are readable without auth.
-    const fetchOptions = { next: { revalidate: 3600 } };
+    // If the token is invalid (401) or rejected by org policy (403 *not* due to
+    // rate limiting), retry unauthenticated — public releases are readable
+    // without auth. We do NOT fall back on a rate-limited 403, since that just
+    // consumes another quota slot and amplifies throttling.
+    const FETCH_TIMEOUT_MS = 10_000;
+    const fetchOptions = {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    };
     let response: Response;
     if (process.env.GITHUB_TOKEN) {
       response = await fetch(url, {
         ...fetchOptions,
         headers: { ...baseHeaders, Authorization: `Bearer ${process.env.GITHUB_TOKEN}` },
       });
-      if (response.status === 401 || response.status === 403) {
+      const rateRemaining = response.headers.get('x-ratelimit-remaining');
+      const shouldFallback =
+        response.status === 401 || (response.status === 403 && rateRemaining !== '0');
+      if (shouldFallback) {
+        // Drain the body to release the undici connection before refetching.
+        await response.text();
         // eslint-disable-next-line no-console
         console.warn(
           `GITHUB_TOKEN returned ${response.status} — falling back to unauthenticated fetch`
         );
-        response = await fetch(url, { ...fetchOptions, headers: baseHeaders });
+        response = await fetch(url, {
+          ...fetchOptions,
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+          headers: baseHeaders,
+        });
       }
     } else {
       response = await fetch(url, { ...fetchOptions, headers: baseHeaders });
@@ -55,7 +69,10 @@ export async function GET(request: Request) {
         rateReset,
         body: bodyText.slice(0, 300),
       });
-      return Response.json(response.statusText, { status: response.status });
+      return Response.json(
+        { error: response.statusText || 'GitHub releases fetch failed' },
+        { status: response.status }
+      );
     }
 
     const releases = await response.json();
@@ -65,6 +82,7 @@ export async function GET(request: Request) {
       {
         headers: {
           'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+          Vary: 'User-Agent',
         },
       }
     );
