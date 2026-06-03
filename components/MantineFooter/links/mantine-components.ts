@@ -39,7 +39,6 @@ export const mantineComponentsDataDisplay: MantineComponentLink[] = [
     title: 'Audio',
     href: 'https://gfazioli.github.io/mantine-audio',
     newWindow: true,
-    new: true,
   },
   {
     key: 'clock',
@@ -83,7 +82,6 @@ export const mantineComponentsDataDisplay: MantineComponentLink[] = [
     title: 'Video',
     href: 'https://gfazioli.github.io/mantine-video',
     newWindow: true,
-    new: true,
   },
 ];
 
