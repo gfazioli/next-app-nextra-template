@@ -35,6 +35,13 @@ export const mantineComponentsLayout: MantineComponentLink[] = [
 
 export const mantineComponentsDataDisplay: MantineComponentLink[] = [
   {
+    key: 'audio',
+    title: 'Audio',
+    href: 'https://gfazioli.github.io/mantine-audio',
+    newWindow: true,
+    new: true,
+  },
+  {
     key: 'clock',
     title: 'Clock',
     href: 'https://gfazioli.github.io/mantine-clock',
