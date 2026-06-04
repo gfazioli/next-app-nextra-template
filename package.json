@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@gfazioli/mantine-border-animate": "^2.0.5",
     "@gfazioli/mantine-marquee": "^4.0.5",
     "@gfazioli/mantine-text-animate": "^4.0.4",
     "@mantine/core": "9.3.0",

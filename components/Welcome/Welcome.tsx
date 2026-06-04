@@ -29,8 +29,9 @@ export function Welcome() {
           }}
           gradient={{ from: 'pink', to: 'yellow' }}
         >
-          Nextra template
+          Nextra
         </TextAnimate>
+        template
       </Title>
 
       <Text c="dimmed" ta="center" size="xl" maw={580} mx="auto" mt="sm">

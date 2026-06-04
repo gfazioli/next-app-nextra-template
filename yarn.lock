@@ -2888,6 +2888,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gfazioli/mantine-border-animate@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@gfazioli/mantine-border-animate@npm:2.0.5"
+  peerDependencies:
+    "@mantine/core": ">=9.0.0"
+    "@mantine/hooks": ">=9.0.0"
+    "@tabler/icons-react": ^3.34.0
+    react: ^18.x || ^19.x
+    react-dom: ^18.x || ^19.x
+  checksum: 10c0/e76f5cab992c4d89ea144198070f938fea7b924ecf05e241d32ac6b3e80a824bd6c2235a4b99282c1f31cb5d91d294c7a06450bbe8634fcff4776eaa8e20ddd6
+  languageName: node
+  linkType: hard
+
 "@gfazioli/mantine-marquee@npm:^4.0.5":
   version: 4.0.5
   resolution: "@gfazioli/mantine-marquee@npm:4.0.5"
@@ -12038,6 +12051,7 @@ __metadata:
   resolution: "mantine-next-nextra-template@workspace:."
   dependencies:
     "@babel/core": "npm:^7.29.7"
+    "@gfazioli/mantine-border-animate": "npm:^2.0.5"
     "@gfazioli/mantine-marquee": "npm:^4.0.5"
     "@gfazioli/mantine-text-animate": "npm:^4.0.4"
     "@mantine/core": "npm:9.3.0"
