@@ -3,6 +3,8 @@
 import {
   ActionIcon,
   Anchor,
+  Avatar,
+  Button,
   Container,
   Divider,
   Grid,
@@ -16,12 +18,14 @@ import {
   IconBrandGithubFilled,
   IconBrandMantine,
   IconBrandX,
+  IconHeartFilled,
   IconMailHeart,
+  IconPlus,
 } from '@tabler/icons-react';
 import { Logo } from '@/components/Logo/Logo';
 import packageJson from '../../package.json';
 import { AnimateBadge } from './AnimateBadge';
-import { apps, highlights, mantineComponentCategories, resources } from './links';
+import { apps, highlights, mantineComponentCategories, resources, sponsors } from './links';
 import classes from './MantineFooter.module.css';
 
 type VerticalLink = {
@@ -149,18 +153,81 @@ export const MantineFooter = () => {
           </Grid>
         </Stack>
 
+        <Divider my="xl" className={classes.lastDivider} />
+
+        {/* Third tier — Sponsors wall */}
+        <Stack gap="md" align="center" id="sponsors" className={classes.sponsorsSection}>
+          <Title order={2} ta="center" tt="uppercase">
+            <Text
+              inherit
+              component="span"
+              variant="gradient"
+              gradient={{ from: 'pink', to: 'grape' }}
+            >
+              Sponsors
+            </Text>
+          </Title>
+          <Text fz={15} c="dimmed" ta="center" maw={560}>
+            If my open-source work saves you or your team time, consider sponsoring its development.
+            Sponsors get their name or logo featured here and across all my projects' documentation
+            sites.
+          </Text>
+          <Group justify="center" gap="xl">
+            {sponsors.map((sponsor) => (
+              <Anchor
+                key={sponsor.key}
+                href={sponsor.href ?? `https://github.com/${sponsor.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="never"
+              >
+                <Stack gap={4} align="center">
+                  <Avatar
+                    src={`https://github.com/${sponsor.github}.png`}
+                    alt={sponsor.name}
+                    size="lg"
+                    radius="xl"
+                  />
+                  <Text fz={12} c="dimmed">
+                    {sponsor.name}
+                  </Text>
+                </Stack>
+              </Anchor>
+            ))}
+            <Anchor
+              href="https://github.com/sponsors/gfazioli"
+              target="_blank"
+              rel="noopener noreferrer"
+              underline="never"
+            >
+              <Stack gap={4} align="center">
+                <Avatar size="lg" radius="xl" className={classes.sponsorSlot}>
+                  <IconPlus size={20} />
+                </Avatar>
+                <Text fz={12} c="dimmed">
+                  Your logo here
+                </Text>
+              </Stack>
+            </Anchor>
+          </Group>
+          <Button
+            mb="xl"
+            component="a"
+            href="https://github.com/sponsors/gfazioli"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="gradient"
+            gradient={{ from: 'pink', to: 'grape' }}
+            leftSection={<IconHeartFilled size={16} />}
+            radius="xl"
+          >
+            Become a sponsor
+          </Button>
+        </Stack>
+
         <Divider my={16} className={classes.lastDivider} />
 
-        <Group justify="space-between">
-          <iframe
-            src="https://github.com/sponsors/gfazioli/button"
-            title="Sponsor gfazioli"
-            height="32"
-            width="114"
-            style={{ border: 0 }}
-            sandbox="allow-popups allow-forms allow-scripts"
-          />
-
+        <Group justify="flex-end">
           <Group justify="right">
             <Text fz={12} inline>
               Made with ❤️ by{' '}

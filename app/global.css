@@ -9,6 +9,10 @@
  * In this case we're going to fix a glitch with the text size in the code blocks. 
  */
 @layer overwrite {
+  html {
+    scroll-behavior: smooth;
+  }
+
   :root {
     --x-color-nextra-bg: var(--mantine-color-gray-1);
 

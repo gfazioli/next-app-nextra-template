@@ -27,3 +27,13 @@
     box-shadow: 0 3px 8px 2px rgb(0, 0, 0, 0.5);
   }
 }
+
+.sponsorsSection {
+  scroll-margin-top: rem(90px);
+}
+
+.sponsorSlot {
+  border: 1px dashed var(--mantine-color-default-border);
+  background-color: transparent;
+  color: var(--mantine-color-dimmed);
+}
