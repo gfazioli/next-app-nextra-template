@@ -41,6 +41,13 @@ export const mantineComponentsDataDisplay: MantineComponentLink[] = [
     newWindow: true,
   },
   {
+    key: 'book',
+    title: 'Book',
+    href: 'https://gfazioli.github.io/mantine-book',
+    newWindow: true,
+    new: true,
+  },
+  {
     key: 'clock',
     title: 'Clock',
     href: 'https://gfazioli.github.io/mantine-clock',
