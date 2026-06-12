@@ -1,7 +1,7 @@
 'use client';
 
 import { Anchor, Avatar, Button, Group, Stack, Text, Title } from '@mantine/core';
-import { IconHeartFilled, IconPlus } from '@tabler/icons-react';
+import { IconCoffee, IconHeartFilled, IconPlus } from '@tabler/icons-react';
 import { sponsors } from '../MantineFooter/links';
 import classes from './Sponsors.module.css';
 
@@ -61,18 +61,36 @@ export const Sponsors = () => {
           </Stack>
         </Anchor>
       </Group>
-      <Button
-        component="a"
-        href="https://github.com/sponsors/gfazioli"
-        target="_blank"
-        rel="noopener noreferrer"
-        variant="gradient"
-        gradient={{ from: 'pink', to: 'grape' }}
-        leftSection={<IconHeartFilled size={16} />}
-        radius="xl"
-      >
-        Become a sponsor
-      </Button>
+      <Group gap="sm" justify="center">
+        <Button
+          component="a"
+          href="https://github.com/sponsors/gfazioli"
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="gradient"
+          gradient={{ from: 'pink', to: 'grape' }}
+          leftSection={<IconHeartFilled size={16} />}
+          radius="xl"
+        >
+          Become a sponsor
+        </Button>
+        <Button
+          component="a"
+          href="https://donate.stripe.com/fZu4gy4Tn3b1dgudGx0co00"
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="filled"
+          color="yellow"
+          leftSection={<IconCoffee size={16} />}
+          radius="xl"
+          styles={{
+            label: { color: 'var(--mantine-color-white)' },
+            section: { color: 'var(--mantine-color-white)' },
+          }}
+        >
+          Buy me a coffee
+        </Button>
+      </Group>
     </Stack>
   );
 };
