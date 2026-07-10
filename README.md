@@ -86,9 +86,3 @@ Open source thrives when those who benefit can give back—even a small monthly 
 Your help truly matters.
 
 💚 [Become a sponsor](https://github.com/sponsors/gfazioli?o=esc) today and help me keep this project reliable, up‑to‑date, and growing for everyone.
-
-<div align="center">
-
-[![Star History Chart](https://api.star-history.com/svg?repos=gfazioli/next-app-nextra-template&type=Timeline)](https://www.star-history.com/#gfazioli/next-app-nextra-template&Timeline)
-
-</div>
