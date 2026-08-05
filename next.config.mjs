@@ -17,6 +17,7 @@ export default withNextra(
   withBundleAnalyzer({
     reactStrictMode: false,
     cleanDistDir: true,
+    agentRules: false, // <-- Don't let `next dev` append its block to CLAUDE.md (since Next.js v16.3)
     experimental: {
       optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
     },
