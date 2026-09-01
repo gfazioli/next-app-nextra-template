@@ -60,7 +60,7 @@ export const Content = () => {
           title="Mantine Extensions Hub"
           description="Browse 25+ Mantine UI extensions — split panes, onboarding tours, players, parallax and more — ready to drop into this template."
           beamProps={{
-            beamMode: 'path',
+            beamMode: 'dot',
             colorFrom: 'cyan',
             colorTo: 'indigo',
             size: 'lg',
@@ -73,10 +73,10 @@ export const Content = () => {
           title="Fumadocs template"
           description="Prefer Fumadocs? The same starter with fumadocs-core under the hood and a docs UI built 100% with Mantine."
           beamProps={{
-            beamMode: 'conic',
+            beamMode: 'wedge',
             colorFrom: 'pink',
             colorTo: 'grape',
-            size: 'md',
+            spread: 72,
             duration: 8,
             reverse: true,
           }}
