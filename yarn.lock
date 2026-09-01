@@ -2319,16 +2319,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gfazioli/mantine-border-animate@npm:^2.0.9":
-  version: 2.0.9
-  resolution: "@gfazioli/mantine-border-animate@npm:2.0.9"
+"@gfazioli/mantine-border-animate@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@gfazioli/mantine-border-animate@npm:3.0.1"
   peerDependencies:
     "@mantine/core": ">=9.0.0"
     "@mantine/hooks": ">=9.0.0"
     "@tabler/icons-react": ^3.34.0
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/2b5c471d135d33c673ef580f76e7f5779118af05612448587f5d3fb610980e297c9624334b5c39ca7b13e105dc9fcc62dcb85a3b2121369e52d86ee52ecb96eb
+  checksum: 10c0/b3cdb3ded987a1a410d69ced050206428fcd2d0f65a858809e34b5005ca249f11e5e13c668b01caa4b4bf394405470a72abaf225cbb464712e5b76ee2fb46c00
   languageName: node
   linkType: hard
 
@@ -11552,7 +11552,7 @@ __metadata:
   resolution: "mantine-next-nextra-template@workspace:."
   dependencies:
     "@babel/core": "npm:^7.29.7"
-    "@gfazioli/mantine-border-animate": "npm:^2.0.9"
+    "@gfazioli/mantine-border-animate": "npm:^3.0.1"
     "@gfazioli/mantine-marquee": "npm:^4.1.5"
     "@gfazioli/mantine-text-animate": "npm:^4.0.9"
     "@mantine/core": "npm:9.6.0"
