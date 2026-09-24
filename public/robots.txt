@@ -1,6 +1,17 @@
 # https://next-app-nextra-template.vercel.app/robots.txt
 #
-# Search engines are welcome.
+# One policy for every site on the Vercel team, kept in step with the
+# Vercel firewall: the AI bots managed ruleset denies AI crawlers, and the
+# custom rule "Allow AI search engines and Applebot" lets through the
+# answer engines of the second section, and Applebot.
+# No Crawl-delay anywhere: Google ignores it, and on the Pro plan the
+# crawl budget of real search engines is worth more than its cost.
+
+# ─────────────────────────────────────────────────────────────
+# Search engines - welcome.
+# Applebot is Spotlight, Siri and Safari search. Vercel files it under
+# AI crawlers, so the firewall rule above is what lets it in.
+# ─────────────────────────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
 
@@ -8,6 +19,9 @@ User-agent: Bingbot
 Allow: /
 
 User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 User-agent: Slurp
@@ -19,14 +33,64 @@ Allow: /
 User-agent: YandexBot
 Allow: /
 
-# Block AI training / scraping crawlers (high CDN cost, no SEO value)
-User-agent: GPTBot
-Disallow: /
+# ─────────────────────────────────────────────────────────────
+# AI search and answer engines - welcome.
+# They fetch a page to answer a question and cite it with a link, and
+# none of them trains on it. ChatGPT search, Perplexity, Claude and
+# DuckDuckGo's DuckAssist.
+# ─────────────────────────────────────────────────────────────
+User-agent: OAI-SearchBot
+Allow: /
 
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 
-User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+# ─────────────────────────────────────────────────────────────
+# Link previews - welcome.
+# What draws the card when a link is shared in Facebook, Messenger,
+# WhatsApp, X, LinkedIn, Slack or Discord.
+# ─────────────────────────────────────────────────────────────
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# ─────────────────────────────────────────────────────────────
+# AI crawlers - blocked.
+# Training crawlers, bulk scrapers, and the AI fetchers the firewall
+# still denies. Google-Extended and Applebot-Extended are opt-out
+# tokens, not crawlers: they keep the content out of Gemini and Apple
+# Intelligence training and do not touch Google or Apple search.
+# ─────────────────────────────────────────────────────────────
+User-agent: GPTBot
 Disallow: /
 
 User-agent: ClaudeBot
@@ -38,22 +102,16 @@ Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 
-User-agent: PerplexityBot
-Disallow: /
-
-User-agent: Perplexity-User
-Disallow: /
-
 User-agent: Google-Extended
 Disallow: /
 
 User-agent: Applebot-Extended
 Disallow: /
 
-User-agent: Bytespider
+User-agent: CCBot
 Disallow: /
 
-User-agent: CCBot
+User-agent: Bytespider
 Disallow: /
 
 User-agent: Amazonbot
@@ -68,19 +126,10 @@ Disallow: /
 User-agent: FacebookBot
 Disallow: /
 
-User-agent: facebookexternalhit
-Disallow: /
-
-User-agent: Facebot
+User-agent: YouBot
 Disallow: /
 
 User-agent: ImagesiftBot
-Disallow: /
-
-User-agent: DuckAssistBot
-Disallow: /
-
-User-agent: YouBot
 Disallow: /
 
 User-agent: cohere-ai
@@ -98,6 +147,71 @@ Disallow: /
 User-agent: omgilibot
 Disallow: /
 
-# Default rule for everything else
+# ─────────────────────────────────────────────────────────────
+# Site-audit crawlers - allowed on purpose.
+# They run only when the site owner starts an audit. This block sits
+# BEFORE the deny list: Google resolves the longest matching token, but
+# a first-match parser (Python's urllib.robotparser puts SemrushBot-SA
+# in the SemrushBot group) needs the allow to come first.
+# ─────────────────────────────────────────────────────────────
+User-agent: AhrefsSiteAudit
+Allow: /
+
+User-agent: SemrushBot-SA
+Allow: /
+
+# ─────────────────────────────────────────────────────────────
+# SEO and backlink crawlers - blocked.
+# They re-crawl whole sites to build third-party link indexes, send no
+# visitors, and are not search engines.
+# ─────────────────────────────────────────────────────────────
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: rogerbot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: Barkrowler
+Disallow: /
+
+User-agent: serpstatbot
+Disallow: /
+
+User-agent: SEOkicks
+Disallow: /
+
+User-agent: SearchmetricsBot
+Disallow: /
+
+User-agent: spbot
+Disallow: /
+
+User-agent: Lumar
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+# ─────────────────────────────────────────────────────────────
+# Everything else - allowed.
+# ─────────────────────────────────────────────────────────────
 User-agent: *
 Allow: /
