@@ -1,8 +1,9 @@
 .title {
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: rem(100px);
-  font-weight: 900;
-  letter-spacing: rem(-2px);
+  /* mantine.dev sets its home titles in Outfit at 450; at 900 Outfit reads as a poster face. */
+  font-weight: 450;
+  line-height: 1.1;
 
   @media (max-width: $mantine-breakpoint-md) {
     font-size: rem(50px);
