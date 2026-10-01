@@ -9,7 +9,7 @@ export function ColorSchemeControl() {
   const { setColorScheme } = useMantineColorScheme();
   const { setTheme } = useTheme();
 
-  const computedColorScheme = useComputedColorScheme('dark', { getInitialValueInEffect: true });
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   const handleColorSchemeChange = () => {
     const newColorScheme = computedColorScheme === 'light' ? 'dark' : 'light';

@@ -1,25 +1,19 @@
-* {
-  --marquee-fade-edge-color: var(--mantine-color-gray-1);
-
-  @mixin dark {
-    --marquee-fade-edge-color: var(--mantine-color-dark-9);
-    --mantine-color-body: var(--mantine-color-dark-9);
-  }
+/* The page takes Mantine's own body colours (#fff / #242424), as mantine.dev does. */
+html {
+  background-color: var(--mantine-color-body);
 }
 
 body {
-  background-color: var(--mantine-color-gray-1);
-
-  @mixin dark {
-    background-color: var(--mantine-color-dark-9);
-  }
+  background-color: transparent;
 }
 
-.mantine-Button-root {
-  transition: all 0.2s ease;
-  border-radius: 256px;
-
-  &:hover {
-    transform: scale(1.02);
-  }
+/* Headings in Outfit, as on mantine.dev: Mantine's Title gets it from the theme, the MDX
+   headings rendered by Nextra from here. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--mantine-font-family-headings);
 }

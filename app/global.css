@@ -13,14 +13,6 @@
     scroll-behavior: smooth;
   }
 
-  :root {
-    --x-color-nextra-bg: var(--mantine-color-gray-1);
-
-    &:where(.dark) {
-      --x-color-nextra-bg: var(--mantine-color-dark-9);
-    }
-  }
-
   :where(.dark) {
     --x-color-neutral-800: var(--mantine-color-dark-6);
   }
@@ -30,12 +22,13 @@
     line-height: var(--tw-leading, var(--x-text-sm--line-height)) !important;
   }
 
+  /* Active sidebar link in Mantine's "light" blue, as on mantine.dev. */
   .x\:bg-primary-100 {
-    background-color: var(--mantine-color-blue-6) !important;
+    background-color: var(--mantine-color-blue-light) !important;
   }
 
   .x\:text-primary-800 {
-    color: var(--mantine-color-white) !important;
+    color: var(--mantine-color-blue-light-color) !important;
   }
 
   nav.nextra-toc {

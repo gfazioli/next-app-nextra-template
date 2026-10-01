@@ -69,17 +69,15 @@ const shareLinks = [
 ];
 
 /**
- * Sponsors wall — gradient title, pitch, sponsor avatars and the "Become a sponsor" CTA.
+ * Sponsors wall — title, pitch, sponsor avatars and the "Become a sponsor" CTA.
  * Rendered on the home page below the ecosystem boxes; the navbar Sponsor button
  * scrolls/navigates to the `#sponsors` anchor.
  */
 export const Sponsors = () => {
   return (
     <Stack gap="md" align="center" id="sponsors" className={classes.sponsorsSection} my={64}>
-      <Title order={2} ta="center" tt="uppercase">
-        <Text inherit component="span" variant="gradient" gradient={{ from: 'pink', to: 'grape' }}>
-          Sponsors
-        </Text>
+      <Title order={2} ta="center">
+        Sponsors
       </Title>
       <Text fz={15} c="dimmed" ta="center" maw={560}>
         If my open-source work saves you or your team time, consider sponsoring its development.
@@ -97,8 +95,9 @@ export const Sponsors = () => {
           >
             <Stack gap={4} align="center">
               <Avatar
-                src={`https://github.com/${sponsor.github}.png`}
-                alt={sponsor.name}
+                // 96px for a 56px avatar at 2x: the default is the full 460px image (45 KB vs 3 KB)
+                src={`https://github.com/${sponsor.github}.png?size=96`}
+                alt=""
                 size="lg"
                 radius="xl"
               />
@@ -130,10 +129,8 @@ export const Sponsors = () => {
           href="https://github.com/sponsors/gfazioli"
           target="_blank"
           rel="noopener noreferrer"
-          variant="gradient"
-          gradient={{ from: 'pink', to: 'grape' }}
+          color="red"
           leftSection={<IconHeartFilled size={16} />}
-          radius="xl"
         >
           Become a sponsor
         </Button>
@@ -142,14 +139,8 @@ export const Sponsors = () => {
           href="https://donate.stripe.com/fZu4gy4Tn3b1dgudGx0co00"
           target="_blank"
           rel="noopener noreferrer"
-          variant="filled"
-          color="yellow"
-          leftSection={<IconCoffee size={16} />}
-          radius="xl"
-          styles={{
-            label: { color: 'var(--mantine-color-white)' },
-            section: { color: 'var(--mantine-color-white)' },
-          }}
+          variant="default"
+          leftSection={<IconCoffee size={16} color="var(--mantine-color-orange-6)" />}
         >
           Buy me a coffee
         </Button>
