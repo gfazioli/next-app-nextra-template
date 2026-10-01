@@ -1,4 +1,7 @@
 .sponsorsSection {
+  /* Mantine's dimmed grey falls under 4.5:1 on the page background (4.04 in dark mode). */
+  --mantine-color-dimmed: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+
   scroll-margin-top: rem(90px);
 }
 

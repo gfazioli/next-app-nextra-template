@@ -51,13 +51,18 @@ export default {
     sidebar: {
       defaultMenuCollapseLevel: 1,
     },
+    // Keep in step with `head.mantine.defaultColorScheme`: Nextra (next-themes) and Mantine
+    // each fall back to their own default on a first visit, and nothing reconciles them on load.
+    nextThemes: {
+      defaultTheme: 'light',
+    },
   },
   /**
    * Main Layout head configuration
    */
   head: {
     mantine: {
-      defaultColorScheme: 'dark',
+      defaultColorScheme: 'light',
       nonce: '8IBTHwOdqNKAWeKl7plt8g==',
     },
   },

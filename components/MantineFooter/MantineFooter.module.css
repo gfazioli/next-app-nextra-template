@@ -1,4 +1,7 @@
 .contentFooter {
+  /* Mantine's dimmed grey falls under 4.5:1 on this background (4.04 in dark mode). */
+  --mantine-color-dimmed: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+
   padding-top: 32px;
   background: var(--mantine-color-body);
   box-shadow: inset 0px 4px 32px 0px #00000032;

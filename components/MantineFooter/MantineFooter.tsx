@@ -15,6 +15,7 @@ import {
 import {
   IconBrandGithubFilled,
   IconBrandMantine,
+  IconBrandVercel,
   IconBrandX,
   IconMailHeart,
 } from '@tabler/icons-react';
@@ -54,7 +55,7 @@ const VerticalLinks = ({ list, fz }: { list: VerticalLink[]; fz?: number }) => {
 };
 
 const ColumnTitle = ({ children }: { children: React.ReactNode }) => (
-  <Title className={classes.title} order={6}>
+  <Title className={classes.title} order={2} size="h6">
     {children}
   </Title>
 );
@@ -79,31 +80,54 @@ export const MantineFooter = () => {
               <Text fz={13} mr={64}>
                 This is a template for Next.js + Mantine + Nextra documentation sites. Feel free to
                 use it and{' '}
-                <Anchor fz={13} href="https://github.com/gfazioli/next-app-nextra-template">
+                <Anchor
+                  fz={13}
+                  underline="always"
+                  href="https://github.com/gfazioli/next-app-nextra-template"
+                >
                   contribute to it
                 </Anchor>
                 . Don't forget to star it on{' '}
-                <Anchor fz={13} href="https://github.com/gfazioli/next-app-nextra-template">
+                <Anchor
+                  fz={13}
+                  underline="always"
+                  href="https://github.com/gfazioli/next-app-nextra-template"
+                >
                   GitHub
                 </Anchor>
                 . And if you wish, you can also follow me on{' '}
-                <Anchor fz={13} href="https://twitter.com/gfazioli">
+                <Anchor fz={13} underline="always" href="https://twitter.com/gfazioli">
                   Twitter
                 </Anchor>
                 . Obviously, you can also{' '}
-                <Anchor fz={13} href="https://github.com/sponsors/gfazioli">
+                <Anchor fz={13} underline="always" href="https://github.com/sponsors/gfazioli">
                   donate
                 </Anchor>{' '}
                 to support the development of this project.
               </Text>
               <Group>
-                <ActionIcon variant="subtle" component="a" href="https://github.com/gfazioli">
+                <ActionIcon
+                  variant="subtle"
+                  component="a"
+                  href="https://github.com/gfazioli"
+                  aria-label="GitHub"
+                >
                   <IconBrandGithubFilled size={24} />
                 </ActionIcon>
-                <ActionIcon variant="subtle" component="a" href="https://twitter.com/gfazioli">
+                <ActionIcon
+                  variant="subtle"
+                  component="a"
+                  href="https://twitter.com/gfazioli"
+                  aria-label="X (Twitter)"
+                >
                   <IconBrandX size={24} />
                 </ActionIcon>
-                <ActionIcon variant="subtle" component="a" href="https://undolog.com/">
+                <ActionIcon
+                  variant="subtle"
+                  component="a"
+                  href="https://undolog.com/"
+                  aria-label="Blog"
+                >
                   <IconMailHeart size={24} />
                 </ActionIcon>
               </Group>
@@ -163,9 +187,9 @@ export const MantineFooter = () => {
             <Text fz={12} inline>
               <Group gap={4} component="span">
                 Hosted on{' '}
-                <Anchor fz={13} href="https://github.com/">
+                <Anchor fz={13} href="https://vercel.com/">
                   <Group gap={4} component="span">
-                    <IconBrandGithubFilled size={16} /> GitHub.com
+                    <IconBrandVercel size={16} /> Vercel.com
                   </Group>
                 </Anchor>
               </Group>
