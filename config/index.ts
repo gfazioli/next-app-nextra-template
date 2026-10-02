@@ -8,7 +8,8 @@ export default {
       default: 'Mantine Next.js and Nextra template',
       template: '%s | Mantine Next.js and Nextra template',
     },
-    description: 'I am using Mantine with Next.js and Nextra!',
+    description:
+      'A Next.js App Router starter with Mantine 9 and Nextra 4: an MDX documentation site with Mantine components, search, dark mode and release notes.',
     metadataBase: new URL('https://next-app-nextra-template.vercel.app/'),
     keywords: [
       'Mantine',

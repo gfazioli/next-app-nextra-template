@@ -215,3 +215,5 @@ Disallow: /
 # ─────────────────────────────────────────────────────────────
 User-agent: *
 Allow: /
+
+Sitemap: https://next-app-nextra-template.vercel.app/sitemap.xml
