@@ -1,4 +1,4 @@
-## Release Notes
+# Release Notes
 
 Below an overview of the latest changes and improvements made to the application. The Release Notes is getting from GitHub and is updated automatically. 
 
@@ -7,6 +7,9 @@ import { ReleaseNotes } from "@/components/ReleaseNotes/ReleaseNotes";
 <ReleaseNotes />
 
 export const metadata = {
+    // Here, not in a front matter: Nextra refuses a page that has both.
+    description:
+        "Release notes of the Mantine, Next.js and Nextra template, fetched from its GitHub releases and updated automatically.",
     toc: await (async () => {
         try {
             const res = await fetch(
