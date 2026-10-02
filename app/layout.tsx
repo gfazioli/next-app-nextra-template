@@ -29,6 +29,9 @@ const outfit = Outfit({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-outfit',
+  // Not preloaded: on a throttled phone the preload competed with the render-blocking CSS and
+  // moved the first paint by about 0.18 s. Headings paint in the size-adjusted fallback and swap.
+  preload: false,
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
