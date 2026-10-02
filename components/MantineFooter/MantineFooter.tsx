@@ -19,7 +19,6 @@ import {
   IconBrandX,
   IconMailHeart,
 } from '@tabler/icons-react';
-import { Logo } from '@/components/Logo/Logo';
 import packageJson from '../../package.json';
 import { AnimateBadge } from './AnimateBadge';
 import { apps, highlights, mantineComponentCategories, resources } from './links';
@@ -74,8 +73,10 @@ export const MantineFooter = () => {
         <Grid grow>
           <Grid.Col span={{ base: 12, sm: 4 }}>
             <Stack gap="xs">
+              {/* The tile is filled blue: the glyph takes its white, as in Mantine's own mark. The
+                  header's blue Logo on this tile was blue on blue, barely visible in light mode. */}
               <ThemeIcon>
-                <Logo />
+                <IconBrandMantine size={20} />
               </ThemeIcon>
               <Text fz={13} mr={64}>
                 This is a template for Next.js + Mantine + Nextra documentation sites. Feel free to
