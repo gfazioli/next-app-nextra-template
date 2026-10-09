@@ -2319,16 +2319,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gfazioli/mantine-border-animate@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@gfazioli/mantine-border-animate@npm:3.0.4"
+"@gfazioli/mantine-border-animate@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@gfazioli/mantine-border-animate@npm:3.0.5"
   peerDependencies:
     "@mantine/core": ">=9.0.0"
     "@mantine/hooks": ">=9.0.0"
     "@tabler/icons-react": ^3.34.0
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/4884cff4b9cad47a57d512d24dd8308ed52c374a5749f30d8a8edbbdc47ec3d5627faea8d881c0ac3ca09b88e8b68647de40284759c4be44560b0484ea7d82d2
+  checksum: 10c0/90fa5807d95438d4ed47c249e4ff32a3a8a54558ff9ee0fd6bbaa72bc3f556214e4cabbc16b57156d6c5554719aad5d70996539a501686a3eaf0881a8e0645cd
   languageName: node
   linkType: hard
 
@@ -2344,15 +2344,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gfazioli/mantine-text-animate@npm:^4.0.14":
-  version: 4.0.14
-  resolution: "@gfazioli/mantine-text-animate@npm:4.0.14"
+"@gfazioli/mantine-text-animate@npm:^4.0.15":
+  version: 4.0.15
+  resolution: "@gfazioli/mantine-text-animate@npm:4.0.15"
   peerDependencies:
     "@mantine/core": ">=9.0.0"
     "@mantine/hooks": ">=9.0.0"
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/a2ed875f6b54a69e99f68211427fb4fce80ed0334c01032bc5e546ef9262a8c922d822df50ee21e212e280f493ace44d670457a7e85f99f5992549c635070382
+  checksum: 10c0/68f43b2a9c22dfa769e486acba35cb3417eede6120fae6e7addb615eee23c4ec91717a8fb68b34075c8535ac58f70e647a0d9b18798ebdbc5cc407ce9ced0d15
   languageName: node
   linkType: hard
 
@@ -3188,9 +3188,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/core@npm:9.7.0":
-  version: 9.7.0
-  resolution: "@mantine/core@npm:9.7.0"
+"@mantine/core@npm:9.7.1":
+  version: 9.7.1
+  resolution: "@mantine/core@npm:9.7.1"
   dependencies:
     "@floating-ui/react": "npm:^0.27.20"
     clsx: "npm:^2.1.1"
@@ -3198,19 +3198,19 @@ __metadata:
     react-remove-scroll: "npm:^2.7.2"
     type-fest: "npm:^5.10.0"
   peerDependencies:
-    "@mantine/hooks": 9.7.0
+    "@mantine/hooks": 9.7.1
     react: ^19.2.0
     react-dom: ^19.2.0
-  checksum: 10c0/d2fe8e854f90672d10b34851f87e1b8a579bc827b868df1f29ca26e0cde4055885e968d2d9eb37496485d70779845eb2f0c372f5c83884baf9478bfad396ede2
+  checksum: 10c0/bdd21cffab0a6c1c24ae4f74b4c96d9fb9a4c8b7fe2dc878666997562a17af7a671e52f8b47b9de7ef828e4363b23d446bc01c8a46292a2c20dbdc191a180ea9
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:9.7.0":
-  version: 9.7.0
-  resolution: "@mantine/hooks@npm:9.7.0"
+"@mantine/hooks@npm:9.7.1":
+  version: 9.7.1
+  resolution: "@mantine/hooks@npm:9.7.1"
   peerDependencies:
     react: ^19.2.0
-  checksum: 10c0/0ac3e53dd886a018979d1c360b05e5e70198e7c6c42b993da73d5360c5e489393b5400d6fe1e76196cad23c985ba5feecccdf16863b547ebac36eb46f233e69d
+  checksum: 10c0/25ebdbc7e1aa6f04baab346507fca70f052ef55dc278ea0c3ae0dbf883a32bed89dab67df2efb592b19e5908148f46c35b4e94cb950c8ae82a9c268bff887768
   languageName: node
   linkType: hard
 
@@ -4787,21 +4787,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^3.48.0":
-  version: 3.48.0
-  resolution: "@tabler/icons-react@npm:3.48.0"
+"@tabler/icons-react@npm:^3.49.0":
+  version: 3.49.0
+  resolution: "@tabler/icons-react@npm:3.49.0"
   dependencies:
-    "@tabler/icons": "npm:3.48.0"
+    "@tabler/icons": "npm:3.49.0"
   peerDependencies:
     react: ">= 16"
-  checksum: 10c0/49c314159da3d19cbb4e4791928a4edd78a02805ac262702b0a177fccbf2b8f3b7ace1ca81e1df873237ef86266dce5bf5547758803e83d24d5887af99716240
+  checksum: 10c0/4c50b4f9ff56f6755161896ba4e5271dc97caf4132394e443162bff015e0fc72c109b53bc31436d4350fa2c836a472b304e5761b2a121c18c03f157966ba8025
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.48.0":
-  version: 3.48.0
-  resolution: "@tabler/icons@npm:3.48.0"
-  checksum: 10c0/52c4e582dede13508c6cf34b73c23f80449dde042ee487cb2ef082e92b50cb644f61072871a95f6a0ebb11b117d7f10581455906bb74ed0fa0a9924170876e80
+"@tabler/icons@npm:3.49.0":
+  version: 3.49.0
+  resolution: "@tabler/icons@npm:3.49.0"
+  checksum: 10c0/8540c7182c67efcd7209d0ab2de75dd413eff0f61c5906d0e1b20bc53ef4eaadcd13e301e2e5829dac47ee710bc0d8301d99c1dd0aada683a87addb32742d34a
   languageName: node
   linkType: hard
 
@@ -11601,18 +11601,18 @@ __metadata:
   resolution: "mantine-next-nextra-template@workspace:."
   dependencies:
     "@babel/core": "npm:^7.29.7"
-    "@gfazioli/mantine-border-animate": "npm:^3.0.4"
+    "@gfazioli/mantine-border-animate": "npm:^3.0.5"
     "@gfazioli/mantine-marquee": "npm:^4.1.8"
-    "@gfazioli/mantine-text-animate": "npm:^4.0.14"
-    "@mantine/core": "npm:9.7.0"
-    "@mantine/hooks": "npm:9.7.0"
+    "@gfazioli/mantine-text-animate": "npm:^4.0.15"
+    "@mantine/core": "npm:9.7.1"
+    "@mantine/hooks": "npm:9.7.1"
     "@mdx-js/loader": "npm:^3.1.1"
     "@mdx-js/react": "npm:^3.1.1"
     "@next/bundle-analyzer": "npm:^16.3.7"
     "@storybook/addon-themes": "npm:^10.6.1"
     "@storybook/nextjs": "npm:^10.6.1"
     "@storybook/react": "npm:^10.6.1"
-    "@tabler/icons-react": "npm:^3.48.0"
+    "@tabler/icons-react": "npm:^3.49.0"
     "@testing-library/dom": "npm:^10.4.2"
     "@testing-library/jest-dom": "npm:^6.10.0"
     "@testing-library/react": "npm:^16.3.3"
