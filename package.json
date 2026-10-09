@@ -10,7 +10,7 @@
     "@next/bundle-analyzer": "^16.3.7",
     "@tabler/icons-react": "^3.49.0",
     "@vercel/analytics": "^1.6.1",
-    "next": "16.3.7",
+    "next": "16.3.8",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",
     "react": "19.3.0",
@@ -51,7 +51,7 @@
   "scripts": {
     "analyze": "ANALYZE=true next build",
     "build": "next build && yarn build:pagefind",
-    "build:pagefind": "pagefind --site .next/server/app --output-path public/_pagefind",
+    "build:pagefind": "node scripts/pagefind-site.mjs && pagefind --site .next/pagefind-site --output-path public/_pagefind",
     "dev": "next dev",
     "oxlint": "oxlint .",
     "jest": "jest",
