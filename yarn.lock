@@ -2366,15 +2366,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gfazioli/mantine-marquee@npm:^4.1.8":
-  version: 4.1.8
-  resolution: "@gfazioli/mantine-marquee@npm:4.1.8"
+"@gfazioli/mantine-marquee@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@gfazioli/mantine-marquee@npm:5.0.2"
   peerDependencies:
     "@mantine/core": ">=9.0.0"
     "@mantine/hooks": ">=9.0.0"
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/6676e455058b73c4c2b8325e951969a4ef41cc2bd4d74685f86b488ddeac45ac1d9df386222f6eeea316058c5031ffa1a985b541751c40b938cf67ccbc32ce0d
+  checksum: 10c0/6b754fad086d656e808f3efde0104eef22ffaec159c08ea18d5f1aace7794c3a07df28be90542d4edb91a04ab76a4be354f2355dc777b4d668db06c8f5438a1f
   languageName: node
   linkType: hard
 
@@ -11615,7 +11615,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@gfazioli/mantine-border-animate": "npm:^3.0.6"
-    "@gfazioli/mantine-marquee": "npm:^4.1.8"
+    "@gfazioli/mantine-marquee": "npm:^5.0.2"
     "@gfazioli/mantine-text-animate": "npm:^4.0.16"
     "@mantine/core": "npm:9.7.2"
     "@mantine/hooks": "npm:9.7.2"
