@@ -81,19 +81,17 @@ interface Result {
 type SearchResponse = Result[];
 ```
 
-The URLs are absolute and open the page itself. Pagefind indexes the built `.html` files, so the route strips the `.html` suffix from its URLs, the same way Nextra's search box does.
+The URLs are absolute and open the page itself.
 
 ### Errors
 
-Errors come back as an object with an `error` key:
+Errors come back as an object with an `error` key, two of them with status `200`: check for the key rather than the status.
 
 | Case                           | Status | Body                                   |
 | ------------------------------ | ------ | -------------------------------------- |
 | `q` is missing                 | 200    | `{ "error": "No search query provided" }` |
 | `q` is shorter than 3 characters | 200  | `{ "error": "Search query too short" }`   |
 | The search itself fails        | 500    | `{ "error": "Search failed" }`            |
-
-The first two answer with status `200`, so check for the `error` key rather than the status.
 
 > [!NOTE]
 >
@@ -162,7 +160,7 @@ The call to GitHub is cached for an hour (`next: { revalidate: 3600 }`), and the
 
 Without a token, GitHub allows 60 requests per hour from each IP address; with a token, 5,000 per hour. To use one, set the `GITHUB_TOKEN` environment variable: the route reads it on its own, with no code to change. If GitHub rejects the token (a `401`, or a `403` that is not a rate limit), the route retries without it, since public releases can be read anonymously.
 
-The token only reads public data, so give it nothing more: a fine-grained token with read-only access to public repositories, or a classic token with no scopes. The `repo` scope is not needed, and it would grant full access to your private repositories.
+A read-only token is enough, as the config comment above says: the `repo` scope is not needed, and it would grant full access to your private repositories.
 
 ## Version API
 
