@@ -12,6 +12,9 @@ describe('toPageUrl', () => {
     ['https://site.dev/guide/index.html#setup', 'https://site.dev/guide/#setup'],
     ['https://site.dev/docs/html-in-markdown.html', 'https://site.dev/docs/html-in-markdown'],
     ['https://site.dev/docs/mantine', 'https://site.dev/docs/mantine'],
+    ['https://site.dev/docs/page#file.html', 'https://site.dev/docs/page#file.html'],
+    ['https://site.dev/docs/page.html#file.html', 'https://site.dev/docs/page#file.html'],
+    ['https://site.dev/docs/page.html?q=1#intro', 'https://site.dev/docs/page?q=1#intro'],
   ])('%s → %s', (from, to) => {
     expect(toPageUrl(from)).toBe(to);
   });
