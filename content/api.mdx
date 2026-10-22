@@ -1,39 +1,32 @@
 ---
-description: "The API routes in this template: a server-side Pagefind search endpoint and a GitHub releases proxy, with their query parameters, responses and rate limits."
+description: "The template's three API routes: server-side Pagefind search, a GitHub releases proxy and the app version, with parameters, responses and errors."
 ---
 
 # API
 
-This starter kit provides a simple API for managing the state of the application. The API is designed to be easy to use and understand, while also being powerful enough to handle complex use cases.
+The template ships three read-only `GET` routes, all in the `app/api` folder:
 
-> [!TIP]
->
-> You can find all the API routes in the `app/api` folder. The API is built using [Next.js](https://nextjs.org/) and is designed to be easy to use and understand.
+| Route                  | Returns                                                     |
+| ---------------------- | ----------------------------------------------------------- |
+| `/api/search`          | Pagefind search results, computed on the server             |
+| `/api/github-releases` | The latest releases of the repository set in `config/index.ts` |
+| `/api/version`         | The app's version, read from `package.json`                 |
 
-## Pagefind API
+## Search API
 
-Starting with Nextra v4, the search engine is built-in and uses [Pagefind](https://pagefind.app/). Unfortunately, the Pagefind API is only available on the client side, from the browser.
+Since Nextra 4 the search engine is built in and uses [Pagefind](https://pagefind.app/), which indexes the built HTML and searches it in the browser. This route runs the same index on the server, with a small shim for the browser globals Pagefind expects 👏
 
-> In this starter kit, we use a simple trick to make it work on the server side 👏 
+Try it with [a search for “mantine”](/api/search?q=mantine).
 
-You can try it with [a search for “mantine”](/api/search?q=mantine)
+### Query parameters
 
-### Default route
+- `q`: the search query, at least 3 characters.
+- `limit`: the maximum number of results (default `5`). There is no paging: the route returns the first `limit` results.
+- `excerptLength`: the length of each excerpt, in words (default `30`).
 
-The default URL is exposed at `https://your-site.com/api/search`.
-
-### Config
-
-The API accepts the following query parameters:
-
-- `q`: The search query.
-- `limit`: The number of results to return per page (default: 5).
-- `excerptLength`: The length of the excerpt to return (default: 30).
-
-Anyway, you can change the default values in the `config/index.ts` file:
+The parameter names and their defaults live in `config/index.ts`:
 
 ```ts filename="config/index.ts"
-...
   /**
    * Search configuration (for pagefind)
    * This is used to configure the search engine API.
@@ -48,31 +41,29 @@ Anyway, you can change the default values in the `config/index.ts` file:
     defaultExcerptLength: 30,
     defaultLanguage: 'en',
   },
-...
 ```
 
-### JSON response
+### Response
 
-Currently, the API returns a JSON response with the following structure:
+An array with one entry per matching page. Each of its `items` is a section of that page, with a link straight to it and the matched words wrapped in `<mark>`:
 
 ```json
 [
   {
-    "title": "Main Page title",
-    "content": "Some content",
+    "title": "Mantine",
+    "content": "The text of the page, as Pagefind indexed it",
     "items": [
       {
-        "title": "Sub Paragraph title",
-        "url": "http://yoursite.com/docs/your-docs",
-        "excerpt": "<mark>Mantine</mark> Components. Here you may use the <mark>Mantine</mark> components: Hello, world!"
+        "title": "Third-party components",
+        "url": "https://your-site.com/docs/mantine#third-party-components",
+        "excerpt": "… you can use the <mark>Mantine</mark> Marquee components in your …"
       }
     ]
-  },
-  ...
+  }
 ]
 ```
 
-In TypeScript, the response is typed as follows:
+In TypeScript:
 
 ```ts
 interface Item {
@@ -81,28 +72,62 @@ interface Item {
   excerpt: string;
 }
 
-interface Content {
+interface Result {
   title: string;
   content: string;
   items: Item[];
 }
 
-type Contents = Content[];
+type SearchResponse = Result[];
 ```
+
+The URLs are absolute and open the page itself. Pagefind indexes the built `.html` files, so the route strips the `.html` suffix from its URLs, the same way Nextra's search box does.
+
+### Errors
+
+Errors come back as an object with an `error` key:
+
+| Case                           | Status | Body                                   |
+| ------------------------------ | ------ | -------------------------------------- |
+| `q` is missing                 | 200    | `{ "error": "No search query provided" }` |
+| `q` is shorter than 3 characters | 200  | `{ "error": "Search query too short" }`   |
+| The search itself fails        | 500    | `{ "error": "Search failed" }`            |
+
+The first two answer with status `200`, so check for the `error` key rather than the status.
+
+> [!NOTE]
+>
+> The index files are written by `yarn build` into `public/_pagefind/`, and git ignores them. Under `yarn dev` the route has nothing to search until a build has run once, just like Nextra's search box.
 
 ## GitHub Release API
 
-The GitHub Release API is a simple API that allows you to get the latest release of a GitHub repository. It is designed to be easy to use and understand, while also being powerful enough to handle complex use cases.
+`/api/github-releases` proxies the GitHub REST API and returns the latest releases of the repository set in `config/index.ts`: as many as `releaseNotes.maxReleases`, 10 by default. The [Release Notes](/docs/release-notes) page is built on it.
 
-Have a look at the [Release Notes](/docs/release-notes) page to see how to use it.
+### Response
 
-### Default route
+```json
+{
+  "releases": [],
+  "status": "ok"
+}
+```
 
-The default URL is exposed at `https://your-site.com/api/github-releases`.
+`releases` holds GitHub's own release objects, newest first (`tag_name`, `name`, `body`, `published_at`, `html_url` and the rest), exactly as GitHub's [List releases](https://docs.github.com/en/rest/releases/releases#list-releases) endpoint returns them.
+
+### Refused requests and errors
+
+| Case                                                                  | Status        | Body                                    |
+| --------------------------------------------------------------------- | ------------- | --------------------------------------- |
+| No `User-Agent` header                                                | 400           | `{ "error": "User agent not found" }`   |
+| A `User-Agent` that looks like a crawler (`bot`, `crawl`, `slurp`, `spider`) | 403    | `{ "error": "Bots are not allowed" }`   |
+| GitHub answers with an error                                          | GitHub's own  | `{ "error": "<GitHub's status text>" }` |
+| Anything else goes wrong                                              | 500           | `{ "error": "Internal server error", "details": "…" }` |
+
+### Caching
+
+The call to GitHub is cached for an hour (`next: { revalidate: 3600 }`), and the route answers with `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400`: a CDN such as Vercel's serves the same response for an hour, and a stale one for up to a day while it refreshes.
 
 ### Config
-
-You may configure the API in the `config/index.ts` file:
 
 ```ts filename="config/index.ts"
   /**
@@ -110,7 +135,8 @@ You may configure the API in the `config/index.ts` file:
    * @see https://docs.github.com/en/rest/reference/repos#releases
    *
    * The GitHub API token is optional for rate limiting.
-   * If you want to use it, create a personal access token with the `repo` scope.
+   * If you want to use it, create a read-only token: a fine-grained token with
+   * public repositories (read-only), or a classic token with no scopes.
    *
    * This information is used to fetch the releases from the GitHub API.
    */
@@ -119,8 +145,7 @@ You may configure the API in the `config/index.ts` file:
     apiUrl: 'https://api.github.com',
     releasesUrl: 'https://api.github.com/repos/gfazioli/next-app-nextra-template/releases',
   },
-
-...
+  ...
   /**
    * Release notes configuration
    * This is used to link the release notes in the app.
@@ -129,25 +154,20 @@ You may configure the API in the `config/index.ts` file:
     url: 'https://github.com/gfazioli/next-app-nextra-template/releases',
     maxReleases: 10,
   },
-  ...
 ```
 
-### Rate limiting
+`repo` is also sent to GitHub as the request's `User-Agent`, which GitHub requires.
 
-The GitHub API has a rate limit of 60 requests per hour for unauthenticated requests. If you want to increase the rate limit, you can create a personal access token with the `repo` scope and add it to the `GITHUB_TOKEN` environment variable.
+### Rate limiting and `GITHUB_TOKEN`
 
-You have to update `app/api/github-releases/route.ts`
+Without a token, GitHub allows 60 requests per hour from each IP address; with a token, 5,000 per hour. To use one, set the `GITHUB_TOKEN` environment variable: the route reads it on its own, with no code to change. If GitHub rejects the token (a `401`, or a `403` that is not a rate limit), the route retries without it, since public releases can be read anonymously.
 
-```ts {7}
-...
-    const response = await fetch(
-      `${config.gitHub.releasesUrl}?per_page=${config.releaseNotes.maxReleases}`,
-      {
-        headers: {
-          Accept: 'application/vnd.github+json',
-          // Authorization: `Bearer ${process.env.GITHUB_TOKEN}`, // Optional for rate limit
-        },
-      }
-    );
-...
-```    
+The token only reads public data, so give it nothing more: a fine-grained token with read-only access to public repositories, or a classic token with no scopes. The `repo` scope is not needed, and it would grant full access to your private repositories.
+
+## Version API
+
+`/api/version` returns the `version` field of `package.json`, for example:
+
+```json
+{ "version": "1.0.0" }
+```
