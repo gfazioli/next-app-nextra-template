@@ -1,5 +1,6 @@
 import config from '@/config';
 import * as pageFind from '../../../public/_pagefind/pagefind';
+import { toPageUrl } from './page-url';
 
 interface SearchResult {
   title: string;
@@ -83,7 +84,7 @@ export async function GET(request: Request) {
         content: result.content,
         items: result.sub_results.map((item: any) => ({
           title: item.title,
-          url: item.url,
+          url: toPageUrl(item.url),
           excerpt: item.excerpt,
         })),
       };

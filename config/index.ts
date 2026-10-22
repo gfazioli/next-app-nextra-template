@@ -72,7 +72,8 @@ export default {
    * @see https://docs.github.com/en/rest/reference/repos#releases
    *
    * The GitHub API token is optional for rate limiting.
-   * If you want to use it, create a personal access token with the `repo` scope.
+   * If you want to use it, create a read-only token: a fine-grained token with
+   * public repositories (read-only), or a classic token with no scopes.
    *
    * This information is used to fetch the releases from the GitHub API.
    */
