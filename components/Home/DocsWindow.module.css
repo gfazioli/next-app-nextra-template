@@ -17,20 +17,21 @@
 .tilt {
   transform: perspective(1400px) rotateY(-15deg) rotateX(7deg) rotateZ(1deg);
   transform-origin: 50% 50%;
-  transition: transform 700ms var(--site-ease);
 
   @media (max-width: $mantine-breakpoint-md) {
     transform: perspective(1400px) rotateY(-8deg) rotateX(5deg);
   }
 }
 
-.stage:hover .tilt {
-  transform: perspective(1400px) rotateY(-6deg) rotateX(3deg) rotateZ(0deg);
-}
-
 @media screen and (prefers-reduced-motion: no-preference) {
   .tilt {
+    transition: transform 700ms var(--site-ease);
     animation: settle 1100ms var(--site-ease) backwards;
+  }
+
+  /* The window turns toward the pointer: only with motion allowed. */
+  .stage:hover .tilt {
+    transform: perspective(1400px) rotateY(-6deg) rotateX(3deg) rotateZ(0deg);
   }
 
   .chip {
