@@ -1,0 +1,65 @@
+/*
+ * The site's own tokens, on top of Mantine's: what the home page and the footers are drawn with.
+ * The same file in the three sibling templates. On `body`, not `:root`: `light-dark()` is
+ * compiled by postcss-preset-mantine into selectors under the root's colour-scheme attribute.
+ *
+ * - `--site-ink`      headings.
+ * - `--site-text`     copy: at least 4.5:1 on the page and on a card in both schemes.
+ * - `--site-accent`   links and small labels in Mantine's blue, deep enough for small text.
+ * - `--site-frame`    the page's construction lines.
+ * - `--site-rule`     hairlines and card edges.
+ * - `--site-surface`  a card.
+ * - `--site-sunken`   code and wells.
+ * - `--site-glow`     the light painted behind a section: blue, and cyan beside it.
+ * - `--site-footer`   the footer's ground, a step away from the page.
+ * - `--site-gradient-*` the two ends of a heading's coloured words: Mantine's blue to cyan.
+ */
+body {
+  --site-ink: light-dark(#0b1c2e, var(--mantine-color-white));
+  --site-text: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  --site-accent: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-4));
+  --site-frame: light-dark(rgb(11 28 46 / 14%), rgb(255 255 255 / 14%));
+  --site-rule: light-dark(rgb(11 28 46 / 9%), rgb(255 255 255 / 9%));
+  --site-surface: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+  --site-sunken: light-dark(#f4f8fc, var(--mantine-color-dark-8));
+  --site-glow: light-dark(var(--mantine-color-blue-4), var(--mantine-color-blue-7));
+  --site-glow-alt: light-dark(var(--mantine-color-cyan-3), var(--mantine-color-cyan-8));
+  --site-footer: light-dark(#f0f5fa, var(--mantine-color-dark-8));
+  --site-shadow: light-dark(rgb(11 28 46 / 18%), rgb(0 0 0 / 55%));
+  --site-gradient-from: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-4));
+  --site-gradient-to: light-dark(var(--mantine-color-cyan-8), var(--mantine-color-cyan-3));
+
+  /* A spring sampled into linear(): it lands a little past its place and settles. */
+  --site-spring: linear(
+    0,
+    0.056,
+    0.193,
+    0.37,
+    0.556,
+    0.728,
+    0.872,
+    0.983,
+    1.059,
+    1.105,
+    1.124,
+    1.124,
+    1.111,
+    1.091,
+    1.068,
+    1.045,
+    1.025,
+    1.009,
+    0.997,
+    0.989,
+    0.985,
+    0.984,
+    0.985,
+    0.987,
+    0.99,
+    0.993,
+    0.996,
+    0.998,
+    1
+  );
+  --site-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

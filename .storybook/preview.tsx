@@ -1,7 +1,10 @@
 import '@mantine/core/styles.css';
 // !! The order of these imports is important !!
+import '@gfazioli/mantine-border-animate/styles.css';
 import '@gfazioli/mantine-marquee/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
+import '../theme/global.css';
+import '../theme/site.css';
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { theme } from '../theme';

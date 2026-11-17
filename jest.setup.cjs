@@ -33,4 +33,17 @@ if (typeof window === 'undefined') {
   }
 
   window.ResizeObserver = ResizeObserver;
+
+  // jsdom has no IntersectionObserver: the home page's reveals and Mantine's useInViewport ask
+  // for one. This one never reports an intersection.
+  class IntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return [];
+    }
+  }
+
+  window.IntersectionObserver = IntersectionObserver;
 }

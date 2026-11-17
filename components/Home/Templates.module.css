@@ -1,0 +1,187 @@
+/* The three templates, a card each; the current one is tinted in its engine's colour. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: rem(20px);
+  margin: rem(56px) 0 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: rem(560px);
+    margin-inline: auto;
+  }
+}
+
+.card {
+  --engine-from: var(--mantine-color-blue-7);
+  --engine-to: var(--mantine-color-cyan-7);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: rem(24px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(16px);
+  background: var(--site-surface);
+  box-shadow: 0 1px 2px rgb(11 28 46 / 5%);
+  text-align: left;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease;
+
+  &[data-engine='nextra'] {
+    --engine-from: var(--mantine-color-violet-7);
+    --engine-to: var(--mantine-color-grape-6);
+  }
+
+  &[data-engine='fumadocs'] {
+    --engine-from: var(--mantine-color-orange-8);
+    --engine-to: var(--mantine-color-pink-7);
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--engine-from) 55%, transparent);
+    transform: translateY(-3px);
+  }
+
+  &[data-current] {
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--engine-from) 11%, var(--site-surface)),
+      var(--site-surface) 62%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* The light on the current card's rim: see DocsWindow.module.css for why it is shown from here. */
+.beam {
+  --border-animate-active: 1 !important;
+}
+
+/* The extension does not read the system setting on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .beam,
+  .beam::after {
+    animation: none !important;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: rem(12px);
+}
+
+/* The engine's initial on a tile of its own gradient. */
+.mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: rem(44px);
+  height: rem(44px);
+  border-radius: rem(12px);
+  background: linear-gradient(135deg, var(--engine-from), var(--engine-to));
+  color: var(--mantine-color-white);
+  font-family: var(--mantine-font-family-headings);
+  font-size: rem(22px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.names {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  color: var(--site-ink);
+  font-size: rem(20px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.package {
+  color: var(--site-text);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+}
+
+.here {
+  flex: none;
+  align-self: flex-start;
+  padding: rem(3px) rem(9px);
+  border-radius: rem(999px);
+  background: var(--mantine-color-blue-8);
+  color: var(--mantine-color-white);
+  font-size: rem(11px);
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.tagline {
+  margin: rem(18px) 0 0;
+  color: var(--site-text);
+  font-size: rem(15px);
+  line-height: 1.55;
+}
+
+.points {
+  display: grid;
+  gap: rem(8px);
+  margin: rem(18px) 0 0;
+  padding: 0;
+  list-style: none;
+
+  & li {
+    display: flex;
+    align-items: flex-start;
+    gap: rem(8px);
+    color: var(--site-ink);
+    font-size: rem(14px);
+    line-height: 1.45;
+  }
+
+  & svg {
+    flex: none;
+    margin-top: rem(2px);
+    color: var(--site-accent);
+  }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: rem(18px);
+  margin-top: auto;
+  padding-top: rem(24px);
+}
+
+.git {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(5px);
+  color: var(--site-text);
+  font-size: rem(14px);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--site-ink);
+    text-decoration: underline;
+  }
+}

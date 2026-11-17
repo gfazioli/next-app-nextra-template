@@ -1,0 +1,99 @@
+/* A grid of cells divided by the frame's own lines, edge to edge of the frame. */
+.cells {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: rem(64px) rem(-48px) rem(-96px);
+  padding: 0;
+  border-top: 1px solid var(--site-frame);
+  list-style: none;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: rem(48px) rem(-28px) rem(-72px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    grid-template-columns: minmax(0, 1fr);
+    margin: rem(40px) rem(-16px) rem(-56px);
+  }
+}
+
+.cell {
+  padding: rem(40px) rem(48px);
+  border-right: 1px solid var(--site-frame);
+  border-bottom: 1px solid var(--site-frame);
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: color-mix(in srgb, var(--site-glow) 6%, transparent);
+  }
+
+  &:nth-child(3n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 3) {
+    border-bottom: 0;
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(32px) rem(28px);
+
+    &:nth-child(3n) {
+      border-right: 1px solid var(--site-frame);
+    }
+
+    &:nth-child(2n) {
+      border-right: 0;
+    }
+
+    &:nth-last-child(-n + 3) {
+      border-bottom: 1px solid var(--site-frame);
+    }
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(28px) rem(16px);
+    border-right: 0 !important;
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 1px solid var(--site-frame);
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+/* The icon in a tile of Mantine's light blue. */
+.icon {
+  display: grid;
+  place-items: center;
+  width: rem(42px);
+  height: rem(42px);
+  border: 1px solid color-mix(in srgb, var(--site-accent) 22%, transparent);
+  border-radius: rem(11px);
+  background: var(--mantine-color-blue-light);
+  color: var(--site-accent);
+}
+
+.title {
+  margin: rem(18px) 0 0;
+  color: var(--site-ink);
+  font-size: rem(19px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.body {
+  margin: rem(8px) 0 0;
+  color: var(--site-text);
+  font-size: rem(15px);
+  line-height: 1.6;
+}

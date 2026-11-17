@@ -1,0 +1,203 @@
+/*
+ * The home page's construction, the same in the three sibling templates: the page is drawn as a
+ * blueprint. Two dashed lines run down the container's edges, a rule crosses the page between
+ * sections, and a small registration mark sits where they meet. Colours come from theme/site.css.
+ */
+
+.page {
+  position: relative;
+  overflow-x: clip;
+  width: 100%;
+  color: var(--site-text);
+}
+
+/* The two side lines, the full height of the page, at the container's edges. */
+.frame {
+  position: relative;
+  max-width: rem(1200px);
+  margin-inline: auto;
+  border-inline: 1px dashed var(--site-frame);
+
+  @media (max-width: rem(1232px)) {
+    border-inline: 0;
+  }
+}
+
+/* A rule across the page between two sections, with a registration mark at each crossing. */
+.rule {
+  position: relative;
+  height: 0;
+  margin-inline: calc(50% - 50vw);
+  border-top: 1px solid var(--site-frame);
+}
+
+.rule::before,
+.rule::after {
+  position: absolute;
+  top: rem(-7px);
+  width: rem(13px);
+  height: rem(13px);
+  /* A cross: one stroke each way, over a dot of the page that cuts the lines under it. */
+  background:
+    linear-gradient(var(--site-accent), var(--site-accent)) center / 100% rem(1.5px) no-repeat,
+    linear-gradient(var(--site-accent), var(--site-accent)) center / rem(1.5px) 100% no-repeat,
+    radial-gradient(circle, var(--mantine-color-body) 60%, transparent 62%);
+  content: '';
+
+  @media (max-width: rem(1232px)) {
+    display: none;
+  }
+}
+
+.rule::before {
+  left: calc(50vw - rem(600px) - rem(6px));
+}
+
+.rule::after {
+  right: calc(50vw - rem(600px) - rem(6px));
+}
+
+/* A section inside the frame: its own padding, its content in the measure. */
+.section {
+  position: relative;
+  padding: rem(96px) rem(48px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(72px) rem(28px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(56px) rem(16px);
+  }
+}
+
+/* A section below the fold stays out of the first render: the browser lays it out as the
+   reader approaches, or when RenderLater hands it back once the page has loaded. The intrinsic
+   size is its placeholder until then. */
+.section[data-render='later']:not([data-rendered]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto rem(780px);
+}
+
+/* The small caps over a heading, in monospace. */
+.eyebrow {
+  display: block;
+  margin: 0 0 rem(14px);
+  color: var(--site-accent);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.h2 {
+  margin: 0;
+  color: var(--site-ink);
+  font-size: clamp(rem(30px), 4vw, rem(46px));
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: rem(580px);
+  margin: rem(16px) 0 0;
+  color: var(--site-text);
+  font-size: rem(17px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.center {
+  text-align: center;
+
+  & .lead {
+    margin-inline: auto;
+  }
+}
+
+/* A word of a heading in Mantine's blue to cyan. */
+.gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--site-gradient-from) 10%,
+    var(--site-gradient-to) 90%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* The page's buttons are Mantine's: these only add the lift and the two looks. */
+.button {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Filled, in a blue deep enough for white text (blue.8, 5:1; Mantine's blue.6 is 3.5:1). */
+.primary {
+  --button-bg: var(--mantine-color-blue-8);
+  --button-hover: var(--mantine-color-blue-9);
+  --button-color: var(--mantine-color-white);
+
+  box-shadow: 0 10px 24px -12px var(--mantine-color-blue-8);
+}
+
+.secondary {
+  --button-bg: var(--site-surface);
+  --button-hover: var(--site-surface);
+  --button-color: var(--site-ink);
+  --button-bd: 1px solid var(--site-frame);
+
+  &:hover {
+    border-color: var(--site-accent);
+  }
+
+  & svg {
+    color: var(--site-accent);
+  }
+}
+
+/* A text link with an arrow. */
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(4px);
+  color: var(--site-accent);
+  font-size: rem(14px);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

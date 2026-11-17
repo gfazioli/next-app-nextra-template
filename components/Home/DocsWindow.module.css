@@ -1,0 +1,328 @@
+/*
+ * The docs page of the hero: a window tilted in space, with two chips floating over its corners.
+ * The tilt is a static transform; what moves (the window settling as the page opens, the chips
+ * bobbing, the light on the rim) moves by transform alone.
+ */
+.stage {
+  position: relative;
+  max-width: rem(540px);
+  margin-inline: auto;
+  padding: rem(28px) 0;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-top: rem(16px);
+  }
+}
+
+.tilt {
+  transform: perspective(1400px) rotateY(-15deg) rotateX(7deg) rotateZ(1deg);
+  transform-origin: 50% 50%;
+  transition: transform 700ms var(--site-ease);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    transform: perspective(1400px) rotateY(-8deg) rotateX(5deg);
+  }
+}
+
+.stage:hover .tilt {
+  transform: perspective(1400px) rotateY(-6deg) rotateX(3deg) rotateZ(0deg);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .tilt {
+    animation: settle 1100ms var(--site-ease) backwards;
+  }
+
+  .chip {
+    animation: bob 6s ease-in-out infinite alternate;
+  }
+
+  .chip[data-chip='engine'] {
+    animation-duration: 7.5s;
+    animation-delay: -3s;
+  }
+}
+
+/* Only where it starts: it ends on whatever the rule above says. */
+@keyframes settle {
+  from {
+    transform: perspective(1400px) rotateY(-30deg) rotateX(14deg) rotateZ(2deg)
+      translate3d(0, 32px, 0);
+  }
+}
+
+@keyframes bob {
+  from {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+/* The rim's light. With `trigger="inView"` the extension runs it only while it is on screen, but
+   its rule that hides an idle border outweighs the one that shows an active one (3.0.11), so the
+   border is shown from here. */
+.beam {
+  --border-animate-active: 1 !important;
+}
+
+/* The extension does not read the system setting on its own: with Reduce Motion the rim's light
+   stands still. */
+@media (prefers-reduced-motion: reduce) {
+  .beam,
+  .beam::after {
+    animation: none !important;
+  }
+}
+
+.window {
+  overflow: hidden;
+  border: 1px solid var(--site-frame);
+  border-radius: rem(14px);
+  background: var(--site-surface);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--site-glow) 12%, transparent),
+    0 40px 70px -36px var(--site-shadow);
+  color: var(--site-text);
+  font-size: rem(10px);
+  line-height: 1.5;
+  user-select: none;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: rem(12px);
+  padding: rem(10px) rem(12px);
+  border-bottom: 1px solid var(--site-rule);
+  background: var(--site-sunken);
+}
+
+.dots {
+  display: flex;
+  gap: rem(6px);
+
+  & i {
+    width: rem(9px);
+    height: rem(9px);
+    border-radius: 50%;
+    background: #ff5f57;
+  }
+
+  & i:nth-child(2) {
+    background: #febc2e;
+  }
+
+  & i:nth-child(3) {
+    background: #28c840;
+  }
+}
+
+.address {
+  flex: 1;
+  max-width: rem(220px);
+  margin-inline: auto;
+  padding: rem(2px) rem(10px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(999px);
+  background: var(--site-surface);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(9px);
+  text-align: center;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: rem(124px) minmax(0, 1fr) rem(92px);
+  min-height: rem(300px);
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    grid-template-columns: rem(108px) minmax(0, 1fr);
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: rem(3px);
+  padding: rem(12px) rem(10px);
+  border-right: 1px solid var(--site-rule);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: rem(5px);
+  margin-bottom: rem(8px);
+  padding: rem(4px) rem(6px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(6px);
+  background: var(--site-sunken);
+
+  & kbd {
+    margin-left: auto;
+    font-family: var(--mantine-font-family-monospace);
+    font-size: rem(8px);
+  }
+}
+
+.navItem {
+  padding: rem(4px) rem(8px);
+  border-radius: rem(5px);
+  font-weight: 500;
+  white-space: nowrap;
+
+  &[data-active] {
+    background: var(--mantine-color-blue-light);
+    color: var(--mantine-color-blue-light-color);
+  }
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: rem(7px);
+  min-width: 0;
+  padding: rem(14px) rem(16px);
+}
+
+.crumbs {
+  font-size: rem(8.5px);
+}
+
+.heading {
+  margin-bottom: rem(2px);
+  color: var(--site-ink);
+  font-family: var(--mantine-font-family-headings);
+  font-size: rem(17px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* A line of copy, as a bar. */
+.text {
+  display: block;
+  height: rem(6px);
+  border-radius: rem(3px);
+  background: var(--site-frame);
+}
+
+.code {
+  display: flex;
+  flex-direction: column;
+  margin-block: rem(4px);
+  padding: rem(8px) rem(10px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(7px);
+  background: var(--site-sunken);
+  color: var(--site-ink);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(8.5px);
+  line-height: 1.6;
+  white-space: nowrap;
+
+  & b {
+    color: light-dark(var(--mantine-color-grape-8), var(--mantine-color-grape-3));
+    font-weight: 500;
+  }
+
+  & em {
+    color: light-dark(var(--mantine-color-teal-9), var(--mantine-color-teal-3));
+    font-style: normal;
+  }
+
+  & u {
+    color: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-3));
+    text-decoration: none;
+  }
+}
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: rem(6px);
+  margin-block: rem(2px);
+  padding: rem(9px) rem(10px);
+  border-left: 3px solid var(--mantine-color-blue-filled);
+  border-radius: rem(5px);
+  background: var(--mantine-color-blue-light);
+}
+
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: rem(5px);
+  padding: rem(14px) rem(10px);
+  border-left: 1px solid var(--site-rule);
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: none;
+  }
+}
+
+.tocTitle {
+  margin-bottom: rem(2px);
+  color: var(--site-ink);
+  font-size: rem(8.5px);
+  font-weight: 700;
+}
+
+.tocItem {
+  padding-left: rem(8px);
+  border-left: 2px solid var(--site-rule);
+  font-size: rem(8.5px);
+  white-space: nowrap;
+
+  &[data-active] {
+    border-left-color: var(--site-accent);
+    color: var(--site-accent);
+    font-weight: 600;
+  }
+}
+
+/* A chip floating over a corner of the window. */
+.chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: rem(6px);
+  padding: rem(7px) rem(12px);
+  border: 1px solid var(--site-frame);
+  border-radius: rem(999px);
+  background: var(--site-surface);
+  box-shadow: 0 14px 28px -14px var(--site-shadow);
+  color: var(--site-ink);
+  font-size: rem(13px);
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+
+  & svg {
+    color: var(--site-accent);
+  }
+
+  &[data-chip='mantine'] {
+    top: rem(4px);
+    right: rem(-8px);
+  }
+
+  &[data-chip='engine'] {
+    bottom: rem(8px);
+    left: rem(-18px);
+    font-family: var(--mantine-font-family-monospace);
+    font-size: rem(12px);
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    &[data-chip='mantine'] {
+      right: rem(4px);
+    }
+
+    &[data-chip='engine'] {
+      left: rem(4px);
+    }
+  }
+}

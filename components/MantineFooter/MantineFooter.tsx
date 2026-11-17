@@ -1,215 +1,160 @@
 'use client';
 
 import {
-  ActionIcon,
-  Anchor,
-  Container,
-  Divider,
-  Grid,
-  Group,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-} from '@mantine/core';
-import {
-  IconBrandGithubFilled,
+  IconBrandGithub,
   IconBrandMantine,
-  IconBrandVercel,
+  IconBrandNextjs,
   IconBrandX,
   IconMailHeart,
 } from '@tabler/icons-react';
-import packageJson from '../../package.json';
+import { site } from '@/config/site';
+import { templateList } from '@/config/templates';
+import pack from '../../package.json';
 import { AnimateBadge } from './AnimateBadge';
 import { apps, highlights, mantineComponentCategories, resources } from './links';
 import classes from './MantineFooter.module.css';
 
-type VerticalLink = {
+interface FooterLink {
   key: string;
   title: string;
   href: string;
   newWindow?: boolean;
+  /** A badge beside the link */
   new?: boolean;
-};
+  /** This very site, among its siblings */
+  current?: boolean;
+}
 
-const VerticalLinks = ({ list, fz }: { list: VerticalLink[]; fz?: number }) => {
+const SOCIAL = [
+  { label: 'GitHub', href: 'https://github.com/gfazioli', icon: IconBrandGithub },
+  { label: 'X (Twitter)', href: 'https://twitter.com/gfazioli', icon: IconBrandX },
+  { label: 'Blog', href: 'https://undolog.com/', icon: IconMailHeart },
+];
+
+/** The three sibling templates, each at its live demo: the footer's first column everywhere. */
+const TEMPLATES: FooterLink[] = templateList.map((template) => ({
+  key: template.key,
+  title: `Mantine + ${template.engine}`,
+  href: template.demo,
+  current: template.key === site.key,
+}));
+
+function Links({ list }: { list: FooterLink[] }) {
   return (
-    <>
+    <ul className={classes.links}>
       {list.map((item) => (
-        <Group key={item.key} gap={6} wrap="nowrap">
-          <Anchor
-            className={classes.columnAnchor}
+        <li key={item.key}>
+          <a
+            className={classes.link}
             href={item.href}
             target={item.newWindow ? '_blank' : undefined}
             rel={item.newWindow ? 'noopener noreferrer' : undefined}
-            fz={fz}
+            aria-current={item.current ? 'page' : undefined}
           >
             {item.title}
-          </Anchor>
+          </a>
+          {item.current && <span className={classes.current}>This site</span>}
           {item.new && <AnimateBadge />}
-        </Group>
+        </li>
       ))}
-    </>
+    </ul>
   );
-};
+}
 
-const ColumnTitle = ({ children }: { children: React.ReactNode }) => (
-  <Title className={classes.title} order={2} size="h6">
-    {children}
-  </Title>
-);
+function Column({ title, list }: { title: string; list: FooterLink[] }) {
+  return (
+    <nav aria-label={title} className={classes.column}>
+      <h2 className={classes.title}>{title}</h2>
+      <Links list={list} />
+    </nav>
+  );
+}
 
-const SubTitle = ({ children }: { children: React.ReactNode }) => (
-  <Text className={classes.subTitle} fz={11} fw={600} c="dimmed" tt="uppercase" lts={0.5}>
-    {children}
-  </Text>
-);
-
+/**
+ * The site footer, the same in the three sibling templates: the project, the three templates
+ * (this one marked), the Mantine links and the author's apps; every Mantine extension by
+ * category; the colophon.
+ *
+ * A client component on purpose: it is on every page, and as a server component its hundred
+ * links travelled twice in each document, as markup and again in the RSC payload (5.4 KiB
+ * gzipped, measured). As client code they travel once more only in a script that is cached.
+ */
 export const MantineFooter = () => {
   return (
-    <div className={classes.contentFooter}>
-      <Container className={classes.footer} size="lg">
-        {/* Top tier — About + 3 link columns */}
-        <Grid grow>
-          <Grid.Col span={{ base: 12, sm: 4 }}>
-            <Stack gap="xs">
-              {/* The tile is filled blue: the glyph takes its white, as in Mantine's own mark. The
-                  header's blue Logo on this tile was blue on blue, barely visible in light mode. */}
-              <ThemeIcon>
-                <IconBrandMantine size={20} />
-              </ThemeIcon>
-              <Text fz={13} mr={64}>
-                This is a template for Next.js + Mantine + Nextra documentation sites. Feel free to
-                use it and{' '}
-                <Anchor
-                  fz={13}
-                  underline="always"
-                  href="https://github.com/gfazioli/next-app-nextra-template"
-                >
-                  contribute to it
-                </Anchor>
-                . Don't forget to star it on{' '}
-                <Anchor
-                  fz={13}
-                  underline="always"
-                  href="https://github.com/gfazioli/next-app-nextra-template"
-                >
-                  GitHub
-                </Anchor>
-                . And if you wish, you can also follow me on{' '}
-                <Anchor fz={13} underline="always" href="https://twitter.com/gfazioli">
-                  Twitter
-                </Anchor>
-                . Obviously, you can also{' '}
-                <Anchor fz={13} underline="always" href="https://github.com/sponsors/gfazioli">
-                  donate
-                </Anchor>{' '}
-                to support the development of this project.
-              </Text>
-              <Group>
-                <ActionIcon
-                  variant="subtle"
-                  component="a"
-                  href="https://github.com/gfazioli"
-                  aria-label="GitHub"
-                >
-                  <IconBrandGithubFilled size={24} />
-                </ActionIcon>
-                <ActionIcon
-                  variant="subtle"
-                  component="a"
-                  href="https://twitter.com/gfazioli"
-                  aria-label="X (Twitter)"
-                >
-                  <IconBrandX size={24} />
-                </ActionIcon>
-                <ActionIcon
-                  variant="subtle"
-                  component="a"
-                  href="https://undolog.com/"
-                  aria-label="Blog"
-                >
-                  <IconMailHeart size={24} />
-                </ActionIcon>
-              </Group>
-            </Stack>
-          </Grid.Col>
+    <footer className={classes.root}>
+      <div className={classes.inner}>
+        <div className={classes.top}>
+          <div className={classes.brand}>
+            <span className={classes.logo} aria-hidden="true">
+              <IconBrandMantine size={24} stroke={1.6} />
+            </span>
+            <p className={classes.name}>{site.name}</p>
+            <p className={classes.blurb}>
+              {site.tagline} Free and open source:{' '}
+              <a href={`https://github.com/${site.repo}`}>star it on GitHub</a>,{' '}
+              <a href={`https://github.com/${site.repo}/issues`}>report an issue</a> or{' '}
+              <a href="https://github.com/sponsors/gfazioli">sponsor the work</a>.
+            </p>
+            <ul className={classes.social}>
+              {SOCIAL.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a href={href} aria-label={label} className={classes.socialLink}>
+                    <Icon size={20} stroke={1.6} aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <Grid.Col className={classes.column} span={{ base: 6, sm: 2 }}>
-            <Stack gap="xs">
-              <ColumnTitle>HIGHLIGHTS</ColumnTitle>
-              <VerticalLinks list={highlights} />
-            </Stack>
-          </Grid.Col>
+          <Column title="Templates" list={TEMPLATES} />
+          <Column title="Highlights" list={highlights} />
+          <Column title="Mantine" list={resources} />
+          <Column title="Apps" list={apps} />
+        </div>
 
-          <Grid.Col className={classes.column} span={{ base: 6, sm: 2 }}>
-            <Stack gap="xs">
-              <ColumnTitle>MANTINE</ColumnTitle>
-              <VerticalLinks list={resources} />
-            </Stack>
-          </Grid.Col>
-
-          <Grid.Col className={classes.column} span={{ base: 6, sm: 2 }}>
-            <Stack gap="xs">
-              <ColumnTitle>APPS</ColumnTitle>
-              <VerticalLinks list={apps} />
-            </Stack>
-          </Grid.Col>
-        </Grid>
-
-        <Divider my="xl" className={classes.lastDivider} />
-
-        {/* Second tier — Mantine Components grouped by category */}
-        <Stack gap="md">
-          <ColumnTitle>OTHER MANTINE EXTENSIONS</ColumnTitle>
-          <Grid grow>
-            {mantineComponentCategories.map((cat) => (
-              <Grid.Col key={cat.key} className={classes.column} span={{ base: 6, sm: 3 }}>
-                <Stack gap="xs">
-                  <SubTitle>{cat.title}</SubTitle>
-                  <VerticalLinks list={[...cat.links]} />
-                </Stack>
-              </Grid.Col>
+        <div className={classes.extensions}>
+          <h2 className={classes.title}>Mantine Extensions</h2>
+          <div className={classes.categories}>
+            {mantineComponentCategories.map((category) => (
+              <nav key={category.key} aria-label={category.title} className={classes.column}>
+                <h3 className={classes.subTitle}>{category.title}</h3>
+                <Links list={[...category.links]} />
+              </nav>
             ))}
-          </Grid>
-        </Stack>
+          </div>
+        </div>
 
-        <Divider my={16} className={classes.lastDivider} />
-
-        <Group justify="flex-end">
-          <Group justify="right">
-            <Text fz={12} inline>
-              Made with ❤️ by{' '}
-              <Anchor fz={13} href="https://gfazioli.github.io/">
-                Undolog
-              </Anchor>
-            </Text>
-            <Divider orientation="vertical" />
-            <Text fz={12} inline>
-              <Group gap={4} component="span">
-                Hosted on{' '}
-                <Anchor fz={13} href="https://vercel.com/">
-                  <Group gap={4} component="span">
-                    <IconBrandVercel size={16} /> Vercel.com
-                  </Group>
-                </Anchor>
-              </Group>
-            </Text>
-            <Divider orientation="vertical" />
-            <Text fz={12} inline>
-              <Group gap={4} component="span" justify="flex-start">
-                Built with{' '}
-                <Anchor fz={13} href="https://mantine.dev/">
-                  <Group gap={4} component="span">
-                    <IconBrandMantine size={16} /> Mantine v
-                    {packageJson.dependencies['@mantine/core']}
-                  </Group>
-                </Anchor>
-              </Group>
-            </Text>
-          </Group>
-        </Group>
-      </Container>
-    </div>
+        <div className={classes.colophon}>
+          <p className={classes.credits}>
+            Made with ❤️ by <a href="https://gfazioli.github.io/">Undolog</a>
+            <span className={classes.dot} aria-hidden="true">
+              ·
+            </span>
+            Hosted on <a href={site.host.href}>{site.host.name}</a>
+            <span className={classes.dot} aria-hidden="true">
+              ·
+            </span>
+            Built with{' '}
+            <a href="https://nextjs.org/" className={classes.built}>
+              <IconBrandNextjs size={15} aria-hidden="true" />
+              Next.js
+            </a>
+            ,{' '}
+            <a href="https://mantine.dev/" className={classes.built}>
+              <IconBrandMantine size={15} aria-hidden="true" />
+              Mantine v{pack.dependencies['@mantine/core']}
+            </a>{' '}
+            and {site.engineName}
+          </p>
+          <p className={classes.credits}>
+            v{pack.version}
+            <span className={classes.dot} aria-hidden="true">
+              ·
+            </span>
+            <a href={`https://github.com/${site.repo}/blob/main/LICENCE`}>MIT licence</a>
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 };

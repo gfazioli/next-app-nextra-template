@@ -1,0 +1,137 @@
+/*
+ * The hero, two columns: the copy on the left, a docs page on the right. Its ground is the page
+ * with two lights painted once (no layer moves): blue behind the drawing, cyan low on the left.
+ */
+.hero {
+  /* The engine's own colours, for the one word of the headline that names it. */
+  --engine-from: var(--site-gradient-from);
+  --engine-to: var(--site-gradient-to);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: rem(32px);
+  min-height: min(rem(720px), calc(100svh - rem(64px)));
+  padding: rem(72px) rem(48px) rem(64px);
+  background:
+    radial-gradient(
+      ellipse 55% 65% at 78% 42%,
+      color-mix(in srgb, var(--site-glow) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 45% 50% at 0% 100%,
+      color-mix(in srgb, var(--site-glow-alt) 16%, transparent),
+      transparent 70%
+    );
+
+  &[data-engine='nextra'] {
+    --engine-from: light-dark(var(--mantine-color-violet-8), var(--mantine-color-violet-4));
+    --engine-to: light-dark(var(--mantine-color-grape-7), var(--mantine-color-pink-4));
+  }
+
+  &[data-engine='fumadocs'] {
+    --engine-from: light-dark(var(--mantine-color-orange-9), var(--mantine-color-orange-4));
+    --engine-to: light-dark(var(--mantine-color-pink-8), var(--mantine-color-pink-4));
+  }
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: rem(56px) rem(28px) rem(40px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(40px) rem(16px) rem(32px);
+  }
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+/* The release, as a pill over the headline. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(8px);
+  margin-bottom: rem(28px);
+  padding: rem(4px) rem(12px) rem(4px) rem(4px);
+  border: 1px solid var(--site-frame);
+  border-radius: rem(999px);
+  background: var(--site-surface);
+  color: var(--site-ink);
+  font-size: rem(13px);
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: border-color 150ms ease;
+
+  &:hover {
+    border-color: var(--site-accent);
+  }
+
+  & svg {
+    color: var(--site-accent);
+  }
+}
+
+.pillTag {
+  padding: rem(2px) rem(9px);
+  border-radius: rem(999px);
+  background: var(--mantine-color-blue-8);
+  color: var(--mantine-color-white);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+  font-weight: 700;
+}
+
+.title {
+  margin: 0;
+  color: var(--site-ink);
+  font-size: clamp(rem(42px), 5.6vw, rem(72px));
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+/* The engine, in its own colours, on a line of its own where the measure allows. */
+.engine {
+  background-image: linear-gradient(100deg, var(--engine-from) 10%, var(--engine-to) 90%);
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  max-width: rem(540px);
+  margin: rem(24px) 0 0;
+  color: var(--site-text);
+  font-size: rem(18px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(12px);
+  margin-top: rem(32px);
+}
+
+.install {
+  margin-top: rem(28px);
+}
+
+.badge {
+  display: flex;
+  margin-top: rem(20px);
+}
+
+.visual {
+  position: relative;
+  min-width: 0;
+}

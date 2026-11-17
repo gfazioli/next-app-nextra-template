@@ -1,0 +1,79 @@
+/*
+ * The closing call: the frame's ground turns to graph paper in the page's rule, fading out at
+ * the edges, with a light in the middle. Painted once: nothing here moves but the content.
+ */
+.cta {
+  overflow: hidden;
+  padding-block: rem(120px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding-block: rem(80px);
+  }
+}
+
+/* The paper is a layer of its own, so its mask fades the grid and never the content. */
+.cta::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 50% 60% at 50% 45%,
+      color-mix(in srgb, var(--site-glow) 20%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(var(--site-rule) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, var(--site-rule) 1px, transparent 1px) 0 0 / 32px 32px;
+  content: '';
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  & p {
+    margin-inline: auto;
+  }
+}
+
+/* Mantine's mark on a tile of its own blue to cyan. */
+.logo {
+  display: grid;
+  place-items: center;
+  width: rem(64px);
+  height: rem(64px);
+  border-radius: rem(18px);
+  background: linear-gradient(135deg, var(--mantine-color-blue-7), var(--mantine-color-cyan-6));
+  box-shadow: 0 18px 36px -16px var(--mantine-color-blue-7);
+  color: var(--mantine-color-white);
+}
+
+.title {
+  max-width: rem(760px);
+  margin: rem(24px) 0 0;
+  color: var(--site-ink);
+  font-size: clamp(rem(34px), 5vw, rem(60px));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: rem(12px);
+  margin-top: rem(32px);
+}
+
+.install {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: rem(28px);
+}

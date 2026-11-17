@@ -1,0 +1,73 @@
+/* The install command: one terminal line in a well. */
+.line {
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+  /* Its own width, not its command's: in a flex row it would grow to the unbroken command and
+     push the page sideways on a phone. */
+  width: 100%;
+  min-width: 0;
+  max-width: rem(560px);
+  padding: rem(6px) rem(6px) rem(6px) rem(14px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(10px);
+  background: var(--site-sunken);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(13px);
+  text-align: left;
+}
+
+.prompt {
+  color: var(--site-accent);
+  font-weight: 700;
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--site-ink);
+  font-family: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--site-accent);
+    outline-offset: 4px;
+  }
+}
+
+.copy {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: rem(32px);
+  height: rem(32px);
+  padding: 0;
+  border: 1px solid var(--site-rule);
+  border-radius: rem(8px);
+  background: var(--site-surface);
+  color: var(--site-text);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+
+  &:hover {
+    border-color: var(--site-accent);
+    color: var(--site-accent);
+  }
+
+  &[data-copied] {
+    color: light-dark(var(--mantine-color-green-9), var(--mantine-color-green-4));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--site-accent);
+    outline-offset: 2px;
+  }
+}
