@@ -1,17 +1,35 @@
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgb(255, 0, 0, 0.7);
-  }
+/* A ring that grows out of the badge and fades: a pseudo-element animated by transform and
+   opacity only, so it runs on the compositor (an animated box-shadow repaints every frame). */
+.badgeNew {
+  position: relative;
+  overflow: visible;
+}
 
-  70% {
-    box-shadow: 0 0 0 10px rgb(255, 0, 0, 0);
-  }
+.badgeNew::after {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--badge-bg, var(--mantine-color-red-filled));
+  border-radius: inherit;
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+}
 
-  100% {
-    box-shadow: 0 0 0 0 rgb(255, 0, 0, 0);
+@media screen and (prefers-reduced-motion: no-preference) {
+  .badgeNew::after {
+    animation: pulse 1.8s ease-out infinite;
   }
 }
 
-.badgeNew {
-  animation: pulse 1.5s infinite;
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5, 2);
+  }
 }

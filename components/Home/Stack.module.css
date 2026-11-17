@@ -1,0 +1,233 @@
+/*
+ * The versions, as a spec sheet rather than a terminal: a label cell, then one cell per package
+ * the template stands on, divided by the frame's own lines; under them every other dependency as
+ * a two-tone tag. It runs edge to edge of the frame.
+ */
+.stack {
+  border-block: 1px solid var(--site-frame);
+}
+
+.belt {
+  display: grid;
+  grid-template-columns: rem(264px) minmax(0, 1fr);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: rem(10px);
+  padding: rem(28px) rem(32px) rem(28px) rem(48px);
+  border-right: 1px solid var(--site-frame);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(24px) rem(28px);
+    border-right: 0;
+    border-bottom: 1px solid var(--site-frame);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(20px) rem(16px);
+  }
+}
+
+.title {
+  margin: 0;
+  color: var(--site-accent);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.note {
+  margin: 0;
+  color: var(--site-text);
+  font-size: rem(14px);
+  line-height: 1.55;
+
+  & code {
+    padding: 0;
+    background: transparent;
+    color: var(--site-ink);
+    font-family: var(--mantine-font-family-monospace);
+    font-size: 0.92em;
+  }
+}
+
+.core {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cell {
+  border-right: 1px solid var(--site-rule);
+  border-bottom: 1px solid var(--site-rule);
+
+  &:nth-child(3n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 3) {
+    border-bottom: 0;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    &:nth-child(3n) {
+      border-right: 1px solid var(--site-rule);
+    }
+
+    &:nth-child(2n) {
+      border-right: 0;
+    }
+
+    &:nth-last-child(-n + 3) {
+      border-bottom: 1px solid var(--site-rule);
+    }
+
+    &:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+}
+
+.cellInner {
+  display: flex;
+  flex-direction: column;
+  gap: rem(2px);
+  padding: rem(22px) rem(28px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(18px) rem(16px);
+  }
+}
+
+.cellHead {
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+  color: var(--site-ink);
+  font-size: rem(14px);
+  font-weight: 600;
+
+  & svg {
+    flex: none;
+    color: var(--site-accent);
+  }
+}
+
+/* The figure: Outfit, tabular, large enough to be read across the room. */
+.version {
+  color: var(--site-ink);
+  font-family: var(--mantine-font-family-headings);
+  font-size: clamp(rem(28px), 3.2vw, rem(40px));
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.package {
+  overflow: hidden;
+  color: var(--site-text);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(11.5px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rest {
+  display: grid;
+  grid-template-columns: rem(264px) minmax(0, 1fr);
+  align-items: start;
+  border-top: 1px solid var(--site-frame);
+  background: color-mix(in srgb, var(--site-sunken) 60%, transparent);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.restLabel {
+  margin: 0;
+  padding: rem(24px) rem(32px) rem(24px) rem(48px);
+  color: var(--site-text);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: rem(20px) rem(28px) 0;
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(20px) rem(16px) 0;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(8px);
+  margin: 0;
+  padding: rem(20px) rem(28px);
+  list-style: none;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(16px);
+  }
+}
+
+/* A tag in two tones: the name, and the range in a tinted end. */
+.tag {
+  display: inline-flex;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--site-rule);
+  border-radius: rem(7px);
+  background: var(--site-surface);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(12px);
+  line-height: 1.5;
+}
+
+.tagName {
+  overflow: hidden;
+  padding: rem(3px) rem(9px);
+  color: var(--site-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tagVersion {
+  flex: none;
+  padding: rem(3px) rem(9px);
+  border-left: 1px solid var(--site-rule);
+  background: var(--site-sunken);
+  color: var(--site-text);
+}
+
+/* Our own extensions, picked out in Mantine's blue. */
+.tag[data-own] {
+  border-color: color-mix(in srgb, var(--site-accent) 45%, transparent);
+
+  & .tagVersion {
+    border-left-color: color-mix(in srgb, var(--site-accent) 45%, transparent);
+    background: var(--mantine-color-blue-light);
+    color: var(--site-ink);
+  }
+}

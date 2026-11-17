@@ -1,0 +1,118 @@
+/*
+ * Scroll reveals. A scope is what an IntersectionObserver watches (useReveal); an item is what
+ * moves. Scopes are not nested: an item answers to the nearest scope above it.
+ *
+ * A scope has three states. At REST (no attribute) its items are where the layout put them: the
+ * served HTML, the first paint, and what stays if the scripts never run. Once mounted, a scope
+ * entirely off screen is ARMED (data-armed): its items snap to their starting pose where nobody
+ * can see them do it. The first time it comes into view it is REVEALED (data-revealed), and they
+ * come to where the layout put them.
+ *
+ * Only transform and opacity ever change, so every reveal runs on the compositor. Only on a
+ * screen and without Reduce Motion: otherwise, and on paper, everything is simply there.
+ */
+
+.item {
+  --reveal-delay: 0ms;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* Only a revealed item has a transition, so arming snaps it into its pose. */
+  .scope[data-revealed] .item,
+  .scope.item[data-revealed] {
+    transition:
+      opacity 520ms var(--site-ease) var(--reveal-delay),
+      transform 900ms var(--site-spring) var(--reveal-delay);
+  }
+
+  .scope[data-revealed] .item[data-reveal='rise'],
+  .scope.item[data-reveal='rise'][data-revealed] {
+    transition:
+      opacity 520ms var(--site-ease) var(--reveal-delay),
+      transform 640ms var(--site-ease) var(--reveal-delay);
+  }
+
+  .scope[data-armed]:not([data-revealed]) .item,
+  .scope.item[data-armed]:not([data-revealed]) {
+    opacity: 0;
+  }
+
+  /* Text: a short lift, no overshoot, so it stays readable as it lands. */
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='rise'],
+  .scope.item[data-reveal='rise'][data-armed]:not([data-revealed]) {
+    transform: translate3d(0, 24px, 0);
+  }
+
+  /* A card: low and squashed, it lands and settles into shape. */
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='card'],
+  .scope.item[data-reveal='card'][data-armed]:not([data-revealed]) {
+    transform: translate3d(0, 40px, 0) scale(0.94, 0.86);
+    transform-origin: 50% 100%;
+  }
+
+  /* A chip or a figure: from a point, past its size, back. */
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='pop'],
+  .scope.item[data-reveal='pop'][data-armed]:not([data-revealed]) {
+    transform: scale(0.6);
+  }
+}
+
+/*
+ * The odometer (RollingNumber). The real value sits in a visually hidden span; the digits that
+ * roll are generated content, which is not part of the text.
+ */
+.number {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+  vertical-align: top;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.odometer {
+  display: inline-flex;
+}
+
+/* One window per digit, one line tall; the strip behind it holds 0-9 and a last 0, so an
+   overshoot past a 9 shows the 0 an odometer would. */
+.digit {
+  display: inline-block;
+  height: 1.2em;
+  height: 1lh;
+  overflow: hidden;
+}
+
+.strip {
+  display: block;
+  transform: translate3d(0, calc(var(--d) * -100% / 11), 0);
+}
+
+.strip::before {
+  display: block;
+  white-space: pre;
+  content: '0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 0';
+}
+
+.glyph::before {
+  white-space: pre;
+  content: attr(data-ch);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* Armed and revealed as a scope is: zeros only once a script has found the number off screen,
+     and a transition only on the way up. The rightmost digit lands last. */
+  .number[data-revealed] .strip {
+    transition: transform 1100ms var(--site-spring) calc(var(--i) * 90ms);
+  }
+
+  .number[data-armed]:not([data-revealed]) .strip {
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,74 @@
+/* The Hub: the copy on the left, the extensions running by on the right. */
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: rem(56px);
+  background: radial-gradient(
+    ellipse 55% 70% at 88% 50%,
+    color-mix(in srgb, var(--site-glow) 14%, transparent),
+    transparent 70%
+  );
+
+  @media (max-width: $mantine-breakpoint-md) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: rem(40px);
+  }
+}
+
+.copy {
+  min-width: 0;
+}
+
+.action {
+  margin-top: rem(28px);
+}
+
+/* The wall: a static tilt, and one mask that fades all the rows at its edges. */
+.rows {
+  display: grid;
+  gap: rem(12px);
+  min-width: 0;
+  transform: perspective(1400px) rotateY(-16deg) rotateX(8deg) rotateZ(1deg);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    transform: none;
+  }
+}
+
+/* An extension's name, with a dot in its category's colour. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(9px);
+  padding: rem(10px) rem(16px);
+  border: 1px solid var(--site-rule);
+  border-radius: rem(12px);
+  background: var(--site-surface);
+  box-shadow: 0 1px 2px rgb(11 28 46 / 5%);
+  color: var(--site-ink);
+  font-size: rem(15px);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+
+  & i {
+    width: rem(8px);
+    height: rem(8px);
+    border-radius: 50%;
+    background: var(--mantine-color-blue-6);
+  }
+
+  &[data-category='data-display'] i {
+    background: var(--mantine-color-cyan-6);
+  }
+
+  &[data-category='inputs-navigation'] i {
+    background: var(--mantine-color-violet-5);
+  }
+
+  &[data-category='effects-animations'] i {
+    background: var(--mantine-color-pink-5);
+  }
+}

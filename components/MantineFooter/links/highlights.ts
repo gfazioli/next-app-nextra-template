@@ -1,18 +1,11 @@
+import { HUB_URL } from '@/config/templates';
+
+/** The sibling templates have a column of their own, from `config/templates.ts`. */
 export const highlights = [
   {
     key: 'mantine-extensions',
-    title: 'Mantine Extensions HUB',
-    href: 'https://mantine-extensions.vercel.app',
-  },
-  {
-    key: 'mantine-nextra-template',
-    title: 'Mantine Nextra template',
-    href: 'https://github.com/gfazioli/next-app-nextra-template',
-  },
-  {
-    key: 'mantine-fumadocs-template',
-    title: 'Mantine Fumadocs template',
-    href: 'https://github.com/gfazioli/next-app-fumadocs-template',
+    title: 'Mantine Extensions Hub',
+    href: HUB_URL,
   },
   {
     key: 'mantine-extension-template',

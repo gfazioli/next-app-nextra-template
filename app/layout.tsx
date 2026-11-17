@@ -5,6 +5,8 @@ import '@gfazioli/mantine-marquee/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
 // Mantine theme overrides (page background, heading font)
 import '@/theme/global.css';
+// The site's own tokens: the home page and the footer are drawn with them
+import '@/theme/site.css';
 
 import { Analytics } from '@vercel/analytics/react';
 import { Outfit } from 'next/font/google';

@@ -1,12 +1,18 @@
+/* The sponsors wall: a section of the home page, with a warm light behind it. */
 .sponsorsSection {
   /* Mantine's dimmed grey falls under 4.5:1 on the page background (4.04 in dark mode). */
-  --mantine-color-dimmed: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  --mantine-color-dimmed: var(--site-text);
 
   scroll-margin-top: rem(90px);
+  background: radial-gradient(
+    ellipse 50% 60% at 50% 0%,
+    color-mix(in srgb, var(--mantine-color-pink-5) 9%, transparent),
+    transparent 70%
+  );
 }
 
 .sponsorSlot {
-  border: 1px dashed var(--mantine-color-default-border);
+  border: 1px dashed var(--site-frame);
   background-color: transparent;
-  color: var(--mantine-color-dimmed);
+  color: var(--site-text);
 }

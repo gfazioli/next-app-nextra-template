@@ -10,7 +10,8 @@ type AnimateBadgeProps = {
 
 export function AnimateBadge({
   label = 'New',
-  color = 'red',
+  // red.8: white on Mantine's default red.6 is 3.3:1
+  color = 'red.8',
   size = 'xs',
   fontSize = 10,
 }: AnimateBadgeProps) {
