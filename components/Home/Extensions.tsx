@@ -7,6 +7,7 @@ import { HUB_URL } from '@/config/templates';
 import { mantineComponentCategories } from '../MantineFooter/links';
 import classes from './Extensions.module.css';
 import home from './Home.module.css';
+import { SectionHeader } from './SectionHeader';
 
 /** Every extension the footer lists, with the category it is filed under. */
 const EXTENSIONS = mantineComponentCategories.flatMap((category) =>
@@ -31,15 +32,20 @@ export function Extensions() {
       {...RENDER_LATER}
     >
       <RevealScope className={classes.copy}>
-        <span {...revealItem('rise', 0, home.eyebrow)}>Mantine Extensions</span>
-        <h2 id="extensions-title" {...revealItem('rise', 60, home.h2)}>
-          {EXTENSIONS.length} extensions, <span className={home.gradient}>ready to drop in</span>
-        </h2>
-        <p {...revealItem('rise', 120, home.lead)}>
+        <SectionHeader
+          eyebrow="Mantine Extensions"
+          id="extensions-title"
+          title={
+            <>
+              {EXTENSIONS.length} extensions,{' '}
+              <span className={home.gradient}>ready to drop in</span>
+            </>
+          }
+        >
           Split panes, onboarding tours, audio and video players, parallax, marquees and more: the
           same author&apos;s open-source components for Mantine, each with its own docs. Two are at
           work on this page: Border Animate lights the rims, Marquee runs this wall.
-        </p>
+        </SectionHeader>
         <div {...revealItem('rise', 180, classes.action)}>
           <Button
             component="a"

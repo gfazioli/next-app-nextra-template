@@ -6,6 +6,7 @@ import { site } from '@/config/site';
 import { features } from './feature-list';
 import classes from './Features.module.css';
 import home from './Home.module.css';
+import { SectionHeader } from './SectionHeader';
 
 /**
  * What this template gives: five cells of its own (feature-list.ts) and a sixth every sibling
@@ -15,14 +16,18 @@ export function Features() {
   return (
     <section className={home.section} aria-labelledby="features-title" {...RENDER_LATER}>
       <RevealScope className={home.center}>
-        <span {...revealItem('rise', 0, home.eyebrow)}>What you get</span>
-        <h2 id="features-title" {...revealItem('rise', 60, home.h2)}>
-          A docs site, <span className={home.gradient}>already wired</span>
-        </h2>
-        <p {...revealItem('rise', 120, home.lead)}>
+        <SectionHeader
+          eyebrow="What you get"
+          id="features-title"
+          title={
+            <>
+              A docs site, <span className={home.gradient}>already wired</span>
+            </>
+          }
+        >
           Sidebar, table of contents, search, code blocks and release notes are in place. You write
           the pages.
-        </p>
+        </SectionHeader>
       </RevealScope>
       <RevealScope as="ul" className={classes.cells}>
         {features[site.key].map(({ icon: Icon, title, body }, i) => (

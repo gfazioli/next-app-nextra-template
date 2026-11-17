@@ -7,6 +7,7 @@ import { site } from '@/config/site';
 import { templateList, type Template, type TemplateKey } from '@/config/templates';
 import home from './Home.module.css';
 import classes from './Templates.module.css';
+import { SectionHeader } from './SectionHeader';
 
 /* The light on the current card's rim, in that engine's colours: a conic gradient the extension
    turns with a transform. */
@@ -73,14 +74,18 @@ export function Templates() {
   return (
     <section className={home.section} aria-labelledby="templates-title" {...RENDER_LATER}>
       <RevealScope className={home.center}>
-        <span {...revealItem('rise', 0, home.eyebrow)}>One look, three engines</span>
-        <h2 id="templates-title" {...revealItem('rise', 60, home.h2)}>
-          Pick the engine, <span className={home.gradient}>keep the design</span>
-        </h2>
-        <p {...revealItem('rise', 120, home.lead)}>
+        <SectionHeader
+          eyebrow="One look, three engines"
+          id="templates-title"
+          title={
+            <>
+              Pick the engine, <span className={home.gradient}>keep the design</span>
+            </>
+          }
+        >
           The same Mantine starter comes on three documentation engines. This is the {site.engine}{' '}
           one; the other two look the same and work the way their engine does.
-        </p>
+        </SectionHeader>
       </RevealScope>
       <RevealScope as="ul" className={classes.grid}>
         {templateList.map((template, i) => {
@@ -105,7 +110,7 @@ export function Templates() {
                   radius={16}
                   trigger="inView"
                   h="100%"
-                  classNames={{ border: classes.beam }}
+                  classNames={{ border: home.beam }}
                 >
                   <Card template={template} current />
                 </BorderAnimate>

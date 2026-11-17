@@ -201,3 +201,20 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/*
+ * The light on a BorderAnimate rim (the hero's window, the current template's card). With
+ * `trigger="inView"` the extension runs it only while it is on screen, but its rule that hides an
+ * idle border outweighs the one that shows an active one (mantine-border-animate 3.0.11), so the
+ * border is shown from here. The extension does not read Reduce Motion either: then it stands still.
+ */
+.beam {
+  --border-animate-active: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam,
+  .beam::after {
+    animation: none !important;
+  }
+}

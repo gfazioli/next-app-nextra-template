@@ -8,6 +8,7 @@ import { site } from '@/config/site';
 import home from '../Home/Home.module.css';
 import { sponsors } from '../MantineFooter/links';
 import classes from './Sponsors.module.css';
+import { SectionHeader } from '@/components/Home/SectionHeader';
 
 // Social share — "spread the word" buttons rendered below the sponsor CTAs.
 // Share-intent links (no SDK); brand marks are inline SVGs (fill=currentColor).
@@ -89,15 +90,11 @@ export const Sponsors = () => {
     >
       <Stack gap="md" align="center">
         <div className={home.center}>
-          <span {...revealItem('rise', 0, home.eyebrow)}>Open source, sponsored</span>
-          <h2 id="sponsors-title" {...revealItem('rise', 60, home.h2)}>
-            Sponsors
-          </h2>
-          <p {...revealItem('rise', 120, home.lead)}>
+          <SectionHeader eyebrow="Open source, sponsored" id="sponsors-title" title={<>Sponsors</>}>
             If my open-source work saves you or your team time, consider sponsoring its development.
             Sponsors get their name or logo featured here and across all my projects&apos;
             documentation sites.
-          </p>
+          </SectionHeader>
         </div>
         <Group justify="center" gap="xl" mt="md" {...revealItem('rise', 180)}>
           {sponsors.map((sponsor) => (

@@ -46,7 +46,7 @@
   border: 1px solid var(--site-rule);
   border-radius: rem(12px);
   background: var(--site-surface);
-  box-shadow: 0 1px 2px rgb(11 28 46 / 5%);
+  box-shadow: var(--site-card-shadow);
   color: var(--site-ink);
   font-size: rem(15px);
   font-weight: 500;

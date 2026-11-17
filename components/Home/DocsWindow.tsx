@@ -2,6 +2,7 @@ import { BorderAnimate } from '@gfazioli/mantine-border-animate';
 import { IconBrandMantine, IconMarkdown, IconSearch } from '@tabler/icons-react';
 import { site } from '@/config/site';
 import classes from './DocsWindow.module.css';
+import home from './Home.module.css';
 
 const NAV = ['Getting started', 'Markdown', 'Mantine', 'Components', 'Guides', 'Release notes'];
 const TOC = ['Install', 'Write a page', 'Add a component', 'Deploy'];
@@ -34,7 +35,7 @@ export function DocsWindow() {
           duration={7}
           radius={14}
           trigger="inView"
-          classNames={{ border: classes.beam }}
+          classNames={{ border: home.beam }}
         >
           <div className={classes.window}>
             <div className={classes.chrome}>

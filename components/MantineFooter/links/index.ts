@@ -3,3 +3,4 @@ export { highlights } from './highlights';
 export { mantineComponentCategories } from './mantine-components';
 export { resources } from './resources';
 export { sponsors } from './sponsors';
+export { templateLinks, type FooterLink } from './templates';
