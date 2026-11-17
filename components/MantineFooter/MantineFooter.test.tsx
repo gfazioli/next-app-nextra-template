@@ -18,7 +18,7 @@ describe('MantineFooter', () => {
       ).toHaveAttribute('href', template.demo);
     }
     expect(within(column).getAllByText('This site')).toHaveLength(1);
-    expect(within(column).getByRole('link', { current: 'page' })).toHaveTextContent(
+    expect(within(column).getByRole('link', { current: true })).toHaveTextContent(
       `Mantine + ${site.engine}`
     );
   });

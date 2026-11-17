@@ -36,7 +36,7 @@ function Links({ list }: { list: FooterLink[] }) {
             href={item.href}
             target={item.newWindow ? '_blank' : undefined}
             rel={item.newWindow ? 'noopener noreferrer' : undefined}
-            aria-current={item.current ? 'page' : undefined}
+            aria-current={item.current ? 'true' : undefined}
           >
             {item.title}
           </a>
