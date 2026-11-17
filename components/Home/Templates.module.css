@@ -25,7 +25,7 @@
   border: 1px solid var(--site-rule);
   border-radius: rem(16px);
   background: var(--site-surface);
-  box-shadow: 0 1px 2px rgb(11 28 46 / 5%);
+  box-shadow: var(--site-card-shadow);
   text-align: left;
   transition:
     transform 200ms ease,
@@ -60,19 +60,6 @@
     &:hover {
       transform: none;
     }
-  }
-}
-
-/* The light on the current card's rim: see DocsWindow.module.css for why it is shown from here. */
-.beam {
-  --border-animate-active: 1 !important;
-}
-
-/* The extension does not read the system setting on its own. */
-@media (prefers-reduced-motion: reduce) {
-  .beam,
-  .beam::after {
-    animation: none !important;
   }
 }
 

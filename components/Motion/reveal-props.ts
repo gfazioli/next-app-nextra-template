@@ -10,15 +10,6 @@ import classes from './Motion.module.css';
 /** How an item arrives: see Motion.module.css for each starting pose. */
 export type RevealVariant = 'rise' | 'card' | 'pop';
 
-/** Props that make an element a scope: the thing the observer watches. */
-export function revealScope({ armed, revealed }: { armed: boolean; revealed: boolean }) {
-  return {
-    className: classes.scope,
-    'data-armed': armed ? '' : undefined,
-    'data-revealed': revealed ? '' : undefined,
-  };
-}
-
 /**
  * Props that make an element an item: the thing that moves, `delay` ms after its scope. The
  * element's own class goes in `className`: a spread's `className` replaces the element's.

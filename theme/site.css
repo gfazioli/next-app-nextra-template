@@ -26,6 +26,7 @@ body {
   --site-glow-alt: light-dark(var(--mantine-color-cyan-3), var(--mantine-color-cyan-8));
   --site-footer: light-dark(#f0f5fa, var(--mantine-color-dark-8));
   --site-shadow: light-dark(rgb(11 28 46 / 18%), rgb(0 0 0 / 55%));
+  --site-card-shadow: 0 1px 2px rgb(11 28 46 / 5%);
   --site-gradient-from: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-4));
   --site-gradient-to: light-dark(var(--mantine-color-cyan-8), var(--mantine-color-cyan-3));
 

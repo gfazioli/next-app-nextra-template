@@ -61,22 +61,6 @@
   }
 }
 
-/* The rim's light. With `trigger="inView"` the extension runs it only while it is on screen, but
-   its rule that hides an idle border outweighs the one that shows an active one (3.0.11), so the
-   border is shown from here. */
-.beam {
-  --border-animate-active: 1 !important;
-}
-
-/* The extension does not read the system setting on its own: with Reduce Motion the rim's light
-   stands still. */
-@media (prefers-reduced-motion: reduce) {
-  .beam,
-  .beam::after {
-    animation: none !important;
-  }
-}
-
 .window {
   overflow: hidden;
   border: 1px solid var(--site-frame);

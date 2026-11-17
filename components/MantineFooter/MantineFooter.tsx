@@ -8,36 +8,23 @@ import {
   IconMailHeart,
 } from '@tabler/icons-react';
 import { site } from '@/config/site';
-import { templateList } from '@/config/templates';
 import pack from '../../package.json';
 import { AnimateBadge } from './AnimateBadge';
-import { apps, highlights, mantineComponentCategories, resources } from './links';
+import {
+  apps,
+  highlights,
+  mantineComponentCategories,
+  resources,
+  templateLinks,
+  type FooterLink,
+} from './links';
 import classes from './MantineFooter.module.css';
-
-interface FooterLink {
-  key: string;
-  title: string;
-  href: string;
-  newWindow?: boolean;
-  /** A badge beside the link */
-  new?: boolean;
-  /** This very site, among its siblings */
-  current?: boolean;
-}
 
 const SOCIAL = [
   { label: 'GitHub', href: 'https://github.com/gfazioli', icon: IconBrandGithub },
   { label: 'X (Twitter)', href: 'https://twitter.com/gfazioli', icon: IconBrandX },
   { label: 'Blog', href: 'https://undolog.com/', icon: IconMailHeart },
 ];
-
-/** The three sibling templates, each at its live demo: the footer's first column everywhere. */
-const TEMPLATES: FooterLink[] = templateList.map((template) => ({
-  key: template.key,
-  title: `Mantine + ${template.engine}`,
-  href: template.demo,
-  current: template.key === site.key,
-}));
 
 function Links({ list }: { list: FooterLink[] }) {
   return (
@@ -106,7 +93,7 @@ export const MantineFooter = () => {
             </ul>
           </div>
 
-          <Column title="Templates" list={TEMPLATES} />
+          <Column title="Templates" list={templateLinks} />
           <Column title="Highlights" list={highlights} />
           <Column title="Mantine" list={resources} />
           <Column title="Apps" list={apps} />

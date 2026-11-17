@@ -25,7 +25,7 @@ export function RollingNumber({ value, className }: { value: string; className?:
   return (
     <span
       ref={ref}
-      className={[classes.number, className].filter(Boolean).join(' ')}
+      className={className ? `${classes.number} ${className}` : classes.number}
       data-armed={armed ? '' : undefined}
       data-revealed={revealed ? '' : undefined}
     >

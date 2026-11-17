@@ -18,41 +18,35 @@
 
 @media screen and (prefers-reduced-motion: no-preference) {
   /* Only a revealed item has a transition, so arming snaps it into its pose. */
-  .scope[data-revealed] .item,
-  .scope.item[data-revealed] {
+  .scope[data-revealed] .item {
     transition:
       opacity 520ms var(--site-ease) var(--reveal-delay),
       transform 900ms var(--site-spring) var(--reveal-delay);
   }
 
-  .scope[data-revealed] .item[data-reveal='rise'],
-  .scope.item[data-reveal='rise'][data-revealed] {
+  .scope[data-revealed] .item[data-reveal='rise'] {
     transition:
       opacity 520ms var(--site-ease) var(--reveal-delay),
       transform 640ms var(--site-ease) var(--reveal-delay);
   }
 
-  .scope[data-armed]:not([data-revealed]) .item,
-  .scope.item[data-armed]:not([data-revealed]) {
+  .scope[data-armed]:not([data-revealed]) .item {
     opacity: 0;
   }
 
   /* Text: a short lift, no overshoot, so it stays readable as it lands. */
-  .scope[data-armed]:not([data-revealed]) .item[data-reveal='rise'],
-  .scope.item[data-reveal='rise'][data-armed]:not([data-revealed]) {
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='rise'] {
     transform: translate3d(0, 24px, 0);
   }
 
   /* A card: low and squashed, it lands and settles into shape. */
-  .scope[data-armed]:not([data-revealed]) .item[data-reveal='card'],
-  .scope.item[data-reveal='card'][data-armed]:not([data-revealed]) {
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='card'] {
     transform: translate3d(0, 40px, 0) scale(0.94, 0.86);
     transform-origin: 50% 100%;
   }
 
   /* A chip or a figure: from a point, past its size, back. */
-  .scope[data-armed]:not([data-revealed]) .item[data-reveal='pop'],
-  .scope.item[data-reveal='pop'][data-armed]:not([data-revealed]) {
+  .scope[data-armed]:not([data-revealed]) .item[data-reveal='pop'] {
     transform: scale(0.6);
   }
 }

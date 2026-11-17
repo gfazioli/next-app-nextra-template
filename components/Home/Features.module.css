@@ -58,7 +58,11 @@
 
   @media (max-width: $mantine-breakpoint-sm) {
     padding: rem(28px) rem(16px);
-    border-right: 0 !important;
+
+    &,
+    &:nth-child(3n) {
+      border-right: 0;
+    }
 
     &:nth-last-child(-n + 2) {
       border-bottom: 1px solid var(--site-frame);
