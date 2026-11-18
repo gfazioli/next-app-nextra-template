@@ -1,14 +1,9 @@
-/* The sponsors wall: a section of the home page, with a warm light behind it. */
+/* The sponsors wall: a section of the home page, on the plain paper. */
 .sponsorsSection {
   /* Mantine's dimmed grey falls under 4.5:1 on the page background (4.04 in dark mode). */
   --mantine-color-dimmed: var(--site-text);
 
   scroll-margin-top: rem(90px);
-  background: radial-gradient(
-    ellipse 50% 60% at 50% 0%,
-    color-mix(in srgb, var(--mantine-color-pink-5) 9%, transparent),
-    transparent 70%
-  );
 }
 
 .sponsorSlot {

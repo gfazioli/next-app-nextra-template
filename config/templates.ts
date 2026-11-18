@@ -7,6 +7,13 @@
  */
 export type TemplateKey = 'docs' | 'nextra' | 'fumadocs';
 
+/**
+ * The paper a template's home page is drawn on, with the ink that goes with it: a blueprint, a
+ * violet diazo print, or the orange graph paper of a school drawing desk. Each one is a set of
+ * colours in `theme/site.css`; the layout is the same on all three.
+ */
+export type Paper = 'blue' | 'violet' | 'orange';
+
 export interface Template {
   key: TemplateKey;
   /** The engine's short name: the word the home page's headline carries */
@@ -29,6 +36,10 @@ export interface Template {
   demo: string;
   /** Where the live demo is hosted */
   host: { name: string; href: string };
+  /** The paper and ink of its home page */
+  paper: Paper;
+  /** The two colours of the light that runs round a rim (Mantine theme colours) */
+  beam: [string, string];
 }
 
 /** The Mantine Extensions Hub: every extension, with its docs. */
@@ -51,6 +62,8 @@ export const templates: Record<TemplateKey, Template> = {
     repo: 'gfazioli/next-app-mantine-docs-template',
     demo: 'https://next-app-mantine-docs-template.vercel.app/',
     host: { name: 'Vercel', href: 'https://vercel.com/' },
+    paper: 'blue',
+    beam: ['blue.5', 'cyan.4'],
   },
   nextra: {
     key: 'nextra',
@@ -68,6 +81,8 @@ export const templates: Record<TemplateKey, Template> = {
     repo: 'gfazioli/next-app-nextra-template',
     demo: 'https://next-app-nextra-template.vercel.app/',
     host: { name: 'Vercel', href: 'https://vercel.com/' },
+    paper: 'violet',
+    beam: ['violet.5', 'pink.4'],
   },
   fumadocs: {
     key: 'fumadocs',
@@ -85,6 +100,8 @@ export const templates: Record<TemplateKey, Template> = {
     repo: 'gfazioli/next-app-fumadocs-template',
     demo: 'https://gfazioli.github.io/next-app-fumadocs-template/',
     host: { name: 'GitHub Pages', href: 'https://pages.github.com/' },
+    paper: 'orange',
+    beam: ['orange.5', 'pink.5'],
   },
 };
 

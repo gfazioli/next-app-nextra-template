@@ -9,7 +9,10 @@ import { InstallLine } from './InstallLine';
 import classes from './FinalCta.module.css';
 import home from './Home.module.css';
 
-/** The closing call, on graph paper: the repository to start from, the docs, the command. */
+/**
+ * The closing call, the drawing's last sheet: the repository to start from, the docs, the command,
+ * in a frame with its registration marks, over the circles a compass leaves round the logo.
+ */
 export function FinalCta() {
   return (
     <section
@@ -17,7 +20,7 @@ export function FinalCta() {
       aria-labelledby="start-title"
       {...RENDER_LATER}
     >
-      <RevealScope className={classes.inner}>
+      <RevealScope className={`${home.marks} ${classes.inner}`}>
         <span {...revealItem('pop', 0, classes.logo)} aria-hidden="true">
           <IconBrandMantine size={34} stroke={1.6} />
         </span>

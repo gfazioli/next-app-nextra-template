@@ -1,23 +1,33 @@
 import { BorderAnimate } from '@gfazioli/mantine-border-animate';
-import { IconArrowRight, IconArrowUpRight, IconBrandGithub, IconCheck } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconArrowUpRight,
+  IconBrandGithub,
+  IconCheck,
+  IconStar,
+} from '@tabler/icons-react';
 import { Link } from '@/components/Link/Link';
 import { RENDER_LATER, revealItem } from '@/components/Motion/reveal-props';
 import { RevealScope } from '@/components/Motion/RevealScope';
 import { site } from '@/config/site';
-import { templateList, type Template, type TemplateKey } from '@/config/templates';
+import { templateList, type Template } from '@/config/templates';
 import home from './Home.module.css';
 import classes from './Templates.module.css';
 import { SectionHeader } from './SectionHeader';
+import { compactCount } from './stats';
+import { Sketch } from './Sketch';
+import type { HomeStats } from './stats';
 
-/* The light on the current card's rim, in that engine's colours: a conic gradient the extension
-   turns with a transform. */
-const BEAMS: Record<TemplateKey, [string, string]> = {
-  docs: ['blue.5', 'cyan.4'],
-  nextra: ['violet.5', 'pink.4'],
-  fumadocs: ['orange.5', 'pink.5'],
-};
-
-function Card({ template, current }: { template: Template; current: boolean }) {
+function Card({
+  template,
+  current,
+  stars,
+}: {
+  template: Template;
+  current: boolean;
+  /** The repository's GitHub stars: left out when the count could not be fetched */
+  stars?: number;
+}) {
   return (
     <article
       className={classes.card}
@@ -61,6 +71,13 @@ function Card({ template, current }: { template: Template; current: boolean }) {
           GitHub
           <span className={home.hidden}>: the {template.engine} template</span>
         </a>
+        {stars !== undefined && (
+          <span className={classes.stars}>
+            <IconStar size={14} aria-hidden="true" />
+            {compactCount(stars)}
+            <span className={home.hidden}> {stars === 1 ? 'star' : 'stars'} on GitHub</span>
+          </span>
+        )}
       </div>
     </article>
   );
@@ -68,11 +85,19 @@ function Card({ template, current }: { template: Template; current: boolean }) {
 
 /**
  * The three sibling templates side by side: the same design on three engines, the one you are
- * looking at marked and lit, the other two a click away.
+ * looking at marked and lit, the other two a click away. Two arcs struck beside the heading, as
+ * with a compass, are the section's construction lines. Each card carries its repository's GitHub
+ * stars, when they could be fetched.
  */
-export function Templates() {
+export function Templates({ stars = {} }: { stars?: HomeStats['stars'] }) {
   return (
-    <section className={home.section} aria-labelledby="templates-title" {...RENDER_LATER}>
+    <section
+      className={`${home.section} ${classes.section}`}
+      aria-labelledby="templates-title"
+      {...RENDER_LATER}
+    >
+      <Sketch name="compass" className={classes.arc} />
+      <Sketch name="compass" className={classes.arc} />
       <RevealScope className={home.center}>
         <SectionHeader
           eyebrow="One look, three engines"
@@ -87,10 +112,12 @@ export function Templates() {
           one; the other two look the same and work the way their engine does.
         </SectionHeader>
       </RevealScope>
-      <RevealScope as="ul" className={classes.grid}>
+      <RevealScope as="ul" className={`${home.marks} ${classes.grid}`}>
         {templateList.map((template, i) => {
           const current = template.key === site.key;
-          const [from, to] = BEAMS[template.key];
+          // The light on the current card's rim, in that engine's colours: a conic gradient
+          // the extension turns with a transform.
+          const [from, to] = template.beam;
           return (
             <li key={template.key} {...revealItem('card', 90 * i)}>
               {current ? (
@@ -112,10 +139,10 @@ export function Templates() {
                   h="100%"
                   classNames={{ border: home.beam }}
                 >
-                  <Card template={template} current />
+                  <Card template={template} current stars={stars[template.key]} />
                 </BorderAnimate>
               ) : (
-                <Card template={template} current={false} />
+                <Card template={template} current={false} stars={stars[template.key]} />
               )}
             </li>
           );

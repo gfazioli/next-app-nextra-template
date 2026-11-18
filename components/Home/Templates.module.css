@@ -1,8 +1,33 @@
+/* The construction lines beside the heading: an arc on each side, the right one mirrored. Only
+   where the measure leaves them room. */
+.arc {
+  position: absolute;
+  top: rem(88px);
+  left: rem(48px);
+  width: rem(120px);
+  height: rem(120px);
+  color: var(--site-accent);
+  opacity: 0.42;
+  pointer-events: none;
+
+  & + & {
+    right: rem(48px);
+    left: auto;
+    transform: scaleX(-1);
+  }
+
+  @media (max-width: $mantine-breakpoint-lg) {
+    display: none;
+  }
+}
+
 /* The three templates, a card each; the current one is tinted in its engine's colour. */
 .grid {
+  --marks-gap: rem(8px);
+
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: rem(20px);
+  gap: rem(16px);
   margin: rem(56px) 0 0;
   padding: 0;
   list-style: none;
@@ -11,6 +36,10 @@
     grid-template-columns: minmax(0, 1fr);
     max-width: rem(560px);
     margin-inline: auto;
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    --marks-gap: rem(2px);
   }
 }
 
@@ -22,10 +51,9 @@
   flex-direction: column;
   height: 100%;
   padding: rem(24px);
-  border: 1px solid var(--site-rule);
-  border-radius: rem(16px);
-  background: var(--site-surface);
-  box-shadow: var(--site-card-shadow);
+  border: 1px solid var(--site-frame);
+  border-radius: rem(12px);
+  background: var(--site-card);
   text-align: left;
   transition:
     transform 200ms ease,
@@ -42,14 +70,14 @@
   }
 
   &:hover {
-    border-color: color-mix(in srgb, var(--engine-from) 55%, transparent);
+    border-color: color-mix(in srgb, var(--engine-from) 70%, transparent);
     transform: translateY(-3px);
   }
 
   &[data-current] {
     background: linear-gradient(
       160deg,
-      color-mix(in srgb, var(--engine-from) 11%, var(--site-surface)),
+      color-mix(in srgb, var(--engine-from) 13%, var(--site-surface)),
       var(--site-surface) 62%
     );
   }
@@ -76,7 +104,7 @@
   place-items: center;
   width: rem(44px);
   height: rem(44px);
-  border-radius: rem(12px);
+  border-radius: rem(10px);
   background: linear-gradient(135deg, var(--engine-from), var(--engine-to));
   color: var(--mantine-color-white);
   font-family: var(--mantine-font-family-headings);
@@ -110,13 +138,16 @@
 .here {
   flex: none;
   align-self: flex-start;
-  padding: rem(3px) rem(9px);
-  border-radius: rem(999px);
-  background: var(--mantine-color-blue-8);
+  padding: rem(3px) rem(8px);
+  border-radius: rem(4px);
+  background: var(--site-fill);
   color: var(--mantine-color-white);
-  font-size: rem(11px);
-  font-weight: 600;
-  line-height: 1.5;
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(10px);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -156,6 +187,23 @@
   gap: rem(18px);
   margin-top: auto;
   padding-top: rem(24px);
+}
+
+/* The repository's stars, at the end of the row: a figure, lettered like the page's labels. */
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(5px);
+  margin-left: auto;
+  color: var(--site-text);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(13px);
+  font-weight: 500;
+  line-height: 1;
+
+  & svg {
+    color: var(--site-accent);
+  }
 }
 
 .git {

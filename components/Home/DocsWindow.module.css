@@ -1,16 +1,135 @@
 /*
- * The docs page of the hero: a window tilted in space, with two chips floating over its corners.
- * The tilt is a static transform; what moves (the window settling as the page opens, the chips
- * bobbing, the light on the rim) moves by transform alone.
+ * The docs page of the hero: a window tilted in space and dimensioned like a part on a drawing,
+ * with two callouts over its corners and the plane it stands on. The tilt is a static transform;
+ * what moves (the window settling as the page opens, the callouts bobbing, the light on the rim)
+ * moves by transform alone.
  */
 .stage {
   position: relative;
-  max-width: rem(540px);
+  max-width: rem(520px);
   margin-inline: auto;
-  padding: rem(28px) 0;
+  padding: rem(48px) 0 rem(36px);
 
   @media (max-width: $mantine-breakpoint-md) {
     margin-top: rem(16px);
+  }
+}
+
+/* The plane under the window: a grid laid flat and fading out, painted once. */
+.floor {
+  --line: var(--site-mark);
+
+  position: absolute;
+  inset: 44% -22% -34%;
+  background:
+    linear-gradient(var(--line) 2px, transparent 2px) center / rem(36px) rem(36px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) center / rem(36px) rem(36px);
+  opacity: 0.55;
+  transform: perspective(900px) rotateX(62deg) rotateZ(-10deg);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+
+/*
+ * A dimension line, tilted with the window it measures: two extension lines, the line between
+ * them with an arrowhead at each end, and the figure. Along the width the line is broken round
+ * the figure; along the height the figure stands beside it.
+ */
+.dim {
+  --ink: var(--site-mark);
+
+  position: absolute;
+  color: var(--site-accent);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: rem(10px);
+  line-height: 1;
+  white-space: nowrap;
+
+  & b {
+    position: absolute;
+    font-weight: 500;
+  }
+}
+
+.dim::before,
+.dim::after {
+  position: absolute;
+  border: rem(3px) solid transparent;
+  content: '';
+}
+
+.dim[data-axis='x'] {
+  right: 0;
+  bottom: calc(100% + rem(6px));
+  left: 0;
+  height: rem(28px);
+  border-inline: 1px solid var(--ink);
+  background: linear-gradient(
+      90deg,
+      var(--ink) calc(50% - rem(30px)),
+      transparent calc(50% - rem(30px)) calc(50% + rem(30px)),
+      var(--ink) calc(50% + rem(30px))
+    )
+    left top rem(6px) / 100% 1px no-repeat;
+
+  & b {
+    top: rem(2px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &::before,
+  &::after {
+    top: rem(3.5px);
+  }
+
+  &::before {
+    left: 0;
+    border-left-width: 0;
+    border-right: rem(7px) solid var(--ink);
+  }
+
+  &::after {
+    right: 0;
+    border-right-width: 0;
+    border-left: rem(7px) solid var(--ink);
+  }
+}
+
+.dim[data-axis='y'] {
+  top: 0;
+  bottom: 0;
+  left: calc(100% + rem(6px));
+  width: rem(28px);
+  border-block: 1px solid var(--ink);
+  background: linear-gradient(var(--ink), var(--ink)) right rem(6px) top / 1px 100% no-repeat;
+
+  & b {
+    top: 50%;
+    left: calc(100% + rem(2px));
+    transform: translateY(-50%);
+  }
+
+  &::before,
+  &::after {
+    right: rem(3.5px);
+  }
+
+  &::before {
+    top: 0;
+    border-top-width: 0;
+    border-bottom: rem(7px) solid var(--ink);
+  }
+
+  &::after {
+    bottom: 0;
+    border-bottom-width: 0;
+    border-top: rem(7px) solid var(--ink);
+  }
+
+  /* No room for it beside the window on a phone. */
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: none;
   }
 }
 
@@ -68,7 +187,7 @@
   border-radius: rem(14px);
   background: var(--site-surface);
   box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--site-glow) 12%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--site-accent) 9%, transparent),
     0 40px 70px -36px var(--site-shadow);
   color: var(--site-text);
   font-size: rem(10px);
@@ -268,13 +387,13 @@
   }
 }
 
-/* A chip floating over a corner of the window. */
+/* A callout over a corner of the window: a label, and a leader that ends in a dot on the part. */
 .chip {
   position: absolute;
   display: inline-flex;
   align-items: center;
   gap: rem(6px);
-  padding: rem(7px) rem(12px);
+  padding: rem(6px) rem(12px);
   border: 1px solid var(--site-frame);
   border-radius: rem(999px);
   background: var(--site-surface);
@@ -289,16 +408,55 @@
     color: var(--site-accent);
   }
 
+  /* The leader, and the dot it ends in. */
+  &::before,
+  &::after {
+    position: absolute;
+    background: var(--site-mark);
+    content: '';
+  }
+
+  &::before {
+    width: 1px;
+    height: rem(22px);
+  }
+
+  &::after {
+    width: rem(5px);
+    height: rem(5px);
+    border-radius: 50%;
+  }
+
   &[data-chip='mantine'] {
-    top: rem(4px);
-    right: rem(-8px);
+    top: rem(22px);
+    right: rem(-28px);
+
+    &::before {
+      top: 100%;
+      left: rem(24px);
+    }
+
+    &::after {
+      top: calc(100% + rem(20px));
+      left: rem(22px);
+    }
   }
 
   &[data-chip='engine'] {
-    bottom: rem(8px);
-    left: rem(-18px);
+    bottom: rem(14px);
+    left: rem(-26px);
     font-family: var(--mantine-font-family-monospace);
     font-size: rem(12px);
+
+    &::before {
+      right: rem(24px);
+      bottom: 100%;
+    }
+
+    &::after {
+      right: rem(22px);
+      bottom: calc(100% + rem(20px));
+    }
   }
 
   @media (max-width: $mantine-breakpoint-md) {

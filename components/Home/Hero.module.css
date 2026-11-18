@@ -1,6 +1,6 @@
 /*
- * The hero, two columns: the copy on the left, a docs page on the right. Its ground is the page
- * with two lights painted once (no layer moves): blue behind the drawing, cyan low on the left.
+ * The hero, two columns: the copy on the left, a docs page on the right. Its ground is the paper,
+ * with one light painted behind the drawing (no layer moves).
  */
 .hero {
   /* The engine's own colours, for the one word of the headline that names it. */
@@ -13,22 +13,19 @@
   align-items: center;
   gap: rem(32px);
   min-height: min(rem(720px), calc(100svh - rem(64px)));
-  padding: rem(72px) rem(48px) rem(64px);
-  background:
-    radial-gradient(
-      ellipse 55% 65% at 78% 42%,
-      color-mix(in srgb, var(--site-glow) 22%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 45% 50% at 0% 100%,
-      color-mix(in srgb, var(--site-glow-alt) 16%, transparent),
-      transparent 70%
-    );
+  padding: rem(88px) rem(84px) rem(80px);
+  background: radial-gradient(
+    var(--light, ellipse 38% 56% at 72% 46%),
+    color-mix(in srgb, var(--site-glow) 42%, transparent),
+    transparent 72%
+  );
 
   &[data-engine='nextra'] {
     --engine-from: light-dark(var(--mantine-color-violet-8), var(--mantine-color-violet-4));
     --engine-to: light-dark(var(--mantine-color-grape-7), var(--mantine-color-pink-4));
+    /* "+ Nextra template" is a few pixels wider than the column at full size: a step smaller,
+       and the headline keeps its two lines. */
+    --title-max: rem(68px);
   }
 
   &[data-engine='fumadocs'] {
@@ -36,14 +33,34 @@
     --engine-to: light-dark(var(--mantine-color-pink-8), var(--mantine-color-pink-4));
   }
 
+  /* One column: the light follows the drawing under the copy. */
   @media (max-width: $mantine-breakpoint-md) {
+    --light: ellipse 64% 26% at 50% 76%;
+
     grid-template-columns: minmax(0, 1fr);
     min-height: 0;
-    padding: rem(56px) rem(28px) rem(40px);
+    padding: rem(64px) rem(52px) rem(56px);
   }
 
   @media (max-width: $mantine-breakpoint-sm) {
-    padding: rem(40px) rem(16px) rem(32px);
+    padding: rem(44px) rem(28px) rem(40px);
+  }
+}
+
+/* The sheet's edge: a hairline round the hero, with a registration mark at each corner. It
+   stands where the sections under it do, so the marks line up down the page. */
+.sheet {
+  position: absolute;
+  inset: rem(36px) rem(48px) rem(28px);
+  border: 1px solid var(--site-rule);
+  pointer-events: none;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    inset: rem(24px) rem(28px) rem(20px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    inset: rem(16px) rem(16px) rem(14px);
   }
 }
 
@@ -82,7 +99,7 @@
 .pillTag {
   padding: rem(2px) rem(9px);
   border-radius: rem(999px);
-  background: var(--mantine-color-blue-8);
+  background: var(--site-fill);
   color: var(--mantine-color-white);
   font-family: var(--mantine-font-family-monospace);
   font-size: rem(12px);
@@ -92,7 +109,7 @@
 .title {
   margin: 0;
   color: var(--site-ink);
-  font-size: clamp(rem(42px), 5.6vw, rem(72px));
+  font-size: clamp(rem(42px), 5.6vw, var(--title-max, rem(72px)));
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -104,6 +121,12 @@
   background-image: linear-gradient(100deg, var(--engine-from) 10%, var(--engine-to) 90%);
   background-clip: text;
   color: transparent;
+
+  /* High contrast drops background images, and with them text painted by background-clip. */
+  @media (forced-colors: active) {
+    background: none;
+    color: CanvasText;
+  }
 }
 
 .lead {
@@ -118,8 +141,54 @@
 .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: rem(12px);
   margin-top: rem(32px);
+}
+
+/* The repository's stars, as a tag in two tones like the stack's: the word, and the figure in a
+   tinted end. A link to the repository, where the star is given. */
+.star {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--site-frame);
+  border-radius: rem(6px);
+  background: var(--site-surface);
+  color: var(--site-ink);
+  font-size: rem(13px);
+  line-height: rem(30px);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 150ms ease;
+
+  &:hover {
+    border-color: var(--site-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--site-accent);
+    outline-offset: 2px;
+  }
+}
+
+.starLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: rem(6px);
+  padding-inline: rem(10px);
+  font-weight: 600;
+
+  & svg {
+    color: var(--site-accent);
+  }
+}
+
+.starCount {
+  padding-inline: rem(10px);
+  border-left: 1px solid var(--site-frame);
+  background: var(--site-tint);
+  font-family: var(--mantine-font-family-monospace);
+  font-weight: 500;
 }
 
 .install {

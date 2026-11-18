@@ -53,4 +53,34 @@
   }
 }
 
+/*
+ * The home page's paper (theme/site.css) under Nextra's own chrome. Nextra paints the page, the
+ * navbar and the sidebar from `--nextra-bg`, a red, green, blue triplet its <Head> writes in an
+ * unlayered style: so these rules are unlayered too, and outweigh it by their selector. One per
+ * paper and scheme, the same colour as `--mantine-color-body` there: keep the two in step.
+ */
+:root[data-mantine-color-scheme='light']:has([data-site-paper]) {
+  --nextra-bg: 231, 239, 249;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper]) {
+  --nextra-bg: 10, 26, 48;
+}
+
+:root[data-mantine-color-scheme='light']:has([data-site-paper='violet']) {
+  --nextra-bg: 237, 235, 250;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='violet']) {
+  --nextra-bg: 18, 15, 43;
+}
+
+:root[data-mantine-color-scheme='light']:has([data-site-paper='orange']) {
+  --nextra-bg: 248, 239, 229;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='orange']) {
+  --nextra-bg: 26, 18, 12;
+}
+
 @layer components, mantine, nextra, overwrite;

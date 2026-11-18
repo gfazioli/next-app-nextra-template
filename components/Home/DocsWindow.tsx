@@ -7,25 +7,35 @@ import home from './Home.module.css';
 const NAV = ['Getting started', 'Markdown', 'Mantine', 'Components', 'Guides', 'Release notes'];
 const TOC = ['Install', 'Write a page', 'Add a component', 'Deploy'];
 
-/* A light that runs round the window's rim: a conic gradient the extension turns with a
-   transform, so the only thing animated is a rotation on the compositor. */
+/* A light that runs round the window's rim, in the template's own two colours: a conic gradient
+   the extension turns with a transform, so the only thing animated is a rotation on the
+   compositor. */
 const BEAM = [
   { color: 'transparent', position: 0 },
   { color: 'transparent', position: 62 },
-  { color: 'blue.5', position: 82 },
-  { color: 'cyan.4', position: 94 },
+  { color: site.beam[0], position: 82 },
+  { color: site.beam[1], position: 94 },
   { color: 'transparent', position: 100 },
 ];
 
 /**
  * What the template gives you, drawn rather than photographed: a docs page (sidebar, article,
- * code, table of contents) tilted in space, made of markup and CSS. No image to download, and it
- * follows the colour scheme. Decorative, so hidden from assistive tech.
+ * code, table of contents) tilted in space, made of markup and CSS, and dimensioned like a part
+ * on a drawing: a line along its width and one along its height, two callouts, and the plane it
+ * stands on. No image to download, and it follows the colour scheme. Decorative, so hidden from
+ * assistive tech.
  */
 export function DocsWindow() {
   return (
     <div className={classes.stage} aria-hidden="true">
+      <div className={classes.floor} />
       <div className={classes.tilt}>
+        <span className={classes.dim} data-axis="x">
+          <b>720 px</b>
+        </span>
+        <span className={classes.dim} data-axis="y">
+          <b>450 px</b>
+        </span>
         <BorderAnimate
           variant="beam"
           beamMode="wedge"
