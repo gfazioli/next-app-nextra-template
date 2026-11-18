@@ -21,6 +21,8 @@ A [Next.js](https://nextjs.org/) App Router template for documentation sites, on
 
 The same Mantine starter comes on three documentation engines: the same landing page, the same footer and the same Mantine look. What changes is what compiles and serves the docs.
 
+[▶ The three templates in 30 seconds](https://www.youtube.com/watch?v=puZmwwggO-k)
+
 | Template | Engine | Live demo |
 | --- | --- | --- |
 | [Mantine Next.js + Docs](https://github.com/gfazioli/next-app-mantine-docs-template) | [`@next/mdx`](https://nextjs.org/docs/app/guides/mdx): no docs framework, every piece of the interface a Mantine component | [next-app-mantine-docs-template.vercel.app](https://next-app-mantine-docs-template.vercel.app/) |
