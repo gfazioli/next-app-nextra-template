@@ -1,43 +1,71 @@
 /*
- * The closing call: the frame's ground turns to graph paper in the page's rule, fading out at
- * the edges, with a light in the middle. Painted once: nothing here moves but the content.
+ * The closing call: a framed sheet, and inside it the circles a compass leaves round the logo,
+ * with the two axes they were struck from. Painted once: nothing here moves but the content.
  */
 .cta {
-  overflow: hidden;
-  padding-block: rem(120px);
+  padding-block: rem(88px) rem(112px);
 
   @media (max-width: $mantine-breakpoint-sm) {
-    padding-block: rem(80px);
+    padding-block: rem(56px) rem(80px);
   }
 }
 
-/* The paper is a layer of its own, so its mask fades the grid and never the content. */
-.cta::before {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse 50% 60% at 50% 45%,
-      color-mix(in srgb, var(--site-glow) 20%, transparent),
-      transparent 70%
-    ),
-    linear-gradient(var(--site-rule) 1px, transparent 1px) 0 0 / 32px 32px,
-    linear-gradient(90deg, var(--site-rule) 1px, transparent 1px) 0 0 / 32px 32px;
-  content: '';
-  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 50%, transparent 100%);
-  pointer-events: none;
-}
-
 .inner {
+  /* Where the logo's centre is, from the sheet's top edge: its padding, and half the logo. */
+  --centre: rem(108px);
+
   position: relative;
+  /* A stacking context, so the construction goes under the content and over the paper. */
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: rem(880px);
+  margin-inline: auto;
+  padding: rem(76px) rem(32px) rem(64px);
+  border: 1px solid var(--site-rule);
   text-align: center;
 
   & p {
     margin-inline: auto;
   }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    --centre: rem(92px);
+
+    padding: rem(60px) rem(16px) rem(40px);
+  }
+}
+
+/*
+ * The construction, a layer of its own inside the sheet, so its mask fades the lines and never
+ * the content. Three fades, multiplied: away from the logo, toward the sheet's top edge, and
+ * toward its two sides. The circles are gone before they reach an edge: nothing is clipped.
+ */
+.inner::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 50% var(--centre),
+      color-mix(in srgb, var(--site-glow) 46%, transparent),
+      transparent rem(300px)
+    ),
+    linear-gradient(var(--site-frame), var(--site-frame)) center / 1px 100% no-repeat,
+    linear-gradient(var(--site-frame), var(--site-frame)) left var(--centre) / 100% 1px no-repeat,
+    repeating-radial-gradient(
+      circle at 50% var(--centre),
+      transparent 0 rem(71px),
+      var(--site-frame) rem(71px) rem(72px)
+    );
+  content: '';
+  mask-image:
+    radial-gradient(circle at 50% var(--centre), #000 rem(64px), transparent rem(380px)),
+    linear-gradient(to bottom, transparent, #000 var(--centre)),
+    linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+  pointer-events: none;
 }
 
 /* Mantine's mark on a tile of its own blue to cyan. */

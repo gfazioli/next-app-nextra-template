@@ -11,6 +11,7 @@ import { RevealScope } from '@/components/Motion/RevealScope';
 import { RollingNumber } from '@/components/Motion/RollingNumber';
 import { site } from '@/config/site';
 import pack from '../../package.json';
+import home from './Home.module.css';
 import classes from './Stack.module.css';
 
 const dependencies: Record<string, string> = pack.dependencies;
@@ -46,7 +47,11 @@ export function Stack() {
   const rest = Object.entries(dependencies).filter(([name]) => !coreNames.has(name));
 
   return (
-    <RevealScope as="section" className={classes.stack} aria-labelledby="stack-title">
+    <RevealScope
+      as="section"
+      className={`${home.marks} ${classes.stack}`}
+      aria-labelledby="stack-title"
+    >
       <div className={classes.belt}>
         <div className={classes.label}>
           <h2 id="stack-title" className={classes.title}>

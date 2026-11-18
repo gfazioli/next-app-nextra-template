@@ -28,7 +28,11 @@ export function InstallLine() {
             aria-label={copied ? 'Copied' : 'Copy the command'}
             data-copied={copied || undefined}
           >
-            {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
+            {copied ? (
+              <IconCheck size={16} aria-hidden="true" />
+            ) : (
+              <IconCopy size={16} aria-hidden="true" />
+            )}
           </button>
         )}
       </CopyButton>

@@ -1,10 +1,44 @@
 /*
- * The versions, as a spec sheet rather than a terminal: a label cell, then one cell per package
- * the template stands on, divided by the frame's own lines; under them every other dependency as
- * a two-tone tag. It runs edge to edge of the frame.
+ * The versions, as the table on a drawing: a sheet with a registration mark at each corner, a
+ * column of lettering on the left, one cell per package the template stands on, and under them
+ * every other dependency as a two-tone tag. Two corners are hatched, as a cut section is.
  */
 .stack {
-  border-block: 1px solid var(--site-frame);
+  margin: rem(28px) rem(48px) 0;
+  border: 1px solid var(--site-frame);
+  background: var(--site-card);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    margin-inline: rem(28px);
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-inline: rem(16px);
+  }
+}
+
+/* The hatching, in the sheet's top and bottom right corners: one layer, painted once. */
+.stack::after {
+  --hatch: repeating-linear-gradient(135deg, var(--site-frame) 0 1px, transparent 1px rem(6px));
+
+  position: absolute;
+  inset: 0;
+  background:
+    var(--hatch) right top / rem(44px) rem(44px) no-repeat,
+    var(--hatch) right bottom / rem(44px) rem(44px) no-repeat;
+  content: '';
+  /* Two triangles, joined along the right edge by a path with no width. */
+  clip-path: polygon(
+    calc(100% - rem(44px)) 0,
+    100% 0,
+    100% rem(44px),
+    100% calc(100% - rem(44px)),
+    100% 100%,
+    calc(100% - rem(44px)) 100%,
+    100% calc(100% - rem(44px)),
+    100% rem(44px)
+  );
+  pointer-events: none;
 }
 
 .belt {
@@ -21,7 +55,7 @@
   flex-direction: column;
   justify-content: center;
   gap: rem(10px);
-  padding: rem(28px) rem(32px) rem(28px) rem(48px);
+  padding: rem(28px) rem(32px);
   border-right: 1px solid var(--site-frame);
 
   @media (max-width: $mantine-breakpoint-md) {
@@ -42,7 +76,7 @@
   font-size: rem(12px);
   font-weight: 700;
   line-height: 1.4;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -162,7 +196,7 @@
 
 .restLabel {
   margin: 0;
-  padding: rem(24px) rem(32px) rem(24px) rem(48px);
+  padding: rem(24px) rem(32px);
   color: var(--site-text);
   font-family: var(--mantine-font-family-monospace);
   font-size: rem(12px);
@@ -197,8 +231,8 @@
   display: inline-flex;
   max-width: 100%;
   overflow: hidden;
-  border: 1px solid var(--site-rule);
-  border-radius: rem(7px);
+  border: 1px solid var(--site-frame);
+  border-radius: rem(6px);
   background: var(--site-surface);
   font-family: var(--mantine-font-family-monospace);
   font-size: rem(12px);
@@ -216,18 +250,21 @@
 .tagVersion {
   flex: none;
   padding: rem(3px) rem(9px);
-  border-left: 1px solid var(--site-rule);
-  background: var(--site-sunken);
+  border-left: 1px solid var(--site-frame);
+  background: var(--site-tint);
   color: var(--site-text);
 }
 
-/* Our own extensions, picked out in Mantine's blue. */
+/* Our own extensions, picked out in the paper's ink. */
 .tag[data-own] {
-  border-color: color-mix(in srgb, var(--site-accent) 45%, transparent);
+  border-color: var(--site-mark);
+
+  & .tagName {
+    color: var(--site-accent);
+  }
 
   & .tagVersion {
-    border-left-color: color-mix(in srgb, var(--site-accent) 45%, transparent);
-    background: var(--mantine-color-blue-light);
+    border-left-color: var(--site-mark);
     color: var(--site-ink);
   }
 }

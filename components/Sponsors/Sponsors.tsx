@@ -127,7 +127,7 @@ export const Sponsors = () => {
           >
             <Stack gap={4} align="center">
               <Avatar size="lg" radius="xl" className={classes.sponsorSlot}>
-                <IconPlus size={20} />
+                <IconPlus size={20} aria-hidden="true" />
               </Avatar>
               <Text fz={12} c="dimmed">
                 Your logo here
@@ -145,7 +145,7 @@ export const Sponsors = () => {
             color="red.8"
             radius="md"
             className={home.button}
-            leftSection={<IconHeartFilled size={16} />}
+            leftSection={<IconHeartFilled size={16} aria-hidden="true" />}
           >
             Become a sponsor
           </Button>
@@ -157,7 +157,9 @@ export const Sponsors = () => {
             variant="default"
             radius="md"
             className={`${home.button} ${home.secondary}`}
-            leftSection={<IconCoffee size={16} color="var(--mantine-color-orange-6)" />}
+            leftSection={
+              <IconCoffee size={16} color="var(--mantine-color-orange-6)" aria-hidden="true" />
+            }
           >
             Buy me a coffee
           </Button>

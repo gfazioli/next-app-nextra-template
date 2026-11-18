@@ -5,30 +5,41 @@
  *
  * - `--site-ink`      headings.
  * - `--site-text`     copy: at least 4.5:1 on the page and on a card in both schemes.
- * - `--site-accent`   links and small labels in Mantine's blue, deep enough for small text.
+ * - `--site-accent`   links and small labels in the paper's ink, deep enough for small text.
+ * - `--site-fill`     a filled button or tag, under white text; `--site-fill-hover` under the pointer.
+ * - `--site-tint`     a tile or a tag's end, tinted with the ink.
  * - `--site-frame`    the page's construction lines.
  * - `--site-rule`     hairlines and card edges.
  * - `--site-surface`  a card.
+ * - `--site-card`     a card laid on the paper: the surface at 72%, so the grid shows through.
  * - `--site-sunken`   code and wells.
- * - `--site-glow`     the light painted behind a section: blue, and cyan beside it.
+ * - `--site-glow`     the light painted behind a drawing.
  * - `--site-footer`   the footer's ground, a step away from the page.
- * - `--site-gradient-*` the two ends of a heading's coloured words: Mantine's blue to cyan.
+ * - `--site-gradient-*` the two ends of a heading's coloured words: on blue paper, Mantine's
+ *                     blue to cyan.
+ * - `--site-grid-*`   the graph paper's fine and heavy lines.
+ * - `--site-mark`     the registration marks at a drawing's corners, and its dimension lines.
  */
 body {
   --site-ink: light-dark(#0b1c2e, var(--mantine-color-white));
   --site-text: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
   --site-accent: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-4));
+  --site-fill: var(--mantine-color-blue-8);
+  --site-fill-hover: var(--mantine-color-blue-9);
+  --site-tint: var(--mantine-color-blue-light);
   --site-frame: light-dark(rgb(11 28 46 / 14%), rgb(255 255 255 / 14%));
   --site-rule: light-dark(rgb(11 28 46 / 9%), rgb(255 255 255 / 9%));
   --site-surface: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+  --site-card: color-mix(in srgb, var(--site-surface) 72%, transparent);
   --site-sunken: light-dark(#f4f8fc, var(--mantine-color-dark-8));
   --site-glow: light-dark(var(--mantine-color-blue-4), var(--mantine-color-blue-7));
-  --site-glow-alt: light-dark(var(--mantine-color-cyan-3), var(--mantine-color-cyan-8));
   --site-footer: light-dark(#f0f5fa, var(--mantine-color-dark-8));
   --site-shadow: light-dark(rgb(11 28 46 / 18%), rgb(0 0 0 / 55%));
-  --site-card-shadow: 0 1px 2px rgb(11 28 46 / 5%);
   --site-gradient-from: light-dark(var(--mantine-color-blue-8), var(--mantine-color-blue-4));
   --site-gradient-to: light-dark(var(--mantine-color-cyan-8), var(--mantine-color-cyan-3));
+  --site-grid-minor: light-dark(rgb(11 28 46 / 4%), rgb(255 255 255 / 4%));
+  --site-grid-major: light-dark(rgb(11 28 46 / 8%), rgb(255 255 255 / 8%));
+  --site-mark: var(--site-accent);
 
   /* A spring sampled into linear(): it lands a little past its place and settles. */
   --site-spring: linear(
@@ -63,4 +74,174 @@ body {
     1
   );
   --site-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/*
+ * The paper. A page that carries `data-site-paper` (the home page) is a drawing: the whole
+ * document, its header and its footer included, takes a pale drawing paper in light and a deep
+ * one in dark, and the tokens above are redrawn in its ink. Every other page keeps Mantine's own
+ * colours. Written out per scheme: these selectors start at the root, where `light-dark()`
+ * cannot be compiled.
+ *
+ * The attribute's value is which paper (`paper` in config/templates.ts). These first rules are
+ * the blueprint, blue paper and blue ink, and what any value starts from; the violet and the
+ * orange paper follow, each one redrawing the same tokens.
+ *
+ * Contrast on the paper, a card and the footer: `--site-text` 6.2:1 or more, `--site-accent`
+ * 4.8:1 or more, in both schemes. Mantine's dimmed grey (the header's links) would fall to
+ * 2.9:1 on the light paper: it is redrawn too, at 5:1 or more.
+ */
+:root[data-mantine-color-scheme='light']:has([data-site-paper]) {
+  --mantine-color-body: #e7eff9;
+  --mantine-color-dimmed: #56667c;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper]) {
+  --mantine-color-body: #0a1a30;
+  --mantine-color-dimmed: #8fa0b8;
+  --mantine-color-default: #102543;
+  --mantine-color-default-hover: #16305a;
+  --mantine-color-default-border: #27456f;
+}
+
+:root[data-mantine-color-scheme='light']:has([data-site-paper]) body {
+  --site-text: #41536b;
+  --site-accent: var(--mantine-color-blue-9);
+  --site-frame: rgb(24 100 171 / 32%);
+  --site-rule: rgb(24 100 171 / 17%);
+  --site-surface: var(--mantine-color-white);
+  --site-sunken: #f1f6fc;
+  --site-glow: var(--mantine-color-white);
+  --site-footer: #dbe6f4;
+  --site-shadow: rgb(16 62 110 / 28%);
+  --site-grid-minor: rgb(24 100 171 / 6%);
+  --site-grid-major: rgb(24 100 171 / 11%);
+  --site-mark: rgb(24 100 171 / 70%);
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper]) body {
+  --site-text: #b3c3da;
+  --site-frame: rgb(116 192 252 / 30%);
+  --site-rule: rgb(116 192 252 / 16%);
+  --site-surface: #102543;
+  --site-sunken: #07142a;
+  --site-glow: var(--mantine-color-blue-7);
+  --site-footer: #061224;
+  --site-shadow: rgb(0 8 20 / 70%);
+  --site-grid-minor: rgb(116 192 252 / 5%);
+  --site-grid-major: rgb(116 192 252 / 10%);
+  --site-mark: rgb(116 192 252 / 75%);
+}
+
+/*
+ * Violet paper: the lines of a diazo print. Contrast as on the blue: `--site-text` 6.5:1 or more,
+ * `--site-accent` 5.3:1 or more, the dimmed grey 4.7:1 or more, white on `--site-fill` 6.3:1.
+ */
+:root[data-mantine-color-scheme='light']:has([data-site-paper='violet']) {
+  --mantine-color-body: #edebfa;
+  --mantine-color-dimmed: #5f5d80;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='violet']) {
+  --mantine-color-body: #120f2b;
+  --mantine-color-dimmed: #9a97bf;
+  --mantine-color-default: #1d1942;
+  --mantine-color-default-hover: #29245a;
+  --mantine-color-default-border: #3b3573;
+}
+
+:root:has([data-site-paper='violet']) body {
+  --site-fill: var(--mantine-color-violet-8);
+  --site-fill-hover: var(--mantine-color-violet-9);
+  --site-tint: var(--mantine-color-violet-light);
+}
+
+:root[data-mantine-color-scheme='light']:has([data-site-paper='violet']) body {
+  --site-ink: #16122e;
+  --site-text: #4a4868;
+  --site-accent: var(--mantine-color-violet-9);
+  --site-frame: rgb(95 61 196 / 30%);
+  --site-rule: rgb(95 61 196 / 16%);
+  --site-sunken: #f5f4fd;
+  --site-footer: #e0ddf5;
+  --site-shadow: rgb(52 34 120 / 26%);
+  --site-gradient-from: var(--mantine-color-violet-8);
+  --site-gradient-to: var(--mantine-color-grape-7);
+  --site-grid-minor: rgb(95 61 196 / 6%);
+  --site-grid-major: rgb(95 61 196 / 11%);
+  --site-mark: rgb(95 61 196 / 68%);
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='violet']) body {
+  --site-text: #bfbcde;
+  --site-accent: var(--mantine-color-violet-3);
+  --site-frame: rgb(177 151 252 / 30%);
+  --site-rule: rgb(177 151 252 / 16%);
+  --site-surface: #1d1942;
+  --site-sunken: #0c0a20;
+  --site-glow: var(--mantine-color-violet-8);
+  --site-footer: #0a081b;
+  --site-shadow: rgb(4 2 16 / 70%);
+  --site-gradient-from: var(--mantine-color-violet-4);
+  --site-gradient-to: var(--mantine-color-pink-4);
+  --site-grid-minor: rgb(177 151 252 / 5%);
+  --site-grid-major: rgb(177 151 252 / 10%);
+  --site-mark: rgb(177 151 252 / 75%);
+}
+
+/*
+ * Orange paper: the graph paper of a drawing desk, in burnt orange ink. `--site-text` 6.1:1 or
+ * more, `--site-accent` 5:1 or more, the dimmed grey 4.8:1 or more, white on `--site-fill` 5.1:1
+ * (Mantine's orange.9 would be 4.3:1).
+ */
+:root[data-mantine-color-scheme='light']:has([data-site-paper='orange']) {
+  --mantine-color-body: #f8efe5;
+  --mantine-color-dimmed: #6e5f53;
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='orange']) {
+  --mantine-color-body: #1a120c;
+  --mantine-color-dimmed: #b5a596;
+  --mantine-color-default: #291d14;
+  --mantine-color-default-hover: #36271b;
+  --mantine-color-default-border: #4e3a2a;
+}
+
+:root:has([data-site-paper='orange']) body {
+  --site-fill: #c2410c;
+  --site-fill-hover: #a83a0a;
+  --site-tint: var(--mantine-color-orange-light);
+}
+
+:root[data-mantine-color-scheme='light']:has([data-site-paper='orange']) body {
+  --site-ink: #27170c;
+  --site-text: #5d4f44;
+  --site-accent: #a83a0a;
+  --site-frame: rgb(201 80 20 / 34%);
+  --site-rule: rgb(201 80 20 / 18%);
+  --site-sunken: #fcf7f1;
+  --site-footer: #efe2d3;
+  --site-shadow: rgb(110 55 16 / 26%);
+  --site-gradient-from: var(--mantine-color-orange-9);
+  --site-gradient-to: var(--mantine-color-pink-8);
+  --site-grid-minor: rgb(217 90 20 / 6%);
+  --site-grid-major: rgb(217 90 20 / 11.5%);
+  --site-mark: rgb(190 70 14 / 72%);
+}
+
+:root[data-mantine-color-scheme='dark']:has([data-site-paper='orange']) body {
+  --site-text: #dccdbf;
+  --site-accent: var(--mantine-color-orange-4);
+  --site-frame: rgb(255 169 77 / 28%);
+  --site-rule: rgb(255 169 77 / 15%);
+  --site-surface: #291d14;
+  --site-sunken: #120c07;
+  --site-glow: #9a3d0d;
+  --site-footer: #100a06;
+  --site-shadow: rgb(8 4 0 / 70%);
+  --site-gradient-from: var(--mantine-color-orange-4);
+  --site-gradient-to: var(--mantine-color-pink-4);
+  --site-grid-minor: rgb(255 169 77 / 4.5%);
+  --site-grid-major: rgb(255 169 77 / 9%);
+  --site-mark: rgb(255 169 77 / 72%);
 }

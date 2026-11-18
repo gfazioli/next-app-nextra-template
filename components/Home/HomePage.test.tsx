@@ -18,6 +18,18 @@ describe('HomePage', () => {
     expect(container.querySelector('main')).toBeNull();
   });
 
+  it('is drawn on paper, and its drawings are hidden from assistive tech', () => {
+    const { container } = render(<HomePage />);
+    // What theme/site.css reads to turn the document to blueprint paper
+    expect(container.querySelector('[data-site-paper]')).not.toBeNull();
+    // One line drawing per feature card, two arcs beside the templates' heading
+    const sketches = container.querySelectorAll(
+      'svg[viewBox="0 0 96 72"], svg[viewBox="0 0 120 120"]'
+    );
+    expect(sketches).toHaveLength(8);
+    sketches.forEach((sketch) => expect(sketch).toHaveAttribute('aria-hidden', 'true'));
+  });
+
   it('offers the template at the version of package.json', () => {
     render(<HomePage />);
     const links = screen.getAllByRole('link', { name: `Use template v${pack.version}` });
@@ -55,6 +67,44 @@ describe('HomePage', () => {
         within(section).getByRole('link', { name: `Live demo of the ${template.engine} template` })
       ).toHaveAttribute('href', template.demo);
     }
+  });
+
+  it('shows the live numbers it is given', () => {
+    const stars = { docs: 1, nextra: 38, fumadocs: 5 };
+    render(<HomePage stats={{ stars, downloads: 309_494 }} />);
+    const section = screen.getByRole('region', { name: /Pick the engine/ });
+    // The figure, and the words a screen reader hears after it
+    expect(within(section).getByText('1')).toHaveTextContent('1 star on GitHub');
+    expect(within(section).getByText('38')).toHaveTextContent('38 stars on GitHub');
+    expect(within(section).getByText('5')).toHaveTextContent('5 stars on GitHub');
+    // The hero's star link carries this template's own count
+    const star = screen.getByRole('link', { name: /^Star the .+ template on GitHub/ });
+    expect(star).toHaveAttribute('href', `https://github.com/${site.repo}`);
+    // The same file runs in the three templates: the figure is this template's own
+    const own = stars[site.key];
+    expect(star).toHaveTextContent(new RegExp(`GitHub\\s*${own} ${own === 1 ? 'star' : 'stars'}$`));
+    const extensions = screen.getByRole('region', { name: /extensions/ });
+    expect(within(extensions).getByText('309k')).toBeInTheDocument();
+    expect(extensions).toHaveTextContent('309k downloads last month');
+  });
+
+  it('shows no number it was not given: no zero, no placeholder', () => {
+    // No stats at all, as in a test or a story: nothing is fetched here
+    const { unmount } = render(<HomePage />);
+    expect(screen.queryByText(/stars? on GitHub$/)).toBeNull();
+    expect(screen.queryByText(/downloads last month/)).toBeNull();
+    // The hero's star link is still there, without a figure
+    const star = screen.getByRole('link', { name: /^Star the .+ template on GitHub/ });
+    expect(star).toHaveAttribute('href', `https://github.com/${site.repo}`);
+    expect(star).not.toHaveTextContent(/\d/);
+    unmount();
+
+    // One template's stars missing (a failed request): the other two are still there
+    render(<HomePage stats={{ stars: { nextra: 38, fumadocs: 5 } }} />);
+    const section = screen.getByRole('region', { name: /Pick the engine/ });
+    expect(within(section).getAllByText(/stars? on GitHub$/)).toHaveLength(2);
+    expect(within(section).queryByText('0')).toBeNull();
+    expect(screen.queryByText(/downloads last month/)).toBeNull();
   });
 
   it('links the Mantine Extensions Hub', () => {

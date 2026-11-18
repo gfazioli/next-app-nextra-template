@@ -1,60 +1,89 @@
 /*
- * The home page's construction, the same in the three sibling templates: the page is drawn as a
- * blueprint. Two dashed lines run down the container's edges, a rule crosses the page between
- * sections, and a small registration mark sits where they meet. Colours come from theme/site.css.
+ * The home page's construction, the same in the three sibling templates: the page is a blueprint.
+ * It opens on graph paper (fine lines, and a heavier one every fifth) that thins out down the
+ * page until the paper is plain; every drawing on it (the hero, the stack, a group of cards)
+ * carries a registration mark at each corner, and the labels are lettered in monospace capitals.
+ * Colours come from theme/site.css, where the element carrying `data-site-paper` turns the whole
+ * document to paper.
  */
 
 .page {
   position: relative;
   overflow-x: clip;
   width: 100%;
+  /* The paper: painted here too, for a shell whose ground is not Mantine's body colour. */
+  background: var(--mantine-color-body);
   color: var(--site-text);
 }
 
-/* The two side lines, the full height of the page, at the container's edges. */
+/*
+ * The grid, a layer of its own over the upper part of the page: whole through the hero and the
+ * stack, then covered little by little by the paper's own colour, which is all there is from its
+ * end down. A gradient over the lines and not a mask: nothing is composited, and no content is
+ * touched. The lines are centred, so they fall at the same distance from both edges of the frame.
+ */
+.page::before {
+  --paper: var(--mantine-color-body);
+
+  position: absolute;
+  inset: 0 0 auto;
+  height: 56%;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 46%,
+      color-mix(in srgb, var(--paper) 16%, transparent) 59.5%,
+      color-mix(in srgb, var(--paper) 50%, transparent) 73%,
+      color-mix(in srgb, var(--paper) 84%, transparent) 86.5%,
+      var(--paper)
+    ),
+    linear-gradient(var(--site-grid-major) 1px, transparent 1px) center top / rem(60px) rem(60px),
+    linear-gradient(90deg, var(--site-grid-major) 1px, transparent 1px) center top / rem(60px)
+      rem(60px),
+    linear-gradient(var(--site-grid-minor) 1px, transparent 1px) center top / rem(12px) rem(12px),
+    linear-gradient(90deg, var(--site-grid-minor) 1px, transparent 1px) center top / rem(12px)
+      rem(12px);
+  content: '';
+  pointer-events: none;
+}
+
+/* The drawing itself, in the measure. */
 .frame {
   position: relative;
+  z-index: 1;
   max-width: rem(1200px);
   margin-inline: auto;
-  border-inline: 1px dashed var(--site-frame);
-
-  @media (max-width: rem(1232px)) {
-    border-inline: 0;
-  }
 }
 
-/* A rule across the page between two sections, with a registration mark at each crossing. */
-.rule {
+/*
+ * Registration marks: a cross centred on each corner of the element, as on a sheet that will be
+ * trimmed. One layer of eight strokes, painted once. `--marks-gap` moves them off the corners.
+ */
+.marks {
+  --marks-gap: 0px;
+}
+
+/* Weightless, so an element placed by its own class keeps its position. */
+:where(.marks) {
   position: relative;
-  height: 0;
-  margin-inline: calc(50% - 50vw);
-  border-top: 1px solid var(--site-frame);
 }
 
-.rule::before,
-.rule::after {
+.marks::before {
+  --stroke: linear-gradient(var(--site-mark), var(--site-mark));
+
   position: absolute;
-  top: rem(-7px);
-  width: rem(13px);
-  height: rem(13px);
-  /* A cross: one stroke each way, over a dot of the page that cuts the lines under it. */
+  inset: calc(rem(-9px) - var(--marks-gap));
   background:
-    linear-gradient(var(--site-accent), var(--site-accent)) center / 100% rem(1.5px) no-repeat,
-    linear-gradient(var(--site-accent), var(--site-accent)) center / rem(1.5px) 100% no-repeat,
-    radial-gradient(circle, var(--mantine-color-body) 60%, transparent 62%);
+    var(--stroke) left 0 top rem(8px) / rem(17px) 1px no-repeat,
+    var(--stroke) left rem(8px) top 0 / 1px rem(17px) no-repeat,
+    var(--stroke) right 0 top rem(8px) / rem(17px) 1px no-repeat,
+    var(--stroke) right rem(8px) top 0 / 1px rem(17px) no-repeat,
+    var(--stroke) left 0 bottom rem(8px) / rem(17px) 1px no-repeat,
+    var(--stroke) left rem(8px) bottom 0 / 1px rem(17px) no-repeat,
+    var(--stroke) right 0 bottom rem(8px) / rem(17px) 1px no-repeat,
+    var(--stroke) right rem(8px) bottom 0 / 1px rem(17px) no-repeat;
   content: '';
-
-  @media (max-width: rem(1232px)) {
-    display: none;
-  }
-}
-
-.rule::before {
-  left: calc(50vw - rem(600px) - rem(6px));
-}
-
-.rule::after {
-  right: calc(50vw - rem(600px) - rem(6px));
+  pointer-events: none;
 }
 
 /* A section inside the frame: its own padding, its content in the measure. */
@@ -79,17 +108,37 @@
   contain-intrinsic-size: auto rem(780px);
 }
 
-/* The small caps over a heading, in monospace. */
+/* The lettering over a heading: monospace capitals, with a rule drawn after them. */
 .eyebrow {
-  display: block;
-  margin: 0 0 rem(14px);
+  display: flex;
+  align-items: center;
+  gap: rem(14px);
+  margin: 0 0 rem(16px);
   color: var(--site-accent);
   font-family: var(--mantine-font-family-monospace);
   font-size: rem(12px);
   font-weight: 700;
   line-height: 1.4;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  flex: none;
+  width: rem(44px);
+  height: 1px;
+  background: var(--site-frame);
+  content: '';
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: rem(24px);
+  }
+}
+
+/* Only a centred label has a rule before it: flush left, it starts where its heading does. */
+.eyebrow::before {
+  display: none;
 }
 
 .h2 {
@@ -117,9 +166,18 @@
   & .lead {
     margin-inline: auto;
   }
+
+  & .eyebrow {
+    justify-content: center;
+  }
+
+  & .eyebrow::before {
+    display: block;
+  }
 }
 
-/* A word of a heading in Mantine's blue to cyan. */
+/* A word of a heading in the two colours of the paper's ink: on blue paper, Mantine's blue to
+   cyan. */
 .gradient {
   background-image: linear-gradient(
     100deg,
@@ -128,6 +186,12 @@
   );
   background-clip: text;
   color: transparent;
+
+  /* High contrast drops background images, and with them text painted by background-clip. */
+  @media (forced-colors: active) {
+    background: none;
+    color: CanvasText;
+  }
 }
 
 /* The page's buttons are Mantine's: these only add the lift and the two looks. */
@@ -154,13 +218,14 @@
   }
 }
 
-/* Filled, in a blue deep enough for white text (blue.8, 5:1; Mantine's blue.6 is 3.5:1). */
+/* Filled, in the paper's ink, deep enough for white text (on blue paper blue.8, 5:1; Mantine's
+   blue.6 is 3.5:1). */
 .primary {
-  --button-bg: var(--mantine-color-blue-8);
-  --button-hover: var(--mantine-color-blue-9);
+  --button-bg: var(--site-fill);
+  --button-hover: var(--site-fill-hover);
   --button-color: var(--mantine-color-white);
 
-  box-shadow: 0 10px 24px -12px var(--mantine-color-blue-8);
+  box-shadow: 0 10px 24px -12px var(--site-fill);
 }
 
 .secondary {

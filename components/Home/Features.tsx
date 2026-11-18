@@ -7,10 +7,12 @@ import { features } from './feature-list';
 import classes from './Features.module.css';
 import home from './Home.module.css';
 import { SectionHeader } from './SectionHeader';
+import { Sketch } from './Sketch';
 
 /**
- * What this template gives: five cells of its own (feature-list.ts) and a sixth every sibling
- * shares, the colour scheme, with the three buttons that switch it live.
+ * What this template gives: five cards of its own (feature-list.ts) and a sixth every sibling
+ * shares, the colour scheme, with the three buttons that switch it live. Each card carries a line
+ * drawing in its corner, and the group a registration mark at each of its own.
  */
 export function Features() {
   return (
@@ -29,10 +31,11 @@ export function Features() {
           the pages.
         </SectionHeader>
       </RevealScope>
-      <RevealScope as="ul" className={classes.cells}>
-        {features[site.key].map(({ icon: Icon, title, body }, i) => (
-          <li key={title} className={classes.cell}>
-            <div {...revealItem('rise', 70 * i)}>
+      <RevealScope as="ul" className={`${home.marks} ${classes.cells}`}>
+        {features[site.key].map(({ icon: Icon, art, title, body }, i) => (
+          <li key={title} {...revealItem('rise', 70 * i)}>
+            <div className={classes.cell}>
+              <Sketch name={art} className={classes.art} />
               <span className={classes.icon}>
                 <Icon size={22} stroke={1.6} aria-hidden="true" />
               </span>
@@ -41,8 +44,9 @@ export function Features() {
             </div>
           </li>
         ))}
-        <li className={classes.cell}>
-          <div {...revealItem('rise', 350)}>
+        <li {...revealItem('rise', 350)}>
+          <div className={classes.cell}>
+            <Sketch name="sun" className={classes.art} />
             <span className={classes.icon}>
               <IconSunMoon size={22} stroke={1.6} aria-hidden="true" />
             </span>

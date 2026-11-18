@@ -1,5 +1,5 @@
 import { Marquee } from '@gfazioli/mantine-marquee';
-import { IconArrowUpRight } from '@tabler/icons-react';
+import { IconArrowUpRight, IconDownload } from '@tabler/icons-react';
 import { Button } from '@mantine/core';
 import { RENDER_LATER, revealItem } from '@/components/Motion/reveal-props';
 import { RevealScope } from '@/components/Motion/RevealScope';
@@ -8,6 +8,7 @@ import { mantineComponentCategories } from '../MantineFooter/links';
 import classes from './Extensions.module.css';
 import home from './Home.module.css';
 import { SectionHeader } from './SectionHeader';
+import { compactCount } from './stats';
 
 /** Every extension the footer lists, with the category it is filed under. */
 const EXTENSIONS = mantineComponentCategories.flatMap((category) =>
@@ -22,9 +23,10 @@ const ROWS = [0, 1, 2, 3, 4].map((row) => EXTENSIONS.filter((_, i) => i % 5 === 
  * by in five rows on the Marquee extension, on a wall tilted like the hero's window. Marquee
  * moves by transform alone, stops under the pointer and stands still with Reduce Motion. The rows
  * are decoration (the footer links every extension by name), so they are hidden from assistive
- * tech; the count is the list's own.
+ * tech; the count is the list's own. `downloads` is what npm served of them in the last month,
+ * shown beside the button when it could be fetched.
  */
-export function Extensions() {
+export function Extensions({ downloads }: { downloads?: number }) {
   return (
     <section
       className={`${home.section} ${classes.section}`}
@@ -58,6 +60,14 @@ export function Extensions() {
           >
             Explore the Mantine Extensions Hub
           </Button>
+          {downloads !== undefined && (
+            <p className={classes.stat}>
+              <IconDownload size={16} aria-hidden="true" />
+              <span>
+                <b>{compactCount(downloads)}</b> downloads last month
+              </span>
+            </p>
+          )}
         </div>
       </RevealScope>
       <div className={classes.rows} aria-hidden="true">
