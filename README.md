@@ -25,7 +25,7 @@ The same Mantine starter comes on three documentation engines: the same landing 
 | --- | --- | --- |
 | [Mantine Next.js + Docs](https://github.com/gfazioli/next-app-mantine-docs-template) | [`@next/mdx`](https://nextjs.org/docs/app/guides/mdx): no docs framework, every piece of the interface a Mantine component | [next-app-mantine-docs-template.vercel.app](https://next-app-mantine-docs-template.vercel.app/) |
 | **Mantine Next.js + Nextra** (this one) | [Nextra 4](https://nextra.site/) and its docs theme, with Mantine wired in | [next-app-nextra-template.vercel.app](https://next-app-nextra-template.vercel.app/) |
-| [Mantine Next.js + Fumadocs](https://github.com/gfazioli/next-app-fumadocs-template) | headless [`fumadocs-core`](https://www.fumadocs.dev/) under a docs UI built 100% with Mantine | [gfazioli.github.io/next-app-fumadocs-template](https://gfazioli.github.io/next-app-fumadocs-template/) |
+| [Mantine Next.js + Fumadocs](https://github.com/gfazioli/next-app-fumadocs-template) | headless [`fumadocs-core`](https://www.fumadocs.dev/) under a docs UI built 100% with Mantine | [next-app-fumadocs-template.vercel.app](https://next-app-fumadocs-template.vercel.app/) |
 
 Looking for components to put in your docs? The [Mantine Extensions Hub](https://mantine-extensions.vercel.app/) lists the same author's open-source extensions for Mantine.
 
