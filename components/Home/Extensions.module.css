@@ -66,6 +66,12 @@
   }
 }
 
+/* The rows hold nothing focusable, so Marquee's own pause on focus never fires: the whole wall
+   stops while the focus is anywhere in the section, the Hub button included. */
+.section:focus-within .rows > * {
+  --marquee-play-state: paused;
+}
+
 /* An extension's name, with a dot in its category's colour. */
 .chip {
   display: inline-flex;
