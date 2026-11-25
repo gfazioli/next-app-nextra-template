@@ -27,8 +27,10 @@ export async function GET(request: Request) {
     // without auth. We do NOT fall back on a rate-limited 403, since that just
     // consumes another quota slot and amplifies throttling.
     const FETCH_TIMEOUT_MS = 10_000;
+    // No data cache: Next serves an expired entry once more while it refetches, and on a quiet
+    // site that entry is days old, which the CDN then kept. The CDN entry below is the only cache.
     const fetchOptions = {
-      next: { revalidate: 3600 },
+      cache: 'no-store' as const,
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     };
     let response: Response;
@@ -81,8 +83,9 @@ export async function GET(request: Request) {
       { releases, status: 'ok' },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
-          Vary: 'User-Agent',
+          // One CDN entry for every visitor, ten minutes old at most (no Vary: the bot check
+          // answers 403s, which are never cached).
+          'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=60',
         },
       }
     );
